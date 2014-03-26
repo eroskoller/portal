@@ -1,0 +1,40 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    >
+
+    
+                        <h:panelGrid  id="panelgridmenubar"  >
+
+                            <p:menubar      id="menubarportal"     rendered="#{not empty portalViewBean.labUsuario}"   model="#{portalViewBean.menuBarMain}"     ></p:menubar>
+
+                            <h:panelGrid columns="5"   id="menubarportalpanellogin"  style=" position: relative; left: 100%;"  rendered="#{empty portalViewBean.labUsuario}"  >
+                                <h:outputLabel value="Login:"/>
+                                <p:inputText maxlength="20" size="10"         id="portallogin"  value="#{portalViewBean.strLogin}" /> 
+
+                                <h:outputLabel value="Senha:"/>
+                                <p:password  size="10"  id="portalpass"        value="#{portalViewBean.strPass}"  />
+                                <p:commandButton value="Enviar"   actionListener="#{portalViewBean.letMeIn}"     ajax="true"   update="@all" />
+
+                            </h:panelGrid>    
+
+                            <h:panelGroup   style="position: absolute; left: 70%;  top: 30%;   width: 300px; "      rendered="#{not empty portalViewBean.labUsuario}"   >
+                                <h:outputLabel value="Usuário:"   style="color: blue;"/>
+                                <h:outputLabel value="#{portalViewBean.labUsuario.usuStCodigo}"   style="color: black;"/>
+                                <p:commandLink actionListener="#{portalViewBean.letMeOut}" id="linkletmeout"  ajax="false"  update="@all"  >
+                                    <h:outputLabel    value="Sair"   style="color: red;font-weight: bold; font-size: 14px; " />
+                                </p:commandLink>
+                                <p:commandButton value="Test"        ajax="true"  update=":tw"       rendered="false"  />
+                            </h:panelGroup>
+
+                            <h:panelGrid columns="2"  style="position: absolute; top: 80%; left: 20%;"  >
+                                <p:messages id="messages" showDetail="true" autoUpdate="true"     />  
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+    
+
+</ui:composition>

@@ -1,0 +1,107 @@
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+
+
+
+
+.largerMenuItem {
+    display: none;
+    left: 0;
+    top: 27px;
+    width: 300px;
+    z-index: 1019;
+    padding: 0.2em 0.1em;
+}
+
+parent .ui-menu-child {
+    display: none;
+    font-size: 100%;
+    line-height: 1.3;
+    list-style: none outside none;
+    margin: 0;
+    outline: 0 none;
+    padding: 0.3em;
+    position: absolute;
+    text-decoration: none;
+    width: 500px;
+}
+
+
+.ui-ring {
+    height: 10em;
+    list-style: none outside none;
+    margin: 1em auto;
+    width: 75%;
+}
+.ui-ring-item {
+    cursor: pointer;
+    height: 4em;
+    width: 8em;
+}
+.ui-ring-item-focus {
+    cursor: auto;
+}
+
+.image-ring .ui-ring-item {
+    border: 0 none;
+}
+.image-ring .ui-ring-item img {
+    width: 100%;
+}
+.ui-ring button {
+    font-size: 1em !important;
+}
+
+.dp-xml .cdata {
+    color: #FF1493;
+}
+.dp-xml .tag, .dp-xml .tag-name {
+    color: #006699;
+    font-weight: bold;
+}
+.dp-xml .attribute {
+    color: red;
+}
+.dp-xml .attribute-value {
+    color: blue;
+}
+
+.dp-j .annotation {
+    color: #646464;
+}
+.dp-j .number {
+    color: #C00000;
+}
+
+
+.sinopsetext{
+    font-size: 14px;  
+    font-weight: bold; 
+    font-family: Zapf Dingbats, sans-serif;   
+    font-style: italic;  
+    color: #069; 
+}
+
+
+
+.labelportal{
+    font-weight: bold;
+    font-family:  Zapf Dingbats, sans-serif;   
+    color: #5C5C5C;
+}
+
+
+
+.panelGridVerticalAlignToTop {
+    vertical-align: top;
+}
+
+.dateTimeEntryShorter{
+    width: 50px;
+}
+
+.inputupper { text-transform: uppercase; }

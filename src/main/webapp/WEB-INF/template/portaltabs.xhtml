@@ -1,0 +1,70 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    >
+
+
+
+    <p:tabView 
+        id="tw"       
+        style="width:99.3%;  height: 98%;   "    
+        activeIndex="#{portalViewBean.intActiveIndex}"    
+        cache="true"  
+        dynamic="true"   
+        >
+
+        <p:ajax event="tabClose" 
+                 process="@this"
+                 partialSubmit="true"
+                 listener="#{portalViewBean.onTabClose}" 
+                 global="false"
+                  />
+
+
+        <c:forEach items="${portalViewBean.listIFramePages}" 
+                   var="tab"  
+                   id="foreach${tab.id}"  >
+
+
+            <p:tab title="${tab.titleResumido}" closable="${tab.blCloseble}"     > 
+
+                <p:panel style="  background: #F4F4F4;"  >
+                    
+                <c:if test="${tab.blNative}">
+                    <h:form  id="form${tab.tabId}" >
+                        <p:growl id="growl" showDetail="true"  life="3000"      />  
+                        
+<!--                                    <p:rating  
+                                                stars="5"   
+                                                value="#{portalViewBean.rating}" 
+                                                style="width: 100px;   position: absolute; left:  90%; "  >
+                                         <p:ajax event="rate" listener="#{portalViewBean.onrate}"   update="@this,growl"   process="@this"  partialSubmit="true"    />  
+                                         <p:ajax event="cancel" listener="#{portalViewBean.oncancel}"   update="@this,growl"   process="@this"  partialSubmit="true"   />  
+                                     </p:rating>  -->
+                                <ui:include src="${tab.url}"      id="uiinclude${tab.id}" />    
+                    </h:form>
+                </c:if>
+
+                <c:if test="${!tab.blNative}">
+<!--                    <p:rating  stars="5"   value="#{portalViewBean.rating}" style="width: 100px;   position: absolute; left:  90%; "   >
+                        <p:ajax event="rate" listener="#{portalViewBean.onrate}"       process="@this"  partialSubmit="true"   />  
+                        <p:ajax event="cancel" listener="#{portalViewBean.oncancel}"      process="@this"  partialSubmit="true"   />  
+                    </p:rating>  -->
+                    <iframe src="${tab.url}"  style="width: 100%;  min-height: 275px; max-height: 500px;  height: 810px;   border: none;  "  scrolling="no"   ALLOWTRANSPARENCY="true"  frameborder="0"  ></iframe> 
+                </c:if>
+              </p:panel>
+            </p:tab>
+
+        </c:forEach>
+
+
+    </p:tabView>
+
+</ui:composition>
+
+

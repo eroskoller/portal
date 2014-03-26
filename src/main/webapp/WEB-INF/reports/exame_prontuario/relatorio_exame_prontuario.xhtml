@@ -1,0 +1,232 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions" >
+    
+
+    <h:panelGroup   style="  height: 100%; "   id="panelGroupRelatorioExameProntuario" >
+        
+            <h:panelGrid columns="6"    >
+                
+                <h:outputText  styleClass="sinopsetext"  rendered="false"
+                    value="#{msgs['title.statistics.profile']} "    ></h:outputText>
+                
+                <h:outputLabel value="#{msgs['template.pac.profile']}:"/>
+                <p:inputText id="inputText01_prontuario"
+                             size="9"
+                             maxlength="20"
+                             valueChangeListener="#{estatisticaexameprontuarioViewBean.grabLabProntuarioValueChangeEvent}"
+                             onkeypress="return restrict(event)"
+                             >
+                            <p:ajax 
+                            process="inputText01_prontuario" 
+                            update="relatorioprontuariopanelgrid, growl,relatorioprontuariopoplistlabprontuarios"
+                            partialSubmit="true"  />
+                    <p:focus context="panelGroupRelatorioExameProntuario"    />
+                </p:inputText>
+                <p:commandButton  value="#{msgs['node.add']}"  
+                                  id="botaoPesqProntuario"
+                                  action="#{estatisticaexameprontuarioViewBean.grabLabProntuario}"
+                                  update="relatorioprontuariopanelgrid, growl,
+                                  relatorioprontuariopoplistlabprontuarios, inputText01_prontuario"
+                                  process="@this,inputText01_prontuario" 
+                                  partialSubmit="true"
+                                  />
+                <p:commandButton id="botaoBuscaProntuario" icon="ui-icon-search"  
+                                 onmouseup="widgetvarrelatorioprontuariopoplistlabprontuarios.show();"  
+                                 onkeypress=" widgetvarrelatorioprontuariopoplistlabprontuarios.show();"/>
+                <h:panelGrid columns="6">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel id="output_TipoRelProntuario" value="#{msgs['node.tipo.rel']} :"/>
+                        <p:selectOneRadio id="selectOneRadio1RelProntuario" value="#{estatisticaexameprontuarioViewBean.strTipoImpressao}">
+                            <p:ajax process="@this" update="selectOneRadio1RelProntuario,booleanDetalhaExameProntuario"  partialSubmit="true" />
+                            <f:selectItems id="selectItems1RelProntuario" value="#{arrayitems.tipoImpressao}"/> 
+                        </p:selectOneRadio>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <p:selectBooleanCheckbox id="booleanDetalhaExameProntuario" value="#{estatisticaexameprontuarioViewBean.blDetalhaPorExame}">
+                            <p:ajax process="@this" update="booleanDetalhaExameProntuario"   partialSubmit="true" />
+                        </p:selectBooleanCheckbox>
+                        <h:outputLabel for="booleanDetalhaExameProntuario" value="#{msgs['node.exam.detail']}"/>
+                    </h:panelGrid>
+                    <p:selectOneMenu id="selectMes_exameProntuario" value="#{estatisticaexameprontuarioViewBean.strMes}">
+                        <p:ajax process="@this" update="selectMes_exameProntuario"/>
+                        <f:selectItems id="slctOneMenuMesesProntuario" value="#{estatisticaexameprontuarioViewBean.itensMeses}"/>
+                    </p:selectOneMenu>
+                    
+                        <p:selectOneMenu id="selectOneMenuFileFormats" value="#{estatisticaexameprontuarioViewBean.strJasperFormat}"  style=" width: 50px;"  >  
+                            <f:selectItems value="#{arrayitems.jasperFormatstens}" />  
+                        </p:selectOneMenu>  
+                    
+                    <p:commandButton   
+                        style="width: 120px;"
+                        onclick="widgetvarpollcounterRelStorage.stop();  widgetvarpollcounterRelStorage.start();" 
+                                       value="#{msgs['node.generate.report']}" 
+                                       update="growl,:formfooter" 
+                                       id="botaoPesqPront" 
+                                       action="#{estatisticaexameprontuarioViewBean.pesquisar}"  process="@this,selectOneMenuFileFormats"  
+                                       partialSubmit="true"  />
+                    <p:commandButton value="#{msgs['template.cleanup']}"  
+                                     process="@this"  
+                                     partialSubmit="true"      
+                                     update="relatorioprontuariopanelgrid,prontuarioPop_listPac" 
+                                     id="botaoLimparProntuario" 
+                                     action="#{estatisticaexameprontuarioViewBean.cleanUpEveryThing}"/>
+                </h:panelGrid>
+            </h:panelGrid>
+                <p:separator/>
+        <h:panelGrid columns="9" id="relatorioprontuariopanelgrid">
+            <c:forEach items="${estatisticaexameprontuarioViewBean.setLabPaciente}" var="pac">
+                <h:panelGrid columns="2" id="panelGrid${pac.pacInCodigo}">
+                    <p:panel id="panel${pac.pacInCodigo}" widgetVar="widgetVartest">
+                        <h:panelGrid columns="3"   style="margin: 0px; padding: 0px;" >
+                            <h:outputLabel value="${pac.pacStProntuario}"/> 
+                            <p:commandButton icon="ui-icon-info"  style="height: 20px; width: 20px;   margin-left: 3px;"    id="btnshow${pac.pacInCodigo}" />
+                            <p:commandButton icon="ui-icon-close"  id="btn${pac.pacInCodigo}"   style="height: 20px; width: 20px;   margin-left: 3px;"    
+                                             process="@this"  update="relatorioprontuariopanelgrid"   actionListener="#{estatisticaexameprontuarioViewBean.delProntuario}">
+                                <f:param name="relatorioprontuarioparam"  value="${pac.pacInCodigo}"/>
+                            </p:commandButton>
+                            <p:overlayPanel id="overlayPanel${pac.pacInCodigo}" for="btnshow${pac.pacInCodigo}" 
+                                            showEffect="slide" 
+                                            hideEffect="fade" 
+                                            hideEvent="mousedown"  
+                                            styleClass="ui-helper-clearfix"
+                                            >
+                                <p:panel>
+                                    <p:panelGrid columns="2">
+                                        <h:outputLabel value="Nome:"/>
+                                        <h:outputLabel value="${pac.pacStNome}"/>
+                                        <h:outputLabel value="Dt. Nascimento:"/>
+                                        <h:outputLabel value="${pac.pacDtNascimento}"/>
+                                        <h:outputLabel value="R.G.:"/>
+                                        <h:outputLabel value="${pac.pacStRG}"/>
+                                        <h:outputLabel value="Sexo: "/>
+                                        <c:if test="${pac.pacStSexo == 'F'}">
+                                            <h:outputLabel value="FEMININO"/>
+                                        </c:if>
+                                        <c:if test="${pac.pacStSexo == 'M'}">
+                                            <h:outputLabel value="MASCULINO"/>
+                                        </c:if>
+                                        <h:outputLabel value="Unidade: "/>
+                                        <h:outputLabel value="${pac.uniStCodigo}"/>
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:overlayPanel>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:panelGrid>
+            </c:forEach>
+        </h:panelGrid>
+    </h:panelGroup>
+    <!--                    PopUp                 -->
+    <p:dialog 
+              id="relatorioprontuariopoplistlabprontuarios" 
+              header="#{msgs['template.profile.list']}" 
+              widgetVar="widgetvarrelatorioprontuariopoplistlabprontuarios" 
+              height="420"
+              hideEffect="fade"
+              showEffect="fade"
+              draggable="true" 
+              maximizable="true"
+              dynamic="true"   >
+        
+        <h:panelGrid columns="6">
+            <h:outputLabel id="pesquisaProntuarioPop" value="#{msgs['template.search.for']}  : "/>
+            <p:selectOneMenu id="selectOneMenuProntuarioPop" value="#{estatisticaexameprontuarioViewBean.strTipoPesquisaProntuarioPop}">
+                <p:ajax process="@this" update="selectOneMenuProntuarioPop,input01_ProntuarioPop"/>
+                <f:selectItems id="selectItensProntuarioPop" value="#{arrayitems.tipoPesquisaProntuarioPop}"/>
+            </p:selectOneMenu>
+            <p:inputText id="input01_ProntuarioPop"
+                         size="#{estatisticaexameprontuarioViewBean.strSizeInputPop}" 
+                         value="#{estatisticaexameprontuarioViewBean.strProntuarioCodigoPop}"
+                         onkeypress="if (event.keyCode == 13) {  return false; }"    >
+            </p:inputText>
+            <p:commandButton  value="#{msgs['template.search']}"  
+                              action="#{estatisticaexameprontuarioViewBean.pesquisaPop}"
+                              id="botaoPesqPopProntuario"
+                              process="@this,input01_ProntuarioPop"
+                              update="prontuarioPop_listPac,growl,output01_ProntuarioPop"/>
+
+<h:outputText id="output01_ProntuarioPop" value="#{estatisticaexameprontuarioViewBean.strMensagemProntuarioPop}" style="color: red;"/><!--value="#{estatisticaexameprontuarioViewBean.strMensagemProntuarioPop}"/>-->
+
+        </h:panelGrid>
+        <p:dataTable id="prontuarioPop_listPac"
+                     value="#{estatisticaexameprontuarioViewBean.listLabPacientePop}"
+                     var="pac"
+                     styleClass="novoEstiloHighlight"
+                     paginator="true"
+                     paginatorPosition="bottom"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                     rows="15"
+                     >
+            <p:column  id="rowData1ex" >
+                <f:facet name="header">
+                    <h:panelGroup >
+                        <h:outputText  value="Prontuario"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink  style="  color: red;" 
+                                actionListener="#{estatisticaexameprontuarioViewBean.grabProntuarioPopFromList}" 
+                                value="#{pac.pacStProntuario}" update=":tw:formtab00093:relatorioprontuariopanelgrid"
+                                process="@this"     >
+                    <f:param name="relatorioexameprontuariolabprontuariosparam" value="#{pac.pacInCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData2ex" style="width: 230px;">
+                <f:facet name="header">
+                    <h:panelGroup >
+                        <h:outputText    value="Nome"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink  style="  color: blue;" 
+                                actionListener="#{estatisticaexameprontuarioViewBean.grabProntuarioPopFromList}" 
+                                value="#{pac.pacStNome}" update=":tw:formtab00093:relatorioprontuariopanelgrid"  
+                                process="@this"  >
+                    <f:param name="relatorioexameprontuariolabprontuariosparam" value="#{pac.pacInCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData3ex" >
+                <f:facet name="header">
+                    <h:panelGroup >
+                        <h:outputText    value="Dt. Nascimento"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink  style="  color: blue;" 
+                                actionListener="#{estatisticaexameprontuarioViewBean.grabProntuarioPopFromList}" 
+                                value="#{pac.pacDtNascimento}" 
+                                update=":tw:formtab00093:relatorioprontuariopanelgrid"  
+                                process="@this" >
+                    <f:param name="relatorioexameprontuariolabprontuariosparam" value="#{pac.pacInCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData4ex" style="width: 100px;">
+                <f:facet name="header">
+                    <h:panelGroup >
+                        <h:outputText    value="R.G."/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink  style="  color: blue;" actionListener="#{estatisticaexameprontuarioViewBean.grabProntuarioPopFromList}" value="#{pac.pacStRG}" update=":tw:formtab00093:relatorioprontuariopanelgrid"  process="@this" >
+                    <f:param name="relatorioexameprontuariolabprontuariosparam" value="#{pac.pacInCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData5ex" >
+                <f:facet name="header">
+                    <h:panelGroup >
+                        <h:outputText    value="Unidade"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink  style="  color: blue;" actionListener="#{estatisticaexameprontuarioViewBean.grabProntuarioPopFromList}" value="#{pac.uniStCodigo}" update=":tw:formtab00093:relatorioprontuariopanelgrid"  process="@this" >
+                    <f:param name="relatorioexameprontuariolabprontuariosparam" value="#{pac.pacInCodigo}"/>
+                </p:commandLink>
+            </p:column>
+        </p:dataTable>
+    </p:dialog>
+</ui:composition>

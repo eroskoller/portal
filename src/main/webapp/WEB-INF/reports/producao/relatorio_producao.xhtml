@@ -1,0 +1,468 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    >
+
+    
+    
+
+        <h:panelGrid columns="6"    >
+
+                <h:panelGrid>
+                    <h:outputText  styleClass="sinopsetext" value="#{msgs['node.sales.statistics']} "    ></h:outputText>
+                    <p:panel  style="  width: 190px;  height: 28px;  text-align: center;   padding-top: 0px; padding-bottom: 7px;  "  >
+                        <p:selectBooleanCheckbox       value="#{estatisticafaturamentoViewBean.blPeriodoDeFechamento}" id="selectBooleanCheckboxblPeriodoDeFechamento" >
+                            <p:ajax update="panelGridSelecaoExames,panelGridOdemAndTipos,panelcheckboxpfe,panelGridSelecaoExames"   />
+                        </p:selectBooleanCheckbox>
+                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;"    value="#{msgs['node.invoice.period']}"  for="selectBooleanCheckboxblPeriodoDeFechamento"     />
+                    </p:panel>
+                </h:panelGrid>
+
+                <h:panelGroup>
+                    <h:panelGrid columns="3" >
+                        <p:graphicImage url="design/arrow-down-left.png"/>
+                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.ordem.rel']}"/>
+                        <p:graphicImage url="design/arrow-down-right.png"/>
+                    </h:panelGrid>
+                    <p:panel  style="width: 150px;    height: 28px;  text-align: center;   padding-top: 0px; padding-bottom: 7px;  "   >
+                        <p:selectOneRadio id="slctRadioOrdemDoRelatorio"
+                                          value="#{estatisticafaturamentoViewBean.strOrdemDoRel}"   >
+                            <f:selectItems  id="slctRadioOrdemDoRelatorioTypesItens"
+                                            value="#{estatisticafaturamentoViewBean.ordemRelatorio}"/>
+                        </p:selectOneRadio>
+                    </p:panel>
+                </h:panelGroup>
+
+
+                <h:panelGroup>
+                    <h:panelGrid columns="3" style="padding-left: 7px;">
+                        <p:graphicImage url="design/arrow-down-left.png"/>
+                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.tipo.rel']}"/>
+                        <p:graphicImage url="design/arrow-down-right.png"/>
+                    </h:panelGrid>
+                    <p:panel style="width: 150px;    height: 28px;  text-align: center;   padding-top: 0px; padding-bottom: 7px;  "   >
+                        <p:selectOneRadio id="slctRadioTipoRelatorio"
+                                          value="#{estatisticafaturamentoViewBean.strTipoRelatorio}" >
+                            <f:selectItems  id="slctRadioTipoRelatorioTypesItens"
+                                            value="#{estatisticafaturamentoViewBean.tipoRelatorio}"  />
+                            <p:ajax update="selectBooleanCheckboxblDetalhadoPorExames,growl"  process="@this" />
+                        </p:selectOneRadio>
+                    </p:panel>
+                </h:panelGroup>
+
+                <h:panelGroup>
+
+                    <h:panelGrid id="panelGridSelecaoExames" columns="3" style="padding-left: #{estatisticafaturamentoViewBean.strStylePaddingLeftSelecaoExames}" >
+                        <p:graphicImage url="design/arrow-down-left.png"/>
+                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.selecao.exames']}"/>
+                        <p:graphicImage url="design/arrow-down-right.png"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid rendered="#{estatisticafaturamentoViewBean.blPeriodoDeFechamento}">
+                        <h:outputText value="."/>
+                    </h:panelGrid>
+
+                    <p:panel     id="panelcheckboxpfe"  style="  width: 400px;  height: 29px;  text-align: center;   padding-top: 0px; padding-bottom: 7px;  "  >
+
+                        <p:selectBooleanCheckbox   value="#{estatisticafaturamentoViewBean.blFaturado}" 
+                                                   id="selectBooleanCheckboxblFaturado"   
+                                                   rendered="#{!estatisticafaturamentoViewBean.blPeriodoDeFechamento}"    >
+                            <p:ajax process="@this"  update="@this"/>
+                        </p:selectBooleanCheckbox>
+                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.billed']} "  for="selectBooleanCheckboxblFaturado"  rendered="#{!estatisticafaturamentoViewBean.blPeriodoDeFechamento}" />    
+
+                        <p:selectBooleanCheckbox    value="#{estatisticafaturamentoViewBean.blConferido}" 
+                                                    id="selectBooleanCheckboxblConferido"   
+                                                    rendered="#{!estatisticafaturamentoViewBean.blPeriodoDeFechamento}" >
+                            <p:ajax process="@this"  update="@this"/>
+                        </p:selectBooleanCheckbox>
+                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.conferred']} "  for="selectBooleanCheckboxblConferido"  rendered="#{!estatisticafaturamentoViewBean.blPeriodoDeFechamento}" />
+
+                        <p:selectBooleanCheckbox     value="#{estatisticafaturamentoViewBean.blNaoConferido}" 
+                                                     id="selectBooleanCheckboxblNaoConferido"   
+                                                     rendered="#{!estatisticafaturamentoViewBean.blPeriodoDeFechamento}" >
+                            <p:ajax process="@this"  update="@this"/>
+                        </p:selectBooleanCheckbox>
+                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.not.conferred']} "  for="selectBooleanCheckboxblNaoConferido"   rendered="#{!estatisticafaturamentoViewBean.blPeriodoDeFechamento}" />    
+
+                        <p:selectBooleanCheckbox     value="#{estatisticafaturamentoViewBean.blDetalhadoPorExames}" 
+                                                     id="selectBooleanCheckboxblDetalhadoPorExames"    >
+                            <p:ajax process="@this" update="slctRadioTipoRelatorio,growl"  />
+                        </p:selectBooleanCheckbox>
+
+                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.exam.detail']}"  for="selectBooleanCheckboxblDetalhadoPorExames"/>
+
+                    </p:panel>
+
+                </h:panelGroup>
+
+            </h:panelGrid>
+
+
+
+        <h:panelGrid columns="22"  style="padding: 0px 0px 0px 10px;  border: 1px solid grey;  margin-left: 2px; "  id="panelGridOdemAndTipos"  >
+
+            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.code.unity']}:" />
+
+            <p:inputText 
+                size="10" maxlength="10"    
+                id="inputTextestatisticafaturamentoViewBeangrabLabUnidade"  
+                         valueChangeListener="#{estatisticafaturamentoViewBean.grabLabUnidade}" 
+                         value="#{estatisticafaturamentoViewBean.strCodigoUnidade}"
+                         styleClass="inputupper"
+                           >
+                <p:ajax   process="inputTextestatisticafaturamentoViewBeangrabLabUnidade"   update="relatorioproducaounipanelgrid,growl"   partialSubmit="true" />
+            </p:inputText>  
+            
+            
+
+            <p:commandButton
+                            update="relatorioproducaounipanelgrid" 
+                            icon="ui-icon-search"   style="height: 25px; width: 25px;"  
+                             onmouseup=" widgetvarrelatorioproducaopoplistlabunidades.show();  " 
+                             onkeypress="if (event.keyCode == 32 || event.keyCode == 13 ) {  widgetvarrelatorioproducaopoplistlabunidades.show();  return false; }"  
+                             
+                             />
+
+
+            <p:commandButton value=" #{msgs['node.include']}"  action="#{estatisticafaturamentoViewBean.grabLabUnidade}" 
+                             update="relatorioproducaounipanelgrid,growl"  process="inputTextestatisticafaturamentoViewBeangrabLabUnidade"    partialSubmit="true"/>
+
+            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.insurance.code']}:" />
+
+            <p:inputText size="10" maxlength="10"    valueChangeListener="#{estatisticafaturamentoViewBean.grabLabConvenio}"   styleClass="inputupper"  >
+                <p:ajax   process="@this"   update="relatorioproducaoconveniopanelgrid,growl" partialSubmit="true"   />
+            </p:inputText>
+
+            <p:commandButton   id="btnpopconvenio"   value=""  action="#{estatisticafaturamentoViewBean.popConvenio}"  process="@this"  icon="ui-icon-search"    style="height: 25px; width: 25px;"   
+                               onmouseup="widgetvarrelatorioproducaopoplistlabconvenios.show();"    
+                               onkeypress="if (event.keyCode == 32 || event.keyCode == 13 ) {  widgetvarrelatorioproducaopoplistlabconvenios.show();  return false; }"                   />
+
+            <p:commandButton value="#{msgs['node.include']}"    update="relatorioproducaoconveniopanelgrid,growl" />
+
+
+            <h:panelGrid columns="2" style="width: 120px;"   rendered="#{!estatisticafaturamentoViewBean.blPeriodoDeFechamento}"   id="panelgroupdatas"   >
+
+
+                <p:calendar
+                    id="calStart"
+                    value="#{estatisticafaturamentoViewBean.dtInicioQuery}"
+                    timeZone="#{dateSelect.timeZone}"
+                    pattern="dd/MM/yyyy "
+                    locale="pt"
+                    styleClass="dateTimeEntryShorter"
+                    effect="puff"
+                    size="10"
+                    >
+                    <p:ajax 
+                        event="dateSelect" 
+                        listener="#{estatisticafaturamentoViewBean.validateDateRange}"   
+                        update="growl"  partialSubmit="true"  process="calStart"  />  
+                    
+                </p:calendar>
+
+
+                <p:calendar
+                    id="calEnd"
+                    value="#{estatisticafaturamentoViewBean.dtFinalQuery}"
+                    timeZone="#{dateSelect.timeZone}"
+                    pattern="dd/MM/yyyy "
+                    locale="pt"
+                    effect="puff"
+                    styleClass="dateTimeEntryShorter"
+                    size="10"
+                    >
+                    <p:ajax 
+                        event="dateSelect" 
+                        listener="#{estatisticafaturamentoViewBean.validateDateRange}"   
+                        update="growl"
+                        process="calEnd" 
+                        partialSubmit="true"   />  
+
+                </p:calendar>
+
+            </h:panelGrid>
+
+
+
+            <p:selectOneMenu      
+                id="relatorioBean_opcoestens"  
+                value="#{estatisticafaturamentoViewBean.strPfeStCodigo}"  
+                rendered="#{estatisticafaturamentoViewBean.blPeriodoDeFechamento}"   
+                >
+                <f:selectItems 
+                    value="#{estatisticafaturamentoViewBean.itensPeriodoFechamento}"/>
+            </p:selectOneMenu>
+
+
+            <p:selectOneMenu id="selectOneMenuFileFormats" value="#{estatisticafaturamentoViewBean.strJasperFormat}" style=" width: 50px;"  >  
+                <f:selectItems value="#{arrayitems.jasperFormatstens}" />  
+            </p:selectOneMenu>  
+            
+            <p:commandButton  
+                style="width: 120px;"
+                process="@this,slctRadioOrdemDoRelatorio,calStart,calEnd,relatorioBean_opcoestens,selectOneMenuFileFormats"  
+                value="#{msgs['node.generate.report']}"   
+                action="#{estatisticafaturamentoViewBean.makePdf}"   
+                update=":formfooter,growl" 
+                onclick="widgetvarpollcounterRelStorage.stop();  widgetvarpollcounterRelStorage.start();"
+                partialSubmit="true"
+                />
+            <p:commandButton value="#{msgs['template.cleanup']}"  
+                             action="#{estatisticafaturamentoViewBean.cleanUpEveryThing}"  
+                             update="relatorioproducaounipanelgrid,relatorioproducaoconveniopanelgrid,calStart,calEnd"  />
+
+        </h:panelGrid>
+
+        <h:panelGrid  columns="2" style="padding: 1px 1px 1px 1px; "  >
+
+            <h:panelGroup  style="width: 70px; padding: 0px; margin: 0px;" >
+                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value=" #{msgs['template.units']}"/>
+            </h:panelGroup>
+
+
+
+
+            <h:panelGrid  columns="8"  id="relatorioproducaounipanelgrid"   style=" padding: 0px; margin: 0px; "      >
+                
+                <c:forEach items="${estatisticafaturamentoViewBean.listSetLabUnidade}" var="uni">
+                    
+
+                    <p:panel widgetVar="widgetvarunidaderelatorioproducao${uni.uniStCodigo}"  closable="true"  >
+                        <h:panelGrid columns="3"   style="margin: 0px; padding: 0px;" >
+                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${uni.uniStCodigo}"/> 
+
+                        <p:commandButton icon="ui-icon-info"  style="height: 20px; width: 20px;   margin-left: 3px;"    id="btnshowuni${uni.uniStCodigo}" >
+                            
+                            <p:overlayPanel
+                                            appendToBody="true"
+                                            transient="true"
+                                            id="overlayPanel${uni.uniStCodigo}" for="btnshowuni${uni.uniStCodigo}" 
+                                            showEffect="slide" 
+                                            hideEffect="fade" 
+                                            hideEvent="mousedown"  
+                                            styleClass="ui-helper-clearfix"
+                                            
+                                            >  
+                                                
+                                <p:panel>
+                                    <p:panelGrid columns="2">
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="Unidade:"/>
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${uni.uniStCodigo}"/>    
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['tabbedHeadings.description']}:"/>
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${uni.uniStDescricao}"/>    
+                                    </p:panelGrid>
+                                        
+                                </p:panel>
+                            </p:overlayPanel>  
+                                
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-close"     style="height: 20px; width: 20px;   margin-left: 3px;"    
+                                         process="@this"     
+                                         actionListener="#{estatisticafaturamentoViewBean.delLabUnidade}"   
+                                         onclick="widgetvarunidaderelatorioproducao${uni.uniStCodigo}.close();  "
+                                         update="growl"   partialSubmit="true" > 
+
+                            <f:param name="relatoriofaturamentoparamunidade"  value="${uni.uniStCodigo}"/>
+
+                        </p:commandButton>
+
+
+                        
+                        </h:panelGrid>
+                    </p:panel>
+
+
+                </c:forEach>
+
+
+       
+                
+                
+            </h:panelGrid>
+
+
+
+        </h:panelGrid>
+
+        <p:separator/>
+
+        <h:panelGrid  columns="2" style="padding: 1px 1px 1px 1px; "  >
+            <h:panelGroup  style="width: 70px; padding: 0px; margin: 0px;" >
+                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value=" #{msgs['node.insurance']} "/>
+            </h:panelGroup>
+
+
+            <h:panelGrid  columns="8"  id="relatorioproducaoconveniopanelgrid"   style=" padding: 0px; margin: 0px; "   >
+
+                <c:forEach items="${estatisticafaturamentoViewBean.listSetLabConvenio}" var="con"   >
+
+                    <p:panel  
+                        widgetVar="widgetvarconveniorelatorioproducao${con.conStCodigo}"  
+                        closable="true"    
+                        id="panelconveniorelatorioproducao${con.conStCodigo}" 
+                        transient="true"    >
+                            <h:panelGrid columns="3"   style="margin: 0px; padding: 0px;" >
+                            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${con.conStCodigo}"/> 
+
+                            <p:commandButton icon="ui-icon-info"  style="height: 20px; width: 20px;   margin-left: 3px;"    id="btnshowcon${con.conStCodigo}" >
+                                <p:overlayPanel 
+                                                id="overlayPanelcon${con.conStCodigo}" 
+                                                for="btnshowcon${con.conStCodigo}"   
+                                                widgetVar="widgetvarconveniorelatorioproducaooverlayPanel${con.conStCodigo}" 
+                                                appendToBody="true"
+                                                transient="true"
+                                                showEffect="slide" 
+                                                hideEffect="fade" 
+                                                hideEvent="mousedown"  
+                                                styleClass="ui-helper-clearfix"
+                                                >  
+                                                    
+                                    <p:panel>
+                                        <p:panelGrid columns="2">
+                                            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['node.insurance']}:"/>
+                                            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${con.conStCodigo}"/>    
+                                            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['tabbedHeadings.description']}:"/>
+                                            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${con.conStDescricao}"/>    
+                                            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="CNPJ:"/>
+                                            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${con.conStCNPJ}"/>    
+                                        </p:panelGrid>
+                                            
+                                    </p:panel>
+                                </p:overlayPanel>  
+                            </p:commandButton>
+
+                            <p:commandButton icon="ui-icon-close"   style="height: 20px; width: 20px;   margin-left: 3px;"    
+                                             process="@this"
+                                             partialSubmit="true" 
+                                             actionListener="#{estatisticafaturamentoViewBean.delLabConvenio}" 
+                                             onclick="widgetvarconveniorelatorioproducao${con.conStCodigo}.close();"
+                                             update="@this"    > 
+
+                                <f:param name="relatorioproducaoconvenioparam"  value="${con.conStCodigo}"/>
+
+                            </p:commandButton>
+                            
+                            </h:panelGrid>
+                        </p:panel>
+                    
+                </c:forEach>
+
+            </h:panelGrid>
+            
+           
+
+        </h:panelGrid>
+
+
+
+        
+           
+ <p:dialog id="relatorioproducaopoplistlabunidades" header="#{msgs['template.unit']}" widgetVar="widgetvarrelatorioproducaopoplistlabunidades" 
+                          modal="false" height="420"  hideEffect="fade"   
+                          showEffect="fade"    draggable="true"     maximizable="false"    rendered="#{ not empty estatisticafaturamentoViewBean }"    >  
+                    
+                    
+                    
+                    
+                       <p:dataTable
+                                id="relatorioBean_listUnidades_ex_Faturamento_Unidade"
+                                value="#{portalViewBean.listLabUnidade}"
+                                var="uni"
+                                styleClass="novoEstiloHighlight"
+                                style="margin: 0px;"
+                                scrollHeight="400"
+                                rows="15"
+                                paginator="true"
+                                paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                rowsPerPageTemplate="5,10,15">  
+
+                                <p:column  id="rowData1ex_Faturamento_Unidade" >
+                                    <f:facet name="header">
+                                        <h:panelGroup style="width: 70px;">
+                                            <h:outputText  value="#{msgs['template.unit']}"/>
+                                        </h:panelGroup>
+                                    </f:facet>
+                                    <p:commandLink  style="  color: red;"  actionListener="#{estatisticafaturamentoViewBean.grabUnidadeFromList}" value="#{uni.uniStCodigo}"  update=":tw:formtab00067:relatorioproducaounipanelgrid"  >
+                                        <f:param name="relatorioproducaopoplistlabunidadesparam"  value="#{uni.uniStCodigo}"/>
+                                    </p:commandLink>
+                                </p:column>
+
+                                <p:column  id="rowData2ex_Unidade" >
+                                    <f:facet name="header">
+                                        <h:panelGroup style="width: 195px;">
+                                            <h:outputText    value="#{msgs['page.tree.employee.name.label']}"/>
+                                        </h:panelGroup>
+                                    </f:facet>
+                                    <p:commandLink  style="  color: blue;"   actionListener="#{estatisticafaturamentoViewBean.grabUnidadeFromList}" value="#{uni.uniStDescricao}"   update=":tw:formtab00067:relatorioproducaounipanelgrid"   >
+                                        <f:param name="relatorioproducaopoplistlabunidadesparam"  value="#{uni.uniStCodigo}"/>
+                                    </p:commandLink>
+                                </p:column>
+
+                            </p:dataTable>
+                    
+                </p:dialog>  
+        
+        
+        
+        
+        
+        
+                <p:dialog id="relatorioproducaopoplistlabconvenios" header="#{msgs['node.insurance']}" widgetVar="widgetvarrelatorioproducaopoplistlabconvenios" 
+                          modal="false" height="420"  hideEffect="fade"   
+                          showEffect="fade"    draggable="true"     maximizable="false"    rendered="#{ not empty estatisticafaturamentoViewBean }"   >  
+                    
+                    
+               
+                              <p:dataTable
+                                id="relatorioBean_listUnidades_ex_Faturamento_convenio"
+                                value="#{estatisticafaturamentoViewBean.listLabConvenioPop}"
+                                var="con"
+                                styleClass="novoEstiloHighlight"
+                                style="margin: 0px;"
+                                scrollHeight="400"
+                                rows="15"
+                                paginator="true"
+                                paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                rowsPerPageTemplate="5,10,15">  
+
+                                <p:column  id="rowData1ex_Faturamento_CONVENIO" >
+                                    <f:facet name="header">
+                                        <h:panelGroup style="width: 70px;">
+                                            <h:outputText  value="#{msgs['node.insurance']}"/>
+                                        </h:panelGroup>
+                                    </f:facet>
+                                    <p:commandLink  style="  color: red;"  actionListener="#{estatisticafaturamentoViewBean.grabConvenioFromList}" value="#{con.conStCodigo}"   update=":tw:formtab00067:relatorioproducaoconveniopanelgrid"  >
+                                        <f:param name="relatorioproducaopoplistlabconvenioparam"  value="#{con.conStCodigo}"/>
+                                    </p:commandLink>
+                                </p:column>
+
+                                <p:column  id="rowData2ex_CONVENIO" >
+                                    <f:facet name="header">
+                                        <h:panelGroup style="width: 195px;">
+                                            <h:outputText    value="#{msgs['page.tree.employee.name.label']}"/>
+                                        </h:panelGroup>
+                                    </f:facet>
+                                    <p:commandLink  style="  color: blue;"   actionListener="#{estatisticafaturamentoViewBean.grabConvenioFromList}" value="#{con.conStDescricao}"  update=":tw:formtab00067:relatorioproducaoconveniopanelgrid"  >
+                                        <f:param name="relatorioproducaopoplistlabconvenioparam"  value="#{con.conStCodigo}"/>
+                                    </p:commandLink>
+                                </p:column>
+
+                            </p:dataTable>
+                    
+                    
+                </p:dialog>  
+
+        
+        
+        <p:focus for="inputTextestatisticafaturamentoViewBeangrabLabUnidade"/>
+
+</ui:composition>

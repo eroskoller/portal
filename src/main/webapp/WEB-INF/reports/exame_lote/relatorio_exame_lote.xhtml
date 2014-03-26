@@ -1,0 +1,268 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    >
+   
+
+    <h:panelGroup styleClass="synopsisBox"   style="width: 100%;"    id="panelGroupRelatorioExameLote"  >
+            
+            <h:panelGrid columns="10" >
+                <h:outputText styleClass="sinopsetext" value="#{msgs['title.statistics.exame.lote']}"></h:outputText>
+                <h:outputLabel value="#{msgs['node.lot.code']}"/>
+                <p:inputText id="inputText01_lote" size="7" maxlength="6" value="#{estatisticaexameloteViewBean.strLoteCodigo}"
+                             onkeypress="return restrict(event)" widgetVar="widgetvarinputText01_lote">
+                    <p:ajax   process="inputText01_lote" update="relatoriolotepanelgrid,growl"/>
+                    <p:focus context="panelGroupRelatorioExameLote"/>
+                </p:inputText>
+                <p:commandButton  value="#{msgs['node.add']}"
+                                  actionListener="#{estatisticaexameloteViewBean.grabLabLote}"
+                                  id="botaoPesq"
+                                  update="relatoriolotepanelgrid,growl, inputText01_lote"
+                                  process="@this,inputText01_lote" 
+                                  />
+                <p:commandButton icon="ui-icon-search" onmouseup=" widgetvarrelatoriolotepoplistlablotes.show();"/>
+
+                <h:panelGrid columns="2" style="margin: 0px; padding: 0px;">
+
+                    <h:outputLabel value="#{msgs['node.tipo.rel']} :"/>
+                    <p:selectOneRadio id="selectOneRadio1Lote" value="#{estatisticaexameloteViewBean.strTipoImpressao}">
+                        <f:selectItems id="selectItems1Lote" value="#{arrayitems.tipoImpressao}"/> 
+                    </p:selectOneRadio>
+                </h:panelGrid>
+                <h:panelGrid columns="2" style="margin: 0px; padding: 0px;">
+                    <h:outputLabel value="#{msgs['node.ordem.rel']} :"    />
+                    <p:selectOneRadio id="slctRadioOrdemDoRelatorio"
+                                      value="#{estatisticaexameloteViewBean.strOrdemDoRel}">
+                        <f:selectItems  id="slctRadioOrdemDoRelatorioTypesItens"
+                                        value="#{arrayitems.ordemRelatorio}"/>
+                    </p:selectOneRadio>
+                </h:panelGrid>
+
+                
+                <p:selectOneMenu id="selectOneMenuFileFormats" value="#{estatisticaexameloteViewBean.strJasperFormat}"  style=" width: 50px;" >  
+                            <f:selectItems value="#{arrayitems.jasperFormatstens}" />  
+                 </p:selectOneMenu>  
+                
+                <p:commandButton   
+                    style="width: 120px;"
+                    onclick="widgetvarpollcounterRelStorage.start()" 
+                                   value="#{msgs['node.generate.report']}" 
+                                   update=":formfooter" id="botaoPesqLote" 
+                                   action="#{estatisticaexameloteViewBean.pesquisar}"
+                                   process="@this,selectOneMenuFileFormats,slctRadioOrdemDoRelatorio,selectOneRadio1Lote"
+                                   partialSubmit="true"
+                                   />
+                <p:commandButton value="#{msgs['template.cleanup']}" update="relatoriolotepanelgrid" id="botaoLimparLote" action="#{estatisticaexameloteViewBean.cleanUpEveryThing}"/>
+
+            </h:panelGrid>
+        
+
+
+
+    </h:panelGroup>
+    
+    <p:separator/>
+    
+    
+        <h:panelGrid columns="8" id="relatoriolotepanelgrid">
+
+            <c:forEach items="${estatisticaexameloteViewBean.setLabLote}" var="lote">
+                
+                    <p:panel id="panel${lote.lotStCodigo}" widgetVar="widgetVartest">
+                        <h:panelGrid columns="3" id="panelGrid${lote.lotStCodigo}">
+                        <h:outputLabel value="${lote.lotStCodigo}"/> 
+                        <p:commandButton icon="ui-icon-info"  style="height: 20px; width: 20px;   margin-left: 3px;"    id="btnshow${lote.lotStCodigo}" />
+                        <p:commandButton icon="ui-icon-close"  id="btn${lote.lotStCodigo}"   style="height: 20px; width: 20px;   margin-left: 3px;"    
+                                         process="@this"  update="relatoriolotepanelgrid"   actionListener="#{estatisticaexameloteViewBean.delLote}">
+                            <f:param name="relatorioloteparam"  value="${lote.lotStCodigo}"/>
+                        </p:commandButton>
+
+                        <p:overlayPanel id="overlayPanel${lote.lotStCodigo}" for="btnshow${lote.lotStCodigo}" 
+                                        showEffect="slide" 
+                                        hideEffect="fade" 
+                                        hideEvent="mousedown"  
+                                        styleClass="ui-helper-clearfix"
+                                        >
+
+                            <p:panel>
+                                <p:panelGrid columns="2">
+                                    <h:outputLabel value="Lote:"/>
+                                    <h:outputLabel value="${lote.lotStCodigo}"/>    
+                                    <h:outputLabel value="Qtd Exames:"/>
+                                    <h:outputLabel value="${lote.usuInQtdExames}"/>    
+                                    <h:outputLabel value="Vlr Total(R$):"/>
+                                    <h:outputLabel value="${lote.usuFlValorLote}"/>    
+                                    <h:outputLabel value="Gerou Lote: "/>
+                                    <h:outputLabel value="${lote.usuStCodigoInclusao}"/>    
+                                </p:panelGrid>
+                            </p:panel>
+                        </p:overlayPanel>
+                        </h:panelGrid>
+                    </p:panel>
+                
+            </c:forEach>
+        </h:panelGrid>
+    
+    <!--                    PopUp                 -->
+    <p:dialog id="relatoriolotepoplistlablotes" header="Lista de Lotes" widgetVar="widgetvarrelatoriolotepoplistlablotes" 
+              height="400"  hideEffect="fade" showEffect="fade"    
+              draggable="true"     maximizable="true" minWidth="1300" rendered="#{ not empty estatisticaexameloteViewBean }">
+        <h:panelGrid columns="5">
+            <h:outputLabel value="#{msgs['template.search.for']}  : "/>
+            <p:selectOneMenu id="selectOneMenuLote" value="#{estatisticaexameloteViewBean.strTipoPesquisa}">
+                <p:ajax process="@this" update="selectOneMenuLote, inputText01_lotePop"/>
+                <f:selectItems value="#{arrayitems.tipoPesquisa}"/>
+            </p:selectOneMenu>
+            <p:inputText id="inputText01_lotePop" 
+                         size="#{estatisticaexameloteViewBean.strSizeInputPop}"
+                         valueChangeListener="#{estatisticaexameloteViewBean.pesquisaPopValueChange}" 
+                         value="#{estatisticaexameloteViewBean.strLoteCodigoPop}"   
+                         onkeypress="return restrict(event)"  >
+                <p:ajax   process="@this,inputText01_lotePop" 
+                          update="relatorioBean_listLotes, outputTextPop_01, inputText01_lotePop"/>
+                <p:focus context="relatoriolotepoplistlablotes"/>
+            </p:inputText>
+            <p:commandButton  value="#{msgs['node.search']}"
+                              action="#{estatisticaexameloteViewBean.pesquisaPop}"
+                              id="botaoPesqPop"
+                              process="@this,inputText01_lotePop"
+                              update    ="relatorioBean_listLotes, outputTextPop_01"
+                              />
+            <h:outputLabel id="outputTextPop_01" value="#{estatisticaexameloteViewBean.strMensagemLotePop}" style="color: red;"/>
+        </h:panelGrid>
+
+        <p:dataTable id="relatorioBean_listLotes"
+                     styleClass="novoEstiloHighlight"
+                     scrollHeight="380"
+                     value="#{estatisticaexameloteViewBean.listLabLotePop}"
+                     var="lot"
+                     paginator="true"
+                     paginatorPosition="bottom"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                     rowsPerPageTemplate="5,9,14"
+                     rows="14"
+                     style="width: 100%;"
+                     >
+            <p:column id="rowData1ex_Lote">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Cod.Lote"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: red;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.lotStCodigo}"  
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+
+            <p:column id="rowData2ex_Lote" style="width: 80px;">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Dt.Lote"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: blue;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.lotDtData}" 
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+            <p:column id="rowData3ex_Lote" style="width: 150px;">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Hr. Lote"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: blue;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.lotHrHora}" 
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+            <p:column id="rowData4ex_Lote" style="width: 70px;" rendered="false">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Dt. Inicio"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: blue;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.lotDtDataInicial}"
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+            <p:column id="rowData5ex_Lote" style="width: 70px;" rendered="false">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Dt. Final"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: blue;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.lotDtDataFinal}" 
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+            <p:column id="rowData6ex_Lote">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Gerou"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: blue;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.usuStCodigoInclusao}" 
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+            <p:column id="rowData7ex_Lote">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Excluiu"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: blue;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.usuStCodigoExclusao}" 
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+            <p:column id="rowData8ex_Lote">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Fechou"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: blue;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.usuStCodigoFechamento}" 
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+            <p:column id="rowData9ex_Lote">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Qtd. Exames"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: blue;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.usuInQtdExames}" 
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+            <p:column id="rowData10ex_Lote">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="Vlr. Exames"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink style="color: blue;" actionListener="#{estatisticaexameloteViewBean.grabLotePopFromList}" value="#{lot.usuFlValorLote}" 
+                               update=":tw:formtab00111:relatoriolotepanelgrid, :tw:formtab00111:growl">
+                    <f:param name="relatorioexamelotelablotesparam" value="#{lot.lotStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+
+        </p:dataTable>
+    </p:dialog>
+
+</ui:composition>

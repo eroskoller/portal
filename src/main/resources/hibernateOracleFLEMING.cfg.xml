@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+
+    <property name="hibernate.connection.datasource">jdbc/OraclePoolFLEMING</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+
+    <mapping class="br.com.hibernate.entities.LabUsuario"/>
+    <mapping class="br.com.hibernate.entities.LabUnidade"/>
+    <mapping class="br.com.hibernate.entities.LabAgenda"/>
+    <mapping class="br.com.hibernate.entities.LabAgendaLocal"/>
+    <mapping class="br.com.hibernate.entities.LabOrigem"/>
+    <mapping class="br.com.hibernate.entities.LabConvenio"/>
+<!--    <mapping class="br.com.hibernate.entities.LabConvenioUnidade"/>-->
+    <mapping class="br.com.hibernate.entities.LabLocal"/>
+<!--    <mapping class="br.com.hibernate.entities.LabRegras"/>-->
+    <mapping class="br.com.hibernate.entities.LabUnidade"/>
+    <mapping class="br.com.hibernate.entities.LabPaciente"/>
+    <mapping class="br.com.hibernate.entities.LabAgendaPaciente"/>
+    <mapping class="br.com.hibernate.entities.LabCid"/>
+    <mapping class="br.com.hibernate.entities.LabProfissao"/>
+    <mapping class="br.com.hibernate.entities.LabRequisicao"/>
+    <mapping class="br.com.hibernate.entities.LabSolicitante"/>
+<!--    <mapping class="br.com.hibernate.entities.LabSistema"/>-->
+    <mapping class="br.com.hibernate.entities.LabColetor"/>
+    <mapping class="br.com.hibernate.entities.LabLegenda"/>
+    <mapping class="br.com.hibernate.entities.LabAgendaPacienteExame"/>
+    <mapping class="br.com.hibernate.entities.LabExame"/>
+    <mapping class="br.com.hibernate.entities.LabMaterial"/>
+    <mapping class="br.com.hibernate.entities.LabMaterialColeta"/>
+<!--    <mapping class="br.com.hibernate.entities.LabObservacoes"/>-->
+    <mapping class="br.com.hibernate.entities.LabEstado"/>
+    <mapping class="br.com.hibernate.entities.LabDetalheRequisicao"/>
+    <mapping class="br.com.hibernate.entities.LabUsuarioUnidade"/>
+    <mapping class="br.com.hibernate.entities.LabSetor"/>
+    <mapping class="br.com.hibernate.entities.LabPerfilUsuario"/>
+    <mapping class="br.com.hibernate.entities.LabModulo"/>
+    <mapping class="br.com.hibernate.entities.LabExameGrupo"/>
+    <mapping class="br.com.hibernate.entities.LabExameUnidade"/>
+<!--    <mapping class="br.com.hibernate.entities.LabMotivoRepeticao"/>-->
+    <mapping class="br.com.hibernate.entities.LabExameMaterial"/>
+    <mapping class="br.com.hibernate.entities.LabExameDependente"/>
+<!--    <mapping class="br.com.hibernate.entities.LabSubSetor"/>-->
+<!--    <mapping class="br.com.hibernate.entities.LabMapTriagem"/>-->
+<!--    <mapping class="br.com.hibernate.entities.LabGrupoTriagem"/>-->
+    <mapping class="br.com.hibernate.entities.LabResultados"/>
+    <mapping class="br.com.hibernate.entities.LabConfigIngresso"/>
+    <mapping class="br.com.hibernate.entities.LabUnidadeMedida"/>
+    <mapping class="br.com.hibernate.entities.LabUsuarioPosto"/>
+    <mapping class="br.com.hibernate.entities.LabLote"/>
+    
+    <mapping class="br.com.hibernate.entities.LabRelatorios"/>
+    
+    <mapping class="br.com.hibernate.entities.LabUsuarioModulo"/>
+    <mapping class="br.com.hibernate.entities.LabPerfilUsuarioModulo"/>
+    <mapping class="br.com.hibernate.entities.LabUsuarioConvenio"/>
+    <mapping class="br.com.hibernate.entities.LabPeriodoFechamento"/>
+    
+    <mapping class="br.com.hibernate.entities.LabExameMetodoVersao"/>
+
+    <mapping class="br.com.hibernate.entities.LabAuditoria"/>
+    <mapping class="br.com.hibernate.entities.LabUsuarioSistema"/>
+    <mapping class="br.com.hibernate.entities.LabErroAuditoria"/>
+    <mapping class="br.com.hibernate.entities.LabSistema"/>
+    
+    <mapping class="br.com.hibernate.entities.LabManualExame"/>
+    
+    <mapping class="br.com.hibernate.entities.ErpAcoes"/>
+    <mapping class="br.com.hibernate.entities.ErpArmazens"/>
+    <mapping class="br.com.hibernate.entities.ErpCargo"/>
+    <mapping class="br.com.hibernate.entities.ErpCcusto"/>
+    <mapping class="br.com.hibernate.entities.ErpCcustoxpreco"/>
+    <mapping class="br.com.hibernate.entities.ErpCompra"/>
+    <mapping class="br.com.hibernate.entities.ErpCompraautorizacao"/>
+    <mapping class="br.com.hibernate.entities.ErpCompraitem"/>
+    <mapping class="br.com.hibernate.entities.ErpCompratipo"/>
+    <mapping class="br.com.hibernate.entities.ErpEstabelecimento"/>
+    <mapping class="br.com.hibernate.entities.ErpEstoqueccusto"/>
+    <mapping class="br.com.hibernate.entities.ErpFornecedores"/>
+    <mapping class="br.com.hibernate.entities.ErpFornecedorescodigos"/>
+    <mapping class="br.com.hibernate.entities.ErpHistoricocompra"/>
+    <mapping class="br.com.hibernate.entities.ErpHistoricodeacoes"/>
+    <mapping class="br.com.hibernate.entities.ErpHistoricoitem"/>
+    <mapping class="br.com.hibernate.entities.ErpHistoricoitemxccu"/>
+    <mapping class="br.com.hibernate.entities.ErpHistoricopedido"/>
+    <mapping class="br.com.hibernate.entities.ErpHistoricotransferencia"/>
+    <mapping class="br.com.hibernate.entities.ErpInventario"/>
+    <mapping class="br.com.hibernate.entities.ErpInventarioitem"/>
+    <mapping class="br.com.hibernate.entities.ErpItem"/>
+    <mapping class="br.com.hibernate.entities.ErpItemdepara"/>
+    <mapping class="br.com.hibernate.entities.ErpItemordenaarmazem"/>
+    <mapping class="br.com.hibernate.entities.ErpItemxPreco"/>
+    <mapping class="br.com.hibernate.entities.ErpItemxcc"/>
+    <mapping class="br.com.hibernate.entities.ErpItemxexame"/>
+    <mapping class="br.com.hibernate.entities.ErpItemxgrupo"/>
+    <mapping class="br.com.hibernate.entities.ErpItemxprecoold"/>
+    <mapping class="br.com.hibernate.entities.ErpItemxsaldo"/>
+    <mapping class="br.com.hibernate.entities.ErpLote"/>
+    <mapping class="br.com.hibernate.entities.ErpMarcas"/>
+    <mapping class="br.com.hibernate.entities.ErpModuloprodutos"/>
+    <mapping class="br.com.hibernate.entities.ErpOrigem"/>
+    <mapping class="br.com.hibernate.entities.ErpPedido"/>
+    <mapping class="br.com.hibernate.entities.ErpPedidoitem"/>
+    <mapping class="br.com.hibernate.entities.ErpPedidoitemLote"/>
+    <mapping class="br.com.hibernate.entities.ErpPedidoitemmsg"/>
+    <mapping class="br.com.hibernate.entities.ErpPedidoitemtemp"/>
+    <mapping class="br.com.hibernate.entities.ErpPedidotipo"/>
+    <mapping class="br.com.hibernate.entities.ErpPedpredefinido"/>
+    <mapping class="br.com.hibernate.entities.ErpPedpredefinidoxitem"/>
+    <mapping class="br.com.hibernate.entities.ErpPendenciainfo"/>
+    <mapping class="br.com.hibernate.entities.ErpRegional"/>
+    <mapping class="br.com.hibernate.entities.ErpRotas"/>
+    <mapping class="br.com.hibernate.entities.ErpTipoarmazem"/>
+    <mapping class="br.com.hibernate.entities.ErpTipotransporte"/>
+    <mapping class="br.com.hibernate.entities.ErpTransferencia"/>
+    <mapping class="br.com.hibernate.entities.ErpTransferenciaitem"/>
+    <mapping class="br.com.hibernate.entities.ErpTvcie"/>
+    <mapping class="br.com.hibernate.entities.ErpUnidade"/>
+    <mapping class="br.com.hibernate.entities.ErpUsuarioccu"/>
+    <mapping class="br.com.hibernate.entities.ErpUsuariomoduloprodutos"/>
+    <mapping class="br.com.hibernate.entities.ErpUsuautorizaccu"/>
+    <mapping class="br.com.hibernate.entities.ErpUsuautorizacompra"/>
+    <mapping class="br.com.hibernate.entities.ErpUsuonline"/>
+    
+    <mapping class="br.com.hibernate.entities.ErpUsuarioMarcas"/>
+    <mapping class="br.com.hibernate.entities.ErpUsuarioUnidade"/>
+    
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,518 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions" >
+
+
+
+    <h:panelGrid columns="15"   style="padding: 0px ; margin: 0px;"   >
+
+        <h:outputText  styleClass="sinopsetext"  rendered="true"
+                       value="#{msgs['node.selectInputTextConsultaLaudos.label']} "    ></h:outputText>
+        <p:spacer></p:spacer>
+        <p:spacer></p:spacer>
+        <h:outputLabel value="#{msgs['template.choosebadgetype']}:"   style="font-weight: bold;"  />
+        <p:spacer></p:spacer>
+        <p:selectOneMenu id="selectOneMenuSearchType" value="#{consultaLaudoViewBean.strSearchType}" style=" width: 150px;   "   height="110"  >  
+            <p:ajax event="valueChange"  process="@this"  update="@this,panelGroupType"
+                    listener="#{consultaLaudoViewBean.changePageBySearchTypePicListener}"   
+                    /> 
+            <f:selectItems value="#{consultaLaudoViewBean.searchTypeItens}" />  
+        </p:selectOneMenu>     
+
+        <p:spacer></p:spacer>
+        <h:outputText value="#{msgs['node.released']}"  style="font-weight: bold;" />
+        <p:selectBooleanCheckbox value="#{consultaLaudoViewBean.blLiberados}"   id="selectBooleanCheckboxblLiberados" >
+            <p:ajax process="@this"  update="@this" />
+        </p:selectBooleanCheckbox>
+        <p:spacer></p:spacer>
+        <h:outputText value="#{msgs['node.printed']}"  style="font-weight: bold;" />
+        <p:selectBooleanCheckbox value="#{consultaLaudoViewBean.blImpressos}"    id="selectBooleanCheckboxblImpressos"  >
+            <p:ajax process="@this"  update="@this" />
+        </p:selectBooleanCheckbox>
+
+        <p:spacer></p:spacer>
+        <h:outputText value="#{msgs['node.all']}"  style="font-weight: bold;" />
+        <p:selectBooleanCheckbox value="#{consultaLaudoViewBean.blTodos}"   >
+            <p:ajax process="@this"  update="@this,selectBooleanCheckboxblLiberados,selectBooleanCheckboxblImpressos" />
+        </p:selectBooleanCheckbox>
+
+    </h:panelGrid>
+    <h:panelGroup style="width: 99%;"  id="panelGroupType">
+
+        <h:panelGrid columns="17"  id="panelGridCombinado"   rendered="#{consultaLaudoViewBean.blCombinada}"  >
+
+
+
+            <h:outputText     style="font-weight: bold;"    value="#{msgs['node.points']}:"    ></h:outputText>
+            <p:inputText value="#{consultaLaudoViewBean.strOriStCodigo}" size="5"
+                         styleClass="inputupper"   id="inputTextstrOriStCodigo"
+                         valueChangeListener="#{consultaLaudoViewBean.grabOrigem}" 
+                         >
+                <p:ajax process="inputTextstrOriStCodigo" update="outputTextoriStDescricaoResumida,growl" partialSubmit="true" />
+            </p:inputText>
+            <p:commandButton
+                process="@this"
+                rendered="true"
+                style="height: 25px; width: 25px;" 
+                id="commandButtongrabOrigem"
+                icon="ui-icon-search"  
+                onmouseup=" widgetvarconsultalaudoslistlaborigem.show(); "
+                onkeypress="if (event.keyCode == 32  || event.keyCode == 13  ) {  widgetvarconsultalaudoslistlaborigem.show();  return false; }"
+                />
+            <p:panel  style=" width: 180px;  height: 20px;" >
+                <h:outputText  
+                    id="outputTextoriStDescricaoResumida"
+                    value="#{consultaLaudoViewBean.labOrigem.oriStCodigo}  -  #{consultaLaudoViewBean.labOrigem.oriStDescricaoResumida}" 
+                    style="font-weight: bold; font-style: italic;  
+                    height: 15px;
+                    width: 180px;
+                    padding-left: 10px; 
+                    padding-right: 10px;   
+                    color: #000033;   "   />
+            </p:panel>
+
+
+            <h:panelGroup style="width: 400px;">
+                <h:outputText     style="font-weight: bold;"    value="#{msgs['node.sitepoint']}:"    ></h:outputText>
+                <p:inputText value="#{consultaLaudoViewBean.strLocStCodigo}" 
+                             size="5"  styleClass="inputupper"   
+                             id="inputTextstrLocStCodigo"  
+                             valueChangeListener="#{consultaLaudoViewBean.grabLocal}" 
+                             >
+                    <p:ajax  update="outputTextlocStDescricaoResumida,growl" process="@this" partialSubmit="true"/>
+                </p:inputText>
+            </h:panelGroup>
+            <p:commandButton
+                id="commandButtongrabLocal"
+                process="@this"
+                icon="ui-icon-search"  
+                partialSubmit="true"
+                onmouseup=" widgetvarconsultalaudoslistlablocal.show(); "
+                onkeypress="if (event.keyCode == 32 || event.keyCode == 13 ) {  widgetvarconsultalaudoslistlablocal.show();  return false; }"  
+                />
+            <p:panel  style=" width: 180px;  height: 20px;" >
+                <h:outputText  
+                    id="outputTextlocStDescricaoResumida"
+                    value="#{consultaLaudoViewBean.labLocal.locStCodigo}  -  #{consultaLaudoViewBean.labLocal.locStDescricaoResumida}" 
+                    style="font-weight: bold; font-style: italic;  
+                    height: 15px;
+                    width: 180px;
+                    padding-left: 10px; 
+                    padding-right: 10px;   
+                    color: #000033;   "   />
+            </p:panel>
+
+            <h:outputText     style="font-weight: bold;"    value="#{msgs['node.start.date']}:"    ></h:outputText>
+            <p:spacer/>
+            <p:calendar
+                id="dtStart"
+                value="#{consultaLaudoViewBean.dtStart}"
+                timeZone="#{dateSelect.timeZone}"
+                pattern="dd/MM/yyyy "
+                locale="pt"
+                effect="drop"
+                effectDuration="fast" 
+                size="10"
+                >
+                <p:ajax 
+                    event="dateSelect" 
+                    listener="#{consultaLaudoViewBean.validateDateRange}"   
+                    update="growl"
+                    process="dtStart" 
+                    partialSubmit="true"   />  
+            </p:calendar>      
+            <p:spacer/>
+            <h:outputText     style="font-weight: bold;"    value="#{msgs['node.end.date']}:"    ></h:outputText>
+            <p:spacer/>
+            <p:calendar
+                id="dtEnd"
+                value="#{consultaLaudoViewBean.dtEnd}"
+                timeZone="#{dateSelect.timeZone}"
+                pattern="dd/MM/yyyy "
+                locale="pt"
+                styleClass="dateTimeEntryShorter"
+                effect="drop"
+                effectDuration="fast" 
+                size="10" >
+                <p:ajax 
+                    event="dateSelect" 
+                    listener="#{consultaLaudoViewBean.validateDateRange}"   
+                    update="growl"
+                    process="dtEnd" 
+                    partialSubmit="true"   />  
+            </p:calendar>      
+            <p:commandButton action="#{consultaLaudoViewBean.grabListLabRequisicaoBeanCombinado}" 
+                             value="#{msgs['template.search']}"   process="@this"  update="consultalaudoslistlabrequisicaobeandatatable,growl" 
+                             onkeypress="if (event.keyCode == 32 || event.keyCode == 13 ) {  return false; }"/>
+            <p:commandButton action="#{consultaLaudoViewBean.cleanUPEveryThing}" 
+                             value="#{msgs['template.cleanup']}"   process="@this"    update=":tw:formtab00080" 
+                             />
+
+        </h:panelGrid>
+
+        <h:panelGrid columns="7"  rendered="#{consultaLaudoViewBean.blRequisicao_Prontuario}"  >
+
+            <h:outputText     style="font-weight: bold;"    value="#{msgs['node.request']}:"    ></h:outputText>
+            <p:inputText  id="inputtextconsultaLaudoViewBean_strReqStCodigo" value="#{consultaLaudoViewBean.strReqStCodigo}" size="20"  styleClass="inputupper"    
+                          valueChangeListener="#{consultaLaudoViewBean.grabListLabRequisicaoBeanByReq}"  >
+                <p:ajax process="inputtextconsultaLaudoViewBean_strReqStCodigo"  update="consultalaudoslistlabrequisicaobeandatatable,growl"    />
+            </p:inputText>
+            <p:commandButton  value="#{msgs['template.search']}"   
+                              update="consultalaudoslistlabrequisicaobeandatatable,growl"   
+                              action="#{consultaLaudoViewBean.grabListLabRequisicaoBeanByReq}"
+                              onkeypress="if (event.keyCode == 32 || event.keyCode == 13 ) {  return false; }" />
+
+            <h:outputText     style="font-weight: bold;"    value="#{msgs['node.pac.records']}:"    ></h:outputText>
+            <p:inputText id="inputtextconsultaLaudoViewBean_strPacStProntuario"  value="#{consultaLaudoViewBean.strPacStProntuario}" 
+                         size="20" styleClass="inputupper"  
+                         valueChangeListener="#{consultaLaudoViewBean.grabListLabRequisicaoBeanByPacProntuario}"   >
+                <p:ajax process="inputtextconsultaLaudoViewBean_strPacStProntuario" update="consultalaudoslistlabrequisicaobeandatatable,growl" />
+            </p:inputText>
+            <p:commandButton  
+                value="#{msgs['template.search']}"    
+                update="consultalaudoslistlabrequisicaobeandatatable,growl"   
+                action="#{consultaLaudoViewBean.grabListLabRequisicaoBeanByPacProntuario}"   onkeypress="if (event.keyCode == 32 || event.keyCode == 13 ) {  return false; }"/>
+
+            <p:commandButton action="#{consultaLaudoViewBean.cleanUPEveryThing}" 
+                             value="#{msgs['template.cleanup']}"   process="@this"    update=":tw:formtab00080" 
+                             />
+
+        </h:panelGrid>
+
+
+        <h:panelGrid columns="4"  rendered="#{consultaLaudoViewBean.blNome}"  >
+
+            <h:outputText     style="font-weight: bold;"    value="#{msgs['page.tree.employee.name.label']}:"    ></h:outputText>
+            <p:inputText  
+                maxlength="245"
+
+                id="inputext_consultaLaudoViewBean_strNomePaciente" 
+                value="#{consultaLaudoViewBean.strNomePaciente}" size="60"  
+                styleClass="inputupper" 
+                valueChangeListener="#{consultaLaudoViewBean.grabListLabRequisicaoBeanByPacName}"  >
+                <p:ajax process="inputext_consultaLaudoViewBean_strNomePaciente"  update="consultalaudoslistlabrequisicaobeandatatable,growl"    />
+            </p:inputText>
+            <p:commandButton  
+                value="#{msgs['template.search']}"   update="consultalaudoslistlabrequisicaobeandatatable,growl"   
+                action="#{consultaLaudoViewBean.grabListLabRequisicaoBeanByPacName}"  
+                onkeypress="if (event.keyCode == 32 || event.keyCode == 13 ) {  return false; }"    />
+
+            <p:commandButton action="#{consultaLaudoViewBean.cleanUPEveryThing}" 
+                             value="#{msgs['template.cleanup']}"   process="@this"    update=":tw:formtab00080" 
+                             />
+
+        </h:panelGrid>
+
+
+
+    </h:panelGroup>
+
+
+
+    <p:panel style="width: 100%;  padding: 0px; margin: 0px;  vertical-align: center;"  >
+        <f:facet name="header"  >
+            <h:outputLabel   style="font-weight: bold;" value="Lista de Requisições"    />
+        </f:facet>
+        <p:dataTable
+            id="consultalaudoslistlabrequisicaobeandatatable"
+            value="#{consultaLaudoViewBean.listLabRequisicaoBeans}"
+            var="reqbean"
+            rows="10"
+            paginator="true"
+            paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="10,15,20"
+            selectionMode="single"
+            rowKey="#{reqbean}"
+            selection="#{consultaLaudoViewBean.selectedLabRequisicaoBean}"
+            emptyMessage="Lista de Requisição está vazia.........."
+            >  
+
+            <p:ajax event="rowSelect" listener="#{consultaLaudoViewBean.onRowSelect}"   
+                    update=":tw:formtab00080"   oncomplete="widgetvarconsultalaudosselectlabrequisicaobean.show();"   />  
+<!--            <p:ajax event="rowUnselect" listener="#{consultaLaudoViewBean.onRowUnselect}"   update=":tw:formtab00080"  />  -->
+
+            <p:column  id="columnreqbean_labRequisicao_reqStCodigo"  style="width: 100px;  color: red;"  sortBy="#{reqbean.labRequisicao.reqStCodigo}" >
+                <f:facet name="header">
+                    <h:outputText  value="#{msgs['node.request']}"/>
+                </f:facet>
+                #{reqbean.labRequisicao.reqStCodigo}
+            </p:column>
+
+            <p:column  id="columnreqbean_labRequisicao_pacnome"  style="color: blue;"   sortBy="#{reqbean.labRequisicao.pacInCodigo.pacStNome}" >
+                <f:facet name="header">
+                    <h:outputText  value="Paciente"/>
+                </f:facet>
+                #{reqbean.labRequisicao.pacInCodigo.pacStNome}
+            </p:column>
+
+            <p:column  id="columnreqbean_labRequisicao_pacsexo"   style="width: 5px;  color: blue;"  sortBy="#{reqbean.labRequisicao.pacInCodigo.pacStSexo}" >
+                <f:facet name="header">
+                    <h:outputText  value="#{msgs['node.sex']}"  style="color: black;" />
+                </f:facet>
+                #{reqbean.labRequisicao.pacInCodigo.pacStSexo}
+            </p:column>
+
+            <p:column  id="columnreqbean_labRequisicao_datacadastro"   style="width: 20px;"  sortBy="#{reqbean.labRequisicao.reqDtCadastro}"  >
+                <f:facet name="header">
+                    <h:outputText  value=" DT. #{msgs['node.registerMenu']}"/>
+                </f:facet>
+                <h:outputLabel value="#{reqbean.labRequisicao.reqDtCadastro}" style="color: blue;"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputLabel>
+            </p:column>
+
+            <p:column  id="columnreqbean_labRequisicao_datacadastrohr"   style="width: 20px;"  sortBy="#{reqbean.labRequisicao.reqHrCadastro}"  >
+                <f:facet name="header">
+                    <h:outputText  value=" HR. #{msgs['node.registerMenu']}"/>
+                </f:facet>
+                <h:outputLabel value="#{reqbean.labRequisicao.reqHrCadastro}" style="color: blue;"><f:convertDateTime pattern="HH:mm:ss" /></h:outputLabel>
+            </p:column>
+            <p:column  id="columnreqbean_labRequisicao_idade"  style="width: 5px;  color: blue;"    sortBy="#{reqbean.labRequisicao.pacInCodigo.pacInIdade}" >
+                <f:facet name="header">
+                    <h:outputText   value="#{msgs['node.age']}"  style="color: black;" />
+                </f:facet>
+                #{reqbean.labRequisicao.pacInCodigo.pacInIdade}
+            </p:column>
+
+            <p:column  id="columnreqbean_labRequisicao_flag"  style="width: 5px;  color: red;"    sortBy="#{reqbean.labRequisicao.regInFlag}" >
+                <f:facet name="header">
+                    Flag
+                </f:facet>
+                #{reqbean.labRequisicao.regInFlag}
+            </p:column>
+
+
+        </p:dataTable>
+    </p:panel>
+
+
+    <p:dialog 
+        id="consultalaudoslistlaborigem" header="#{msgs['node.choose.point']}     (#{portalViewBean.labUnidade.uniStCodigo}) - #{portalViewBean.labUnidade.uniStDescricao} "
+        widgetVar="widgetvarconsultalaudoslistlaborigem" 
+        modal="false" 
+        height="420"  
+        hideEffect="fade"   
+        showEffect="fade"    
+        draggable="true"     
+        maximizable="false" 
+        dynamic="true"
+        >  
+
+        <p:dataTable
+            id="consultalaudoslistlaborigemdatatable"
+            value="#{consultaLaudoViewBean.listLabOrigem}"
+            var="ori"
+            styleClass="novoEstiloHighlight"
+            style="margin: 0px;"
+            scrollHeight="400"
+            rows="15"
+            paginator="true"
+            paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="5,10,15">  
+
+            <p:column  id="rowData1ex_oristcodigo" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 70px;">
+                        <h:outputText  value="#{msgs['template.code']}"/>
+                    </h:panelGroup>
+                </f:facet>
+
+                <p:commandLink    onclick="widgetvarconsultalaudoslistlaborigem.hide();"   style=" color: red;"  
+                                  actionListener="#{consultaLaudoViewBean.grabLabOrigemFromList}" 
+                                  value="#{ori.oriStCodigo}"   
+                                  update=":tw:formtab00080"    >
+                    <f:param name="consultalaudolistlaborigemparam"  value="#{ori.oriStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData1ex_oristdescricao" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 195px;">
+                        <h:outputText    value="#{msgs['tabbedHeadings.description']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink  onclick="widgetvarconsultalaudoslistlaborigem.hide();"   
+                                style="  color: blue;"   
+                                actionListener="#{consultaLaudoViewBean.grabLabOrigemFromList}" 
+                                value="#{ori.oriStDescricao}"  update=":tw:formtab00080"   >
+                    <f:param name="consultalaudolistlaborigemparam"  value="#{ori.oriStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+        </p:dataTable>
+
+    </p:dialog>  
+
+    <p:dialog 
+        id="consultalaudoslistlablocal" header="#{msgs['node.choose.sitepoint']}"
+        widgetVar="widgetvarconsultalaudoslistlablocal" 
+        modal="false" 
+        height="420"  
+        hideEffect="fade"   
+        showEffect="fade"    
+        draggable="true"     
+        maximizable="false"     >  
+
+        <p:dataTable
+            id="consultalaudoslistlablocaldatatable"
+            value="#{consultaLaudoViewBean.listLabLocal}"
+            var="loc"
+            styleClass="novoEstiloHighlight"
+            style="margin: 0px;"
+            scrollHeight="400"
+            rows="15"
+            paginator="true"
+            paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="5,10,15">  
+
+            <p:column  id="rowData1ex_locstcodigo" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 70px;">
+                        <h:outputText  value="#{msgs['template.code']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink  style="  color: red;"  
+                                actionListener="#{consultaLaudoViewBean.grabLabLocalFromList}" 
+                                value="#{loc.locStCodigo}"   onclick="widgetvarconsultalaudoslistlablocal.hide();" update=":tw:formtab00080"   >
+                    <f:param name="consultalaudolistlablocalparam"  value="#{loc.locStCodigo}"   />
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData1ex_locstdescricao" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 195px;">
+                        <h:outputText    value="#{msgs['tabbedHeadings.description']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink  style="  color: blue;"   actionListener="#{consultaLaudoViewBean.grabLabLocalFromList}" value="#{loc.locStDescricao}"  onclick="widgetvarconsultalaudoslistlablocal.hide();" update=":tw:formtab00080"    >
+                    <f:param name="consultalaudolistlablocalparam"  value="#{loc.locStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+        </p:dataTable>
+
+    </p:dialog>  
+
+    <p:dialog 
+        id="consultalaudosselectlabrequisicaobean" 
+        widgetVar="widgetvarconsultalaudosselectlabrequisicaobean" 
+        modal="false" 
+        width="900"
+        minHeight="300"
+        hideEffect="fade"   
+        showEffect="fade"    
+        draggable="true"     
+        maximizable="false" 
+        >  
+
+        <f:facet name="header">
+            <h:panelGrid columns="12">
+
+                <h:outputLabel value="Paciente :"  style="color: #99FFFF;" />
+                <h:outputLabel value=" #{consultaLaudoViewBean.selectedLabRequisicaoBean.labRequisicao.pacInCodigo.pacStNome}"  style="color: beige;" />
+                <p:spacer width="10"/>
+                <h:outputLabel value="Unidade :"  style="color: #99FFFF;"/>
+                <h:outputLabel value=" #{consultaLaudoViewBean.selectedLabRequisicaoBean.labRequisicao.uniStCodigo}"  style="color: beige;" />
+                <p:spacer width="10"/>
+                <h:outputLabel value="Requisição Selecionada :"  style="color: #99FFFF;"/>
+                <h:outputLabel value=" #{consultaLaudoViewBean.selectedLabRequisicaoBean.labRequisicao.reqInCodigo}"  style="color: beige;"  />
+                
+
+            </h:panelGrid>                        
+        </f:facet>
+
+<!--        <f:facet name="footer">
+            <p:lightBox iframe="true"   >   
+                    <h:outputLink value="http://www.primefaces.org" title="Laudo"  style="width: 900px;"  >  
+                        <p:commandButton icon="ui-icon-print" />
+                    </h:outputLink>  
+                </p:lightBox>  
+        </f:facet>-->
+
+
+        <p:dataTable 
+            id="consultaLaudoViewBeanresultados" 
+            var="derbean"
+            value="#{consultaLaudoViewBean.selectedLabRequisicaoBean.listLabDetalheRequisicaoBeans}"
+            >  
+
+            <p:ajax event="rowToggle" update="@this" />  
+
+            <p:column style="width:4%">  
+                <p:rowToggler />  
+            </p:column>  
+
+            <p:column style="width:48%">  
+                <f:facet name="header">  
+                    #{msgs['node.exames_parameters']}
+                </f:facet>  
+                <h:outputText value="#{derbean.labDetalheRequisicao.exaStCodigo} - #{derbean.labExame.exaStDescricao}" />  
+            </p:column>  
+
+            <!--                                                    <p:column style="width:48%">  
+                                                                    <f:facet name="header">  
+            #{msgs['node.results']}
+        </f:facet>  
+        <h:outputText value="#{derbean.labDetalheRequisicao.exaStCodigo}" />  
+    </p:column>  -->
+
+            <p:column  >  
+                <f:facet name="header">  
+                    #{msgs['node.status.calc']}
+                </f:facet>  
+                <h:outputText value="#{derbean.statusCalculado}" />  
+            </p:column>  
+
+            <p:column  >  
+                <f:facet name="header">  
+                    #{msgs['template.unit']}
+                </f:facet>  
+                <h:outputText value="#{derbean.labDetalheRequisicao.uniStCodigo}" />  
+            </p:column>  
+
+            <p:column  >  
+                <f:facet name="header">  
+                    Flag
+                </f:facet>  
+                <h:outputText value="#{derbean.flagCount}" />  
+            </p:column>  
+
+            <p:column  >  
+                <f:facet name="header">  
+                    #{msgs['node.omits']}
+                </f:facet>  
+                <h:outputText value="#{derbean.labDetalheRequisicao.derChOmiteCad}" />  
+            </p:column>  
+
+            <p:rowExpansion>  
+                <p:dataGrid value="#{derbean.listLabResultadoBean}"  var="resultadosBean" rows="1"  style="width: 100%;  border: none;  padding: 0px; margin: 0px;" >
+                    <h:panelGrid columns="2"  style="width: 100%;  border: none;  padding: 0px; margin: 0px; "  >
+                        <h:outputLabel value="#{msgs['node.results']}" />
+                        <h:outputLabel value="#{resultadosBean.labResultado.resStResultado}" />
+                        <h:outputLabel value="Ingresso" />
+                        <h:outputLabel value="#{resultadosBean.labResultado.resStIngresso}" />
+                        <h:outputLabel value="Flag" />
+                        <h:outputLabel value="#{resultadosBean.labResultado.resStFlag}" />
+                        <h:outputLabel value="Comentario" />
+                        <h:outputLabel value="#{resultadosBean.labResultado.resStComentario}" />
+
+                        <h:outputLabel value="Calculo" />
+                        <h:outputLabel value="#{derbean.statusCalculado}" />
+
+
+                    </h:panelGrid>
+                </p:dataGrid>
+            </p:rowExpansion>  
+        </p:dataTable>  
+
+    </p:dialog>  
+
+
+
+</ui:composition>

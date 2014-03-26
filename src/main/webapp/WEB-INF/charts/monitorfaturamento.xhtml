@@ -1,0 +1,323 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    >
+
+
+
+      
+        <h:panelGrid columns="21"     >
+            <h:outputLabel value="#{msgs['node.biling.monitor']}"   styleClass="sinopsetext" />
+            <h:panelGroup style="width: 1px;" />
+            <h:outputLabel value="#{msgs['node.cumulative']}"  style="color: red;" />
+            <h:outputLabel value="ON" style="font-weight: bold; color: blue;" />
+            <h:inputText value="#{monitorDeFaturamentoViewBean.sliderValueAcumulativo}"   id="outputtextsliderValueAcumulativo"   style="display: none;" />
+            <p:slider for="outputtextsliderValueAcumulativo"   style="width: 50px;"   step="100"   >  
+                <p:ajax event="slideEnd"    listener="#{monitorDeFaturamentoViewBean.onSlideEndAcumulativo}" update="growl,chartPacientes,chartExames,chartValor" />  
+            </p:slider>  
+            <h:panelGroup style="width: 1px;" />
+            <h:outputLabel value="OFF"  style="font-weight: bold; color: red;"  />
+
+            <h:panelGroup style="width: 1px;" />
+
+
+            <h:outputLabel value="#{msgs['node.unified']}"  style="color: red;" />
+            <h:outputLabel value="ON" style="font-weight: bold; color: blue;" />
+            <h:inputText value="#{monitorDeFaturamentoViewBean.sliderValueUnificado}"   id="outputtextsliderValueUnificado"   style="display: none;" />
+            <p:slider for="outputtextsliderValueUnificado"   style="width: 50px;"   step="100"   >  
+                <p:ajax event="slideEnd"       listener="#{monitorDeFaturamentoViewBean.onSlideEndUnificado}" update="growl,chartPacientes,chartExames,chartValor" />  
+            </p:slider>  
+            <h:panelGroup style="width: 1px;" />
+            <h:outputLabel value="OFF"  style="font-weight: bold; color: red;"  />
+
+            <h:panelGroup style="width: 5px;" />
+
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.base.date']} : "  />
+
+            <p:calendar id="cal"
+                        value="#{monitorDeFaturamentoViewBean.dtBase}"
+                        timeZone="#{dateSelect.timeZone}"
+                        pattern="dd/MM/yyyy "
+                        locale="#{localeBean.usedLocale}" 
+                        effect="drop"
+                        effectDuration="fast"
+                        styleClass="dateTimeEntryShorter"
+                        size="10"
+                        >
+
+                <p:ajax event="dateSelect" 
+                        process="@this "   partialSubmit="true"  />    
+
+            </p:calendar>
+
+            <h:panelGroup style="width: 5px;" />
+            <h:outputLabel value="Info:"  style="color: red;  font-weight: bold; font-size: 14px; "   rendered="false" />
+            <h:outputText value="#{monitorDeFaturamentoViewBean.strChartMsg}"  style="color: blue;  font-weight: bold;"   rendered="false" />
+
+        </h:panelGrid>
+
+        <h:panelGrid columns="2"  style="width: 100%; height: 38px; border: 1px solid #DBDBDB;  padding: 0px; margin: 0px;   background-color: #f5f5f5;   text-align:  left; " >
+
+            <h:panelGrid columns="6" style="width: 150px;">
+                <p:commandButton  
+                    id="btnbuildByDay"      
+                    action="#{monitorDeFaturamentoViewBean.buildByDay}"    
+                    process="@this" 
+                    partialSubmit="true"   
+                    style="padding: 0px;   margin: 0px;"  
+                    value="1D"  
+                    update="growl,chartPacientes,chartExames,chartValor" >
+                    <p:tooltip for="btnbuildByDay"
+                               showEffect="slide"
+                               >
+
+                        <h:panelGrid styleClass="tooltipBoxStyle"  style="width: 400px;  " > 
+                            <h:outputText value="#{msgs['node.graph.by.day']}"/>
+                        </h:panelGrid>
+                    </p:tooltip>
+
+                </p:commandButton>
+
+
+                <p:commandButton   rendered="true"   id="btnbuildByWeek"    action="#{monitorDeFaturamentoViewBean.buildByWeek}"   process="@this" partialSubmit="true"   style="padding: 0px;   margin: 0px;"  value="1S"   update="growl,chartPacientes,chartExames,chartValor"  >
+                    <p:tooltip for="btnbuildByWeek"
+                               showEffect="slide"
+                               >
+
+                        <h:panelGrid styleClass="tooltipBoxStyle"  style="width: 400px;  " > 
+                            <h:outputText value="#{msgs['node.graph.by.week']}"/>
+                        </h:panelGrid>
+                    </p:tooltip>
+                </p:commandButton>
+
+
+                <p:commandButton    rendered="true"   id="btnbuildByMonth"  value="1M"      action="#{monitorDeFaturamentoViewBean.buildByMonth}"   process="@this" partialSubmit="true"  style="padding: 0px;   margin: 0px;"   update="growl,chartPacientes,chartExames,chartValor"  >
+                    <p:tooltip for="btnbuildByMonth"
+                               showEffect="slide"
+                               >
+
+                        <h:panelGrid styleClass="tooltipBoxStyle"  style="width: 400px;  " > 
+                            <h:outputText value="#{msgs['node.graph.by.month']}"/>
+                        </h:panelGrid>
+                    </p:tooltip>
+                </p:commandButton>
+
+
+                <p:commandButton    rendered="false"  id="btnbuildByQuarter"  value="3M"       action="#{monitorDeFaturamentoViewBean.buildByQuarter}"  process="@this" partialSubmit="true"  style="padding: 0px;   margin: 0px;"  update="growl,chartPacientes,chartExames,chartValor"  >
+                    <p:tooltip for="btnbuildByQuarter"
+                               showEffect="slide"
+                               >
+
+                        <h:panelGrid styleClass="tooltipBoxStyle"  style="width: 400px;  " > 
+                            <h:outputText value="#{msgs['node.graph.by.quarter']}"/>
+                        </h:panelGrid>
+                    </p:tooltip>
+                </p:commandButton>
+
+
+                <p:commandButton    rendered="true"  id="btnbuildBySemester"    value="6M"      action="#{monitorDeFaturamentoViewBean.buildBySemeter}"    process="@this" partialSubmit="true"  style="padding: 0px;   margin: 0px;"   update="growl,chartPacientes,chartExames,chartValor"  >
+                    <p:tooltip for="btnbuildBySemester"
+                               showEffect="slide"
+                               >
+                        <h:panelGrid styleClass="tooltipBoxStyle"  style="width: 400px;  " > 
+                            <h:outputText value="#{msgs['node.graph.by.semester']}"/>
+                        </h:panelGrid>
+                    </p:tooltip>
+                </p:commandButton>
+
+
+                <p:commandButton   rendered="true"   id="btnbuildByYear"    value="1A"     action="#{monitorDeFaturamentoViewBean.buildByYear}"   process="@this" partialSubmit="true"   style="padding: 0px;   margin: 0px;"   update="growl,chartPacientes,chartExames,chartValor"  >
+                    <p:tooltip for="btnbuildByYear"
+                               showEffect="slide"
+                               >
+
+                        <h:panelGrid styleClass="tooltipBoxStyle"  style="width: 400px;  " > 
+                            <h:outputText value="#{msgs['node.graph.by.year']}"/>
+                        </h:panelGrid>
+                    </p:tooltip>
+                </p:commandButton>
+
+
+
+
+
+            </h:panelGrid>
+
+            <p:commandButton   value="#{msgs['node.add.units']}"     id="btnopenPopUnidade"     onmouseup="widgetvarportalviewpoplistlabunidades.show();" />
+
+            <p:tooltip for="btnopenPopUnidade"
+                       showEffect="slide"
+                       >
+
+                <h:panelGrid styleClass="tooltipBoxStyle"  style="width: 200px;  " > 
+                    <h:outputText value="#{msgs['node.add.units']}"/>
+                </h:panelGrid>
+            </p:tooltip>
+
+        </h:panelGrid>
+
+
+        <h:panelGrid columns="1">
+
+            
+            <h:panelGrid columns="2"   id="panelGridchartPacientes"  >
+                <p:lineChart 
+                    id="chartPacientes" 
+                              legendPosition="nw" 
+                              legendCols="60"
+                              minY="0"
+                              maxY="#{monitorDeFaturamentoViewBean.strYMaxPacientes}" 
+                              value="#{monitorDeFaturamentoViewBean.axisChartPacientes}"
+                              style="  height: #{monitorDeFaturamentoViewBean.intHeightChart}px;  width: #{monitorDeFaturamentoViewBean.intWidthChart}px; "
+                              title="Pacientes"  
+                              shadow="true"
+                              animate="true"
+                              showMarkers="true"
+                              fill="false"
+                              showDatatip="true"
+                              datatipFormat="#{monitorDeFaturamentoViewBean.datatipFormatIntegers}"
+                              />
+                                  
+                <h:panelGrid columns="1">
+                    
+                    <h:commandButton   action="#{monitorDeFaturamentoViewBean.zoomChartPaciente}"   image="design/zoom_img_25x25.jpg" >
+                        <p:ajax    update="dialogchartPacientesZoom" process="@this"    />
+                    </h:commandButton>
+                    
+                </h:panelGrid>
+            </h:panelGrid>
+
+            
+            <h:panelGrid columns="2" rendered="#{monitorDeFaturamentoViewBean.blChartRenderedExame}"  id="panelGridchartExame"    >
+            <p:lineChart id="chartExames"
+                         legendPosition="nw" 
+                         legendCols="60"
+                         minY="0" maxY="#{monitorDeFaturamentoViewBean.strYMaxExames}" 
+                         value="#{monitorDeFaturamentoViewBean.axisChartExames}"
+                         style=" height: #{monitorDeFaturamentoViewBean.intHeightChart}px;  width: #{monitorDeFaturamentoViewBean.intWidthChart}px;  "
+                         title="Exames" 
+                         widgetVar="widgetVarchartExames"
+                         shadow="true"
+                         animate="true"
+                         datatipFormat="#{monitorDeFaturamentoViewBean.datatipFormatIntegers}"
+                         />
+            
+                <h:panelGrid columns="1">
+                    
+                    <h:commandButton   action="#{monitorDeFaturamentoViewBean.zoomChartExame}"   image="design/zoom_img_25x25.jpg" >
+                        <p:ajax    update="monitorfaturamentopoplistpopexames" process="@this"  />
+                    </h:commandButton>
+                    
+                </h:panelGrid>
+            </h:panelGrid>
+
+            <h:panelGrid columns="2" rendered="#{monitorDeFaturamentoViewBean.blChartRenderedValor}"  id="panelGridchartValor" >
+            <p:lineChart id="chartValor"
+                         legendPosition="nw" 
+                          legendCols="60"
+                         minY="0" maxY="#{monitorDeFaturamentoViewBean.strYMaxValor}" 
+                         value="#{monitorDeFaturamentoViewBean.axisChartValor}"
+                         style=" height: #{monitorDeFaturamentoViewBean.intHeightChart}px;  width: #{monitorDeFaturamentoViewBean.intWidthChart}px; "
+                         title="Valores"    
+                         widgetVar="widgetVarchartValor"
+                         shadow="true"
+                         animate="true"
+                         datatipFormat="#{monitorDeFaturamentoViewBean.datatipFormatDoubles}"
+                         />
+                <h:panelGrid columns="1">
+                    <h:commandButton   action="#{monitorDeFaturamentoViewBean.zoomChartValor}"   image="design/zoom_img_25x25.jpg" >
+                        <p:ajax    update="monitorfaturamentopoplistpopvalor"    process="@this"   partialSubmit="true" />
+                    </h:commandButton>
+                </h:panelGrid>
+            </h:panelGrid>
+
+        </h:panelGrid>
+
+  
+
+        <p:dialog
+                    dynamic="true" 
+                   id="dialogchartPacientesZoom" 
+                   header="Pacientes" 
+                   widgetVar="widgetvardialogchartPacientesZoom" 
+                  modal="false" 
+                  height="480"  
+                  hideEffect="fade"   
+                  showEffect="fade"
+                  draggable="true"  >
+
+            <p:lineChart  id="chartPacientesZoom" 
+                              legendPosition="nw" 
+                              legendCols="60"
+                              minY="0" maxY="#{monitorDeFaturamentoViewBean.strYMaxPacientes}" 
+                              value="#{monitorDeFaturamentoViewBean.axisChartPacientes}"
+                              style="  height: #{monitorDeFaturamentoViewBean.intHeightChartZoom}px;  width: #{monitorDeFaturamentoViewBean.intWidthChartZoom}px; "
+                              widgetVar="widgetVarchartPacientes"
+                              shadow="true"
+                              zoom="true"
+                              animate="true"
+                              datatipFormat="#{monitorDeFaturamentoViewBean.datatipFormatIntegers}"
+                              />
+
+
+        </p:dialog>  
+
+    <p:dialog dynamic="true" 
+              id="monitorfaturamentopoplistpopexames" 
+              header="Exames" 
+              widgetVar="widgetvarmonitorfaturamentopoplistpopexame" 
+              modal="false" height="480"  hideEffect="fade"   
+              showEffect="fade"    
+              draggable="true"      >
+        <p:lineChart id="chartExamesZoom"
+                     legendPosition="nw" 
+                     legendCols="60"
+                     minY="0" maxY="#{monitorDeFaturamentoViewBean.strYMaxExames}" 
+                     value="#{monitorDeFaturamentoViewBean.axisChartExames}"
+                     style=" height: #{monitorDeFaturamentoViewBean.intHeightChartZoom}px;   width: #{monitorDeFaturamentoViewBean.intWidthChartZoom}px;  "  
+                     shadow="true"
+                     zoom="true"
+                     animate="true"
+                     datatipFormat="#{monitorDeFaturamentoViewBean.datatipFormatIntegers}"
+                     />
+    </p:dialog>  
+
+        <p:dialog  dynamic="true" 
+            id="monitorfaturamentopoplistpopvalor" header="Valores" widgetVar="widgetvarmonitorfaturamentopoplistpopvalor" 
+                  modal="false" height="480"  hideEffect="fade"   
+                  showEffect="fade"    draggable="true"       >
+
+            <p:lineChart id="chartValorZoom"
+                         legendPosition="nw" 
+                          legendCols="60"
+                         minY="0" maxY="#{monitorDeFaturamentoViewBean.strYMaxValor}" 
+                         value="#{monitorDeFaturamentoViewBean.axisChartValor}"
+                         style=" height: #{monitorDeFaturamentoViewBean.intHeightChartZoom}px;  width: #{monitorDeFaturamentoViewBean.intWidthChartZoom}px; "      
+                         shadow="true"
+                         zoom="true"
+                         animate="true"
+                         datatipFormat="#{monitorDeFaturamentoViewBean.datatipFormatDoubles}"
+                         />
+        </p:dialog>  
+
+
+<p:focus for="cal" />
+
+
+
+<!--<script type="text/javascript">  
+    function handleLoginRequest(xhr, status, args) {  
+        jQuery('#chartPacientes').effect("shake", { times:3 }, 100);  
+        jQuery('#loginLink').fadeOut();  
+        chartPacientesZoom.show();
+    }  
+</script>  -->
+
+
+
+</ui:composition>

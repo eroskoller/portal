@@ -1,0 +1,91 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions" >  
+
+
+    <h:panelGrid columns="2"   >
+
+        <p:panel style="width: 150px;"  >
+            <f:facet name="header">
+                <h:outputLabel   style="font-weight: bold;" value="Clientes"   for="selectManyMenuClientes"  />
+            </f:facet>
+
+            <p:selectManyMenu value="#{erpFaturamentoClientesViewBean.listClienteBancoSelected}"  
+                              converter="clientebancoconverter" style="height:150px; width: 125px;"  id="selectManyMenuClientes"   widgetVar="widgetwarselectManyMenuClientes"  >  
+                <p:ajax    update="growl"   />
+                <f:selectItems value="#{erpFaturamentoClientesViewBean.listClienteBancoItems}"  
+                               var="cb" itemLabel="(#{cb.codigo})    #{cb.label}"  
+                               itemValue="#{cb}"    />  
+            </p:selectManyMenu> 
+        </p:panel>
+
+        <h:panelGrid >
+
+            <h:panelGrid columns="6"  style="width: 100%;" >
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.start.date']}"  for="dtStartErpRelatorioGeral"   rendered="#{!erpEstatisticaGeralViewBean.blValidade}" />
+                <p:calendar
+                    rendered="#{!erpEstatisticaGeralViewBean.blValidade}"
+                    id="dtStartErpRelatorioGeral"
+                    value="#{erpEstatisticaGeralViewBean.dtStart}"
+                    timeZone="#{dateSelect.timeZone}"
+                    pattern="dd/MM/yyyy "
+                    locale="pt"
+                    effect="puff"
+                    effectDuration="fast"   >
+                    <p:ajax  process="@this"  partialSubmit="true"  
+                             event="dateSelect" listener="#{erpEstatisticaGeralViewBean.validateDateRange}"   update="growl"  />  
+                </p:calendar>      
+                <p:spacer />
+                <h:outputLabel  style="font-weight: bold;"  value="#{msgs['node.end.date']}"  for="dtEndErpRelatorioGeral"  rendered="#{!erpEstatisticaGeralViewBean.blValidade}"  />
+                <p:calendar
+                    rendered="#{!erpEstatisticaGeralViewBean.blValidade}"
+                    id="dtEndErpRelatorioGeral"
+                    value="#{erpEstatisticaGeralViewBean.dtEnd}"
+                    timeZone="#{dateSelect.timeZone}"
+                    pattern="dd/MM/yyyy "
+                    locale="pt"
+                    styleClass="dateTimeEntryShorter"
+                    effect="puff"
+                    effectDuration="fast" >
+                    <p:ajax  process="@this"  partialSubmit="true"  event="dateSelect" listener="#{erpEstatisticaGeralViewBean.validateDateRange}"   update="growl"  />  
+                </p:calendar>      
+
+            </h:panelGrid>
+
+            <h:panelGrid columns="3"   >
+
+                <p:selectOneMenu id="selectOneMenuFileFormats" value="#{erpEstatisticaGeralViewBean.strJasperFormat}" style=" width: 50px;"  >  
+                    <f:selectItems value="#{arrayitems.jasperFormatstens}" />  
+                </p:selectOneMenu>  
+                <p:commandButton  
+                    style="width: 120px;"
+                    onclick="widgetvarpollcounterRelStorage.start()" 
+                    value="#{msgs['node.generate.report']}"  
+                    process="@this,selectOneMenuFileFormats"
+                    partialSubmit="true"
+                    update=":formfooter,growl"
+                    actionListener="#{erpEstatisticaGeralViewBean.makeErpRelatorioGeral}"   /> 
+                <p:commandButton value="#{msgs['template.cleanup']}"  
+                                 actionListener="#{erpEstatisticaGeralViewBean.cleanUpEveryThing}"  
+                                 update="growl"   
+                                 process="@this" 
+                                 partialSubmit="true"
+                                 />
+
+            </h:panelGrid>
+
+
+        </h:panelGrid>
+
+    </h:panelGrid>
+
+
+
+
+
+</ui:composition>

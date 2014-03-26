@@ -1,0 +1,272 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions" >
+    
+
+        
+    <h:panelGrid columns="16"   >
+        <h:outputText  styleClass="sinopsetext"  rendered="true"
+                       value="#{msgs['node.auditing']} "    ></h:outputText>
+        <p:spacer></p:spacer>
+        <p:spacer></p:spacer>
+        <h:outputLabel value="#{msgs['template.choosebadgetype']}:"   style="font-weight: bold;"  />
+        <p:spacer></p:spacer>
+        <p:selectOneMenu id="selectOneMenuSearchType" value="#{auditoriaViewBean.strSearchType}" style=" width: 150px;   "   height="60"  >  
+            <p:ajax event="valueChange"  process="@this"  update="@this,panelGroupType"
+                    listener="#{auditoriaViewBean.changePageBySearchTypePicListener}"   
+                    /> 
+            <f:selectItems value="#{auditoriaViewBean.searchTypeItens}" />  
+        </p:selectOneMenu>     
+
+        <p:spacer></p:spacer>
+        <p:spacer></p:spacer>
+        
+        <h:outputLabel value="#{msgs['node.all']}"  style="font-weight: bold;" />
+        <p:selectBooleanCheckbox value="#{auditoriaViewBean.blTodos}"  id="selectBooleanCheckboxblTodos" >
+            <p:ajax process="@this"   update="selectBooleanCheckboxblTodos,selectBooleanCheckboxblPendentes,selectBooleanCheckboxblVerificados"  />
+        </p:selectBooleanCheckbox>
+        <p:spacer></p:spacer>
+        <h:outputLabel value="#{msgs['node.pending']}"  style="font-weight: bold;" />
+        <p:selectBooleanCheckbox value="#{auditoriaViewBean.blPendentes}"  id="selectBooleanCheckboxblPendentes" >
+            <p:ajax process="@this"  update="selectBooleanCheckboxblTodos,selectBooleanCheckboxblPendentes,selectBooleanCheckboxblVerificados"  />
+        </p:selectBooleanCheckbox>
+        
+        <p:spacer></p:spacer>
+        <h:outputLabel value="#{msgs['node.verified']}"  style="font-weight: bold;" />
+        <p:selectBooleanCheckbox value="#{auditoriaViewBean.blVerificados}"   id="selectBooleanCheckboxblVerificados" >
+            <p:ajax process="@this"  update="selectBooleanCheckboxblTodos,selectBooleanCheckboxblPendentes,selectBooleanCheckboxblVerificados"  />
+        </p:selectBooleanCheckbox>
+        
+    </h:panelGrid>
+    
+    <h:panelGroup id="panelGroupType">
+        
+        <h:panelGrid columns="11"  rendered="#{auditoriaViewBean.blCombinada}" >
+            <h:outputLabel value="#{msgs['node.system']}" style="font-weight: bold;"  />
+            <p:selectOneMenu id="selectOneMenuSistema" value="#{auditoriaViewBean.sisStCodigo}" style=" width: 150px;   "   height="120"  >  
+            <p:ajax event="valueChange"  process="@this"  update="@this"  /> 
+            <f:selectItems value="#{auditoriaViewBean.sistemaItens}" />  
+        </p:selectOneMenu>     
+            
+            <h:outputText     style="font-weight: bold;"    value="#{msgs['node.start.date']}:"    ></h:outputText>
+            <p:spacer/>
+            <p:calendar
+                id="dtStart"
+                value="#{auditoriaViewBean.dtStart}"
+                timeZone="#{dateSelect.timeZone}"
+                pattern="dd/MM/yyyy  HH:mm"
+                locale="pt_BR"
+                effect="drop"
+                effectDuration="fast" 
+                size="15"
+                >
+                <p:ajax 
+                    event="dateSelect" 
+                    listener="#{auditoriaViewBean.validateDateRange}"   
+                    update="growl"
+                    process="dtStart" 
+                    partialSubmit="true"   />  
+            </p:calendar>      
+            <p:spacer/>
+            <h:outputText     style="font-weight: bold;"    value="#{msgs['node.end.date']}:"    ></h:outputText>
+            <p:spacer/>
+            <p:calendar
+                id="dtEnd"
+                value="#{auditoriaViewBean.dtEnd}"
+                timeZone="#{dateSelect.timeZone}"
+                pattern="dd/MM/yyyy  HH:mm"
+                locale="pt_BR"
+                styleClass="dateTimeEntryShorter"
+                effect="drop"
+                effectDuration="fast" 
+                 size="15" >
+                <p:ajax 
+                    event="dateSelect" 
+                    listener="#{auditoriaViewBean.validateDateRange}"   
+                    update="growl"
+                    process="dtEnd" 
+                    partialSubmit="true"   />  
+            </p:calendar>      
+            
+
+            
+        </h:panelGrid>
+        <h:panelGrid columns="6"  rendered="#{auditoriaViewBean.blCombinada}" >
+            <h:outputLabel value="Mensagem" />
+            <p:inputText value="#{auditoriaViewBean.strMsg}"  size="40"   style="font-weight: bold;"  />
+            
+          <h:outputLabel value="#{msgs['node.error.cod']}" style="font-weight: bold;"  />
+          <p:selectOneMenu id="selectOneMenuErrors" value="#{auditoriaViewBean.errInCodigo}"   height="210"   >  
+            <p:ajax event="valueChange"  process="@this"  update="@this"  /> 
+            <f:selectItems value="#{auditoriaViewBean.errosItens}" />  
+        </p:selectOneMenu>     
+            
+          <p:commandButton value="#{msgs['template.search']}"   action="#{auditoriaViewBean.grabListErrosByDate}"   update="auditorialisterrors,growl" />
+          <p:commandButton value="#{msgs['template.cleanup']}"  action="#{auditoriaViewBean.cleanUpEveryThing}"  update=":tw:formtab00153"  />
+        </h:panelGrid>
+        
+        
+        <h:panelGrid columns="7"  rendered="#{auditoriaViewBean.blRequisicao}" >
+            <h:outputLabel value="#{msgs['node.request']}"  style="font-weight: bold;" />
+            <p:inputText size="30"  
+                         value="#{auditoriaViewBean.strReqStCodigo}"  
+                         valueChangeListener="#{auditoriaViewBean.grabListErrosByReqByValueChange}"  
+                         id="inputtextauditoriaViewBean_strReqStCodigo"
+                          >
+                <p:ajax process="inputtextauditoriaViewBean_strReqStCodigo"  update="auditorialisterrors"  partialSubmit="true" />
+            </p:inputText>
+            <p:commandButton  
+                process="@this,inputtextauditoriaViewBean_strReqStCodigo" 
+                value="#{msgs['template.search']}"   action="#{auditoriaViewBean.grabListErrosByReq}" 
+                update="auditorialisterrors"
+                 onkeypress="if (event.keyCode == 32 || event.keyCode == 13 ) {  return false; }" />
+            
+            <h:outputLabel value="#{msgs['node.requestor']}"  style="font-weight: bold;" />
+            <p:inputText size="30"  
+                         value="#{auditoriaViewBean.strReqStCodigoAlt}"   
+                         valueChangeListener="#{auditoriaViewBean.grabListErrosByReqAltByValueChange}"  
+                         update="auditorialisterrors" id="inputtextauditoriaViewBean_strReqStCodigoAlt"  >
+                <p:ajax process="inputtextauditoriaViewBean_strReqStCodigoAlt"  update="auditorialisterrors"  partialSubmit="true" />
+            </p:inputText>
+            <p:commandButton  
+                process="@this,inputtextauditoriaViewBean_strReqStCodigoAlt" 
+                value="#{msgs['template.search']}"   
+                action="#{auditoriaViewBean.grabListErrosByReqAlt}"   
+                update="auditorialisterrors"
+                onkeypress="if (event.keyCode == 32 || event.keyCode == 13 ) {  return false; }"  />
+            <p:commandButton value="#{msgs['template.cleanup']}"  action="#{auditoriaViewBean.cleanUpEveryThing}"  update=":tw:formtab00153"  />
+            
+        </h:panelGrid>
+        
+    </h:panelGroup>
+    
+    
+    <p:dataTable 
+        id="auditorialisterrors"   
+        value="#{auditoriaViewBean.listAuditorias}"  
+        var="au"
+        rows="10"
+        resizableColumns="false"
+        paginator="true"
+        paginatorPosition="bottom"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        rowsPerPageTemplate="10,15,20"
+        emptyMessage="Lista de Erros está vazia.........."
+        >  
+
+        
+        <p:column   id="columnReqStCodigo"    sortBy="#{au.reqStCodigo}"    >  
+            <f:facet name="header">  
+                <h:outputText    value="#{msgs['node.request']}"/>  
+            </f:facet>  
+            <h:outputText  style="font-size: 10px; " value="#{au.reqStCodigo}" />
+        </p:column>  
+        
+        <p:column   id="columnDataAuditoria"    sortBy="#{au.audDtData}"   >  
+            <f:facet name="header">  
+                <h:outputText    value="Data"/>  
+            </f:facet>  
+            <h:outputLabel value="#{au.audDtData}" style="color: blue;"><f:convertDateTime pattern="dd/MM/yyyy  HH:mm" /></h:outputLabel>
+        </p:column>  
+        
+        <p:column   id="columnErrorCodigo"   sortBy="#{au.errInCodigo}"     rendered="false"  >  
+            <f:facet name="header">  
+                <h:outputText    value="#{msgs['node.error.cod']}"/>  
+            </f:facet>  
+            <h:outputText  style="font-size: 10px; " value="#{au.errInCodigo}" />
+        </p:column>  
+        
+        
+        <p:column   id="columnErroMsg"   sortBy="#{au.audStDescricao}"   >  
+            <f:facet name="header">  
+                <h:outputText    value="#{msgs['tabbedHeadings.description']}"/>  
+            </f:facet>  
+            <h:outputText  style="font-size: 10px; " value="#{au.audStDescricao}" />
+        </p:column>  
+        
+        
+<!--        <p:column   id="columnUnidadeCodigo"    sortBy="#{au.uniStCodigo}"   >  
+            <f:facet name="header">  
+                <h:outputText    value="#{msgs['template.unit']}"/>  
+            </f:facet>  
+            <h:outputText  style="font-size: 10px; " value="#{au.uniStCodigo}" />
+        </p:column>  -->
+        
+        <p:column   id="columnUserCodigo"  sortBy="#{au.usuStCodigo}"    >  
+            <f:facet name="header">  
+                <h:outputText    value="#{msgs['template.user']}"/>  
+            </f:facet>  
+            <h:outputText  style="font-size: 10px; " value="#{au.usuStCodigo}" />
+        </p:column>  
+        
+        
+        
+        
+        
+<!--        <p:column   id="columnSistemCodigo"     sortBy="#{au.sisStCodigo}"   >  
+            <f:facet name="header">  
+                <h:outputText    value="#{msgs['node.system']}"/>  
+            </f:facet>  
+            <h:outputText  style="font-size: 10px; " value="#{au.sisStCodigo}" />
+        </p:column>  -->
+        
+        <p:column   id="columnSolicitacaoCodigo"     sortBy="#{au.reqStCodigoAlt}"   >  
+            <f:facet name="header">  
+                <h:outputText    value="#{msgs['node.requestor']}"/>  
+            </f:facet>  
+            <h:outputText  style="font-size: 10px; " value="#{au.reqStCodigoAlt}" />
+        </p:column>  
+        
+        <p:column   id="columnUserVerCodigo"  sortBy="#{au.audStUsuario}"  >  
+            <f:facet name="header">  
+                <h:outputText    value="Verificado por"/>  
+            </f:facet>  
+            <h:outputText  style="font-size: 10px; " value="#{au.audStUsuario}" />
+        </p:column>  
+        
+        <p:column   id="columnUserVerEmCodigo"  sortBy="#{au.audDtDataVerificado}"  >  
+            <f:facet name="header">  
+                <h:outputText    value="Dt. Verif"/>  
+            </f:facet>  
+            <h:outputLabel value="#{au.audDtDataVerificado}" style="color: blue;"><f:convertDateTime pattern="dd/MM/yyyy    HH:mm" /></h:outputLabel>
+        </p:column>  
+        
+        <p:column   id="columnVerPorCodigo"   sortBy="#{au.audChVerificado}"  width="10">  
+
+            <f:facet name="header">  
+                bug
+            </f:facet>  
+            
+            
+            <h:commandButton   id="commandButtonbug"   image="#{au.checkIcon}"  action="#{auditoriaViewBean.checkUnCheckLabAuditoria}" >
+                        <p:ajax    update="auditorialisterrors"    process="@this"   partialSubmit="true" />
+                        <f:param name="paramauincodigo"  value="#{au.audInCodigo}"   />
+             </h:commandButton>
+             <p:tooltip for="commandButtonbug"
+                       showEffect="slide"
+                       hideEffect="slide"
+                       >
+
+                <h:panelGrid styleClass="tooltipBoxStyle"  style="width: 400px;  " > 
+                    <h:panelGrid columns="4">
+                        <h:outputLabel style="color: blue;  "  value="Clique" />
+                        <h:outputLabel style="color: green; font-size: 14px;; font-weight: bold; "  value="AQUI" />
+                        <h:outputText value=" para auditar este erro... de numero: "  style="color: blue;"  />
+                        <h:outputLabel value="#{au.audInCodigo}"  style="color: red"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </p:tooltip>
+            
+        </p:column>  
+
+
+    </p:dataTable>  
+    
+    
+    
+</ui:composition>

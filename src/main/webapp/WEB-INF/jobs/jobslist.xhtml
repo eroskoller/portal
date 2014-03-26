@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core" >
+
+    
+    
+   
+
+    <p:dataTable 
+        rendered="#{not empty portalViewBean.labUsuario}"
+        id="relatorioPush_listServicoDocs"   
+        value="#{relatorioStorageBean.listLabRelatoriose}"  
+        var="rel"
+        rows="5"
+        resizableColumns="false"
+        paginator="true"
+        paginatorPosition="bottom"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        rowsPerPageTemplate="5,10,15"
+        style="width: 99%;  margin-left: 7px;"
+        selectionMode="single"
+        rowKey="#{rel.relInCodigo}"
+        selection="#{relatorioStorageBean.selectedLabRelatorio}"
+        emptyMessage="Lista de Relatórios está vazia..........."
+        >  
+
+        <p:ajax event="rowSelect" listener="#{relatorioStorageBean.changeToRead}"  update=":formfooter"   global="false"   />  
+        
+        <p:column   id="columnDataModePdfUsuarion"   sortBy="#{rel.usuStCodigo}"   style="font-size: 10px; font-weight: bold; "  >  
+            <f:facet name="header">  
+                <h:outputText    value="#{msgs['template.user']}"  style="font-weight: bolder; font-size: 12px;  color: black;" />  
+            </f:facet>  
+            #{rel.usuStCodigo}
+        </p:column>  
+
+        <p:column   id="columnDataModePdfResumo"   sortBy="#{rel.relStResumo}"   style="font-size: 10px;  font-weight: bold; "  >  
+            <f:facet name="header">  
+                <h:outputText value="#{msgs['tabbedHeadings.description']}"  style="font-weight: bolder; font-size: 12px;  color: black;"   />
+            </f:facet>  
+            #{rel.relStResumo}
+        </p:column>  
+
+        <p:column   id="columnDataMode2"  style="width: 150px;"  sortBy="#{rel.relDtConsulta}"  >  
+            <f:facet name="header">  
+                <h:outputText value="#{msgs['node.search.date']}"  style="font-weight: bolder; font-size: 12px;  color: black;"  />
+            </f:facet>  
+
+                <h:outputText value="#{rel.relDtConsulta}"  >
+                    <f:convertDateTime    type="date" locale="pt,BR" timeZone="#{dateSelect.timeZone}"  pattern="dd/MMM/yyyy    "/>
+                </h:outputText>  
+
+                <h:outputText value="#{rel.relHrConsulta}" >
+                    <f:convertDateTime  type="time"  locale="pt,BR" timeZone="#{dateSelect.timeZone}"  pattern="  HH:mm:ss"/>
+                </h:outputText>  
+        </p:column>  
+
+
+        <p:column  id="columnDataMode3"   rendered="false"  style="display: none;"  >  
+            <f:facet name="header">  
+                <h:outputText value="#{msgs['node.end.date']}"/>
+            </f:facet>  
+
+            <p:panelGrid columns="2"  style="padding: 0px; margin: 0px;   font-size: 10px;    " >
+
+                <h:outputText value="#{rel.relDtTermino}"   rendered="#{! empty rel.relDtTermino}" >
+                    <f:convertDateTime  type="date"  locale="pt,BR"   pattern="dd/MMM/yyyy    "/>
+                </h:outputText>
+
+                <h:outputText value="#{rel.relHrTermino}"   rendered="#{! empty rel.relDtTermino}" >
+                    <f:convertDateTime  type="time"  locale="pt,BR" pattern=" HH:mm:ss"/>
+                </h:outputText>  
+
+            </p:panelGrid>
+
+        </p:column>  
+
+        <p:column   id="columnDataModeTempoGasto"  style="width: 110px; font-size: 10px; "   sortBy="#{rel.elapsedtime}"   >  
+            <f:facet name="header">  
+                <h:outputText value="#{msgs['node.elapsedtime']}" style="font-weight: bolder; font-size: 12px;  color: black;"   />
+            </f:facet>  
+            #{rel.tempoGastor}
+        </p:column>  
+
+
+        <p:column style="   padding: 0 0 0 0px; margin: 0 0 0 0px;   text-align: center;     width: 50px;   " id="columnDataMode4"  sortBy="#{rel.relChStatus}"   >   
+
+            <f:facet name="header"  >  
+                <h:outputText value="#{msgs['template.status']}"  style="font-weight: bolder; font-size: 12px;  color: black;"  />  
+            </f:facet>  
+
+            <!--            panelTooltip="someid" -->
+
+            <h:panelGroup id="tooltiprel"  style="font-size: 10px; "  >
+                <p:graphicImage   url="design/#{rel.relChStatus}.gif"  style="height: 15px; width: 15px; " />
+            </h:panelGroup>
+
+
+
+            <p:tooltip for="tooltiprel"
+                       showEffect="slide"
+                       hideEffect="slide"
+                       >
+
+                <h:panelGrid styleClass="tooltipBoxStyle"  style="width: 400px;  " > 
+                    <h:outputText value="#{rel.relStToolTip}"/>
+                </h:panelGrid>
+            </p:tooltip>
+
+        </p:column>  
+
+        <p:column   id="columnDataMode1New"   rendered="false"   style=" text-align: center;  display: none; "    >  
+            <f:facet name="header">  
+                <h:outputText value="#{msgs['template.new']}"/>
+            </f:facet>  
+
+            <h:panelGroup  >
+                <p:graphicImage   url="design/#{rel.relChNew}.gif"  style="height: 15px; " />
+<!--                <h:graphicImage value="design/ajaxloading.gif" />  -->
+            </h:panelGroup>
+
+        </p:column>  
+        
+        
+        
+
+        <p:column   id="columnDataModeFormat"   rendered="true"   style=" text-align: center;   width: 16px; "   sortBy="#{rel.rightIconByFormat}"    >  
+            <f:facet name="header">  
+                <h:outputText value=""/>
+            </f:facet>  
+            <h:graphicImage url="design/#{rel.rightIconByFormat}"/>
+
+        </p:column>  
+
+
+        <p:column   id="columnDataMode5"     style="width: 60px;"      >  
+            <f:facet name="header">  
+
+                <h:commandButton image="design/refresh_icon_20x20.png"   id="btnrefreshlistjobs"   action="#{relatorioStorageBean.refreshTableRel}"  >
+                    <p:ajax update="relatorioPush_listServicoDocs"  process="btnrefreshlistjobs"/>
+                    <p:effect type="shake" event="click"   delay="200"  speed="80"   for="relatorioPush_listServicoDocs" />  
+                </h:commandButton>
+
+            </f:facet>  
+
+
+
+            <h:outputLink  id="houtputLinkjobslist#{rel.relInCodigo}"
+                           rendered="false"
+                           value="#{portalViewBean.strContentPath}/PdfStreamer?relincodigo=#{rel.relInCodigo}#{portalViewBean.urlRelDownloadDbName}"  
+                           target="_blank"  
+                           style="  display: #{rel.strDisplayLinkStatus} ;" 
+                           transient="true"    >
+                       <p:ajax    process="houtputLinkjobslist#{rel.relInCodigo}"  papartialSubmit="true"  update="@parent"   listener="#{relatorioStorageBean.changeToRead}"    />
+                <h:outputLabel value="#{msgs['node.download']}"   />
+            </h:outputLink>
+            
+
+<!--            <a href="#{portalViewBean.strContentPath}/PdfStreamer?relincodigo=#{rel.relInCodigo}#{portalViewBean.urlRelDownloadDbName}"  
+               style="  display: #{rel.strDisplayLinkStatus} ;"   
+               target="_blank"    >
+                <h:outputLabel value="#{msgs['node.download']}"     >
+                </h:outputLabel>
+            </a>-->
+            
+            <p:commandLink 
+                id="downloadLink"
+                value="#{msgs['node.download']}" 
+                ajax="true"    
+                style="  display: #{rel.strDisplayLinkStatus} ;"   
+                target="_blank"    
+                rendered="true"
+                action="#{relatorioStorageBean.changeToRead}"
+                onclick="window.open('#{portalViewBean.strContentPath}/PdfStreamer?relincodigo=#{rel.relInCodigo}#{portalViewBean.urlRelDownloadDbName}', '_blank')"
+                process="@this"
+                partialSubmit="true"
+                update="relatorioPush_listServicoDocs,:formfooter:relatorioPush_listServicoDocs"
+                >  
+                <f:param name="reportcodigodownloadparam"  value="#{rel.relInCodigo}" />
+            </p:commandLink>  
+
+        </p:column>  
+
+    </p:dataTable>  
+
+</ui:composition>
+

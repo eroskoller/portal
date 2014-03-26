@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:h="http://java.sun.com/jsf/html"
+            xmlns:f="http://java.sun.com/jsf/core"
+            xmlns:ui="http://java.sun.com/jsf/facelets"
+            xmlns:p="http://primefaces.org/ui">
+
+    <p:commandButton id="themeButton" value="Change Theme: #{guestPreferencesBean.theme}" type="button" style="width:90%"/>
+    <p:menu widgetVar="themeMenu" position="dynamic" trigger="themeButton" my="left bottom" at="left bottom" styleClass="themeMenu">
+        <p:submenu label="Themes">
+            <p:menuitem value="Sunny" ajax="false"><f:setPropertyActionListener value="sunny" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+            <p:menuitem value="Aristo" ajax="false"><f:setPropertyActionListener value="aristo" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+
+            <p:menuitem value="Blitzer" ajax="false"><f:setPropertyActionListener value="blitzer" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+
+            <p:menuitem value="Cupertino" ajax="false"><f:setPropertyActionListener value="cupertino" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+
+            <p:menuitem value="Dot-Luv" ajax="false"><f:setPropertyActionListener value="dot-luv" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+            <p:menuitem value="Eggplant" ajax="false"><f:setPropertyActionListener value="eggplant" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+            <p:menuitem value="Excite-Bike" ajax="false"><f:setPropertyActionListener value="excite-bike" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+            <p:menuitem value="Flick" ajax="false"><f:setPropertyActionListener value="flick" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+
+            <p:menuitem value="Hot-Sneaks" ajax="false"><f:setPropertyActionListener value="hot-sneaks" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+            <p:menuitem value="Humanity" ajax="false"><f:setPropertyActionListener value="humanity" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+            <p:menuitem value="Le-Frog" ajax="false"><f:setPropertyActionListener value="le-frog" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+            <p:menuitem value="Midnight (Wijmo)" ajax="false"><f:setPropertyActionListener value="midnight" target="#{guestPreferencesBean.theme}" /></p:menuitem>
+
+
+
+        </p:submenu>
+    </p:menu>
+    
+</ui:composition>

@@ -1,0 +1,88 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pm="http://primefaces.org/mobile"
+        contentType="text/html"
+        renderKitId="PRIMEFACES_MOBILE">
+    <f:loadBundle
+        id="myloadbundleId"
+        basename="br.com.faces.resources.messages"
+        var="msgs"/>
+
+    
+                    
+    
+    <h:form>
+        
+        
+                <h:outputText value="#{relatorioStorageBean.counterRelStorage}"  style="display: none;" />
+                <h:outputLabel value="#{grabTheRightDBBen.initializeRightDb}"   style="position: absolute; top: -200px;"   /> 
+
+                
+        
+        
+        <pm:page title="LabLis Mobile">
+
+            <!-- Main View -->
+
+            <pm:view id="mobilelogin">
+                
+                <p:poll  interval="#{arrayitems.strPollInterval}"  listener="#{portalCounterBean.incrementCounter}"   update="@this"  process="@this"   partialSubmit="true"   global="false" />
+                
+                <pm:header title="LabLis Mobile Login" swatch="b"  />
+
+                <pm:content>
+
+                    <p:inputText  id="loginmobilename"  label="#{msgs['template.login']}:"   value="#{portalViewBean.strLogin}"   />
+                    <p:inputText  id="loginmobilepassword"  label="#{msgs['page.textFields.password']}" type="password"
+                                 required="true"
+                                 size="10"  
+                                 value="#{portalViewBean.strPass}"   />
+                    <p:commandButton 
+                        value="#{msgs['template.send']}"     
+                        process="@this,loginmobilename,loginmobilepassword"   
+                        action="#{portalViewBean.letMeInMobile}"    
+                        ajax="true"  
+                        update="messages,selectOneMenuUnidadeLogin"    
+                        icon="check"  
+                        partialSubmit="true" />
+                    
+
+                    
+                    <p:messages id="messages" showDetail="true" autoUpdate="true"     />  
+                    
+                    
+                </pm:content>
+
+            </pm:view>
+            
+              <!-- Forms -->
+        <pm:view id="unidadeselector">
+            
+            <pm:header title="Escolha a Unidade">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#mobilelogin?reverse=true"/></f:facet>
+                <f:facet name="right">
+                    <p:button value="Sair" icon="delete" href="mobileinvalidate.lis"  style=" font-style: italic; color: red;  font-weight: bold;"  />
+                </f:facet>
+            </pm:header>
+
+                    <pm:content>
+                        <h:selectOneMenu id="selectOneMenuUnidadeLogin"  value="#{portalViewBean.strUniStCodigo}"   >
+                              <f:selectItems
+                              value="#{portalViewBean.unidadeItens}"  />
+                              </h:selectOneMenu>
+                    </pm:content>
+            
+            <p:commandButton 
+                actionListener="#{portalViewBean.goToMobileMenuLinks}"   
+                value="#{msgs['template.send']}"    icon="check" />
+                
+
+        </pm:view>
+
+        </pm:page>
+    </h:form>
+
+</f:view>

@@ -1,0 +1,853 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                >
+
+    
+    
+    <h:panelGrid columns="2"  style=" padding: 0px; margin: 0px;  "  id="panelGridMainPageRelatorio"    >
+
+        <h:panelGroup style="padding: 0px; margin: 0px;"  id="panelGroupDadosDoRelatorio" > 
+
+            <h:panelGrid columns="7"   id="panelGridOpcaoUniExmaisDatas">
+
+                <h:outputLabel  style="font-weight: bold;" value="#{msgs['node.options']}" for="relatorioPendenciaViewBean_opcoestens" />
+                <p:selectOneMenu   
+                                   style="width: 90px;"   id="relatorioPendenciaViewBean_opcoestens"  onchange="this.form.submit()"  >
+                    <f:selectItems   
+                        value="#{relatorioPendenciaViewBean.opcoestens}"/>
+                </p:selectOneMenu>
+
+
+
+                <h:panelGroup style="width: 85px;">
+                    <h:outputLabel for="strUniStCodigoExcucao"   style="font-weight: bold;" value=" #{msgs['node.execution.unit']} : "/>
+                </h:panelGroup>
+
+
+                <p:inputText id="strUniStCodigoExcucao" 
+                             maxlength="8" 
+                             size="5" 
+                             styleClass="inputupper"
+                             valueChangeListener="#{relatorioPendenciaViewBean.grabUnidadeExcucaoOnChange}"
+                             onkeypress="return restrict(event)"
+                             widgetVar="widgetVarstrUniStCodigoExcucao"
+                             >
+                    <p:ajax   process="strUniStCodigoExcucao"   partialSubmit="true"
+                              update="@this,uniStDescricao,growl,relatorioPendenciaViewBean_strUniStCodigoCadastro,relatoriopendenciaorigempanelgrid,relatoriopendencialocalpanelgrid,relatoriopendenciasetorpanelgrid,relatoriopendenciaexamepanelgrid" 
+                              />
+                </p:inputText>
+
+                <p:commandButton  process="@this"    id="relatorioPendenciaViewBean_grabUnidadeExcucao878565"   
+                                  action="#{relatorioPendenciaViewBean.popUnidadeExecucao}"  icon="ui-icon-search"  
+                                  onmouseup=" widgetvarrelatoriopendenciapoplistlabunidadesex.show();  " 
+                                  onkeypress="if (event.keyCode == 32) {  widgetvarrelatoriopendenciapoplistlabunidadesex.show();  return false; }"   
+                                  partialSubmit="true" />
+
+
+                <p:panel  style=" width: 240px;   height: 20px;" >
+                    <h:outputText  
+                        id="uniStDescricao" 
+                        value="#{relatorioPendenciaViewBean.labUnidadeExcucao.uniStCodigo} - #{relatorioPendenciaViewBean.labUnidadeExcucao.uniStDescricao}" 
+                        style="font-weight: bold; font-style: italic;   "   />
+                </p:panel>
+
+
+                <h:panelGrid   style="width: 321px;" columns="3" styleClass="selectionRadioGroup"   >
+                    <p:selectOneRadio id="slctRadioDateTypes"
+                                      value="#{relatorioPendenciaViewBean.strDateType}" >
+                        <f:selectItems  id="strDateTypesItens"
+                                        value="#{relatorioPendenciaViewBean.dateTypesItens}"/>
+                    </p:selectOneRadio>
+                </h:panelGrid>
+
+            </h:panelGrid>
+
+            <h:panelGrid columns="4"  id="panelGridUniCadOrisLocsSetsAndEx"  >
+
+                <h:panelGroup style="width: 50px;" >
+                    <h:outputLabel  for="relatorioPendenciaViewBean_strUniStCodigoCadastro"  style="font-weight: bold;" value=" #{msgs['template.unit']} : "/>
+                </h:panelGroup>
+
+                <p:inputText   
+                    size="7"
+                    maxlength="7"
+                    id="relatorioPendenciaViewBean_strUniStCodigoCadastro" 
+                    styleClass="inputupper"
+                    valueChangeListener="#{relatorioPendenciaViewBean.grabUnidadeCadastroOnChange}"   
+                    >
+                    <p:ajax   process="relatorioPendenciaViewBean_strUniStCodigoCadastro" partialSubmit="true"
+                              update="labUnidadeCadastro_uniStDescricao,growl,relBean_strOriStCodigo_holly_cray,relatoriopendenciaorigempanelgrid,relatoriopendencialocalpanelgrid,relatoriopendenciasetorpanelgrid,relatoriopendenciaexamepanelgrid"  
+                              />
+                </p:inputText>
+                
+
+
+                <p:commandButton   
+                    process="@this"
+                    action="#{relatorioPendenciaViewBean.popUnidadeCadastro}"   
+                    icon="ui-icon-search"      
+                    onmouseup=" widgetvarrelatoriopendenciapoplistlabunidades.show(); widgetvarrelatoriopendenciapoplistlaborigem.hide(); " 
+                    onkeypress="if (event.keyCode == 32) {  widgetvarrelatoriopendenciapoplistlabunidades.show();  return false; }"     />
+
+                <h:panelGrid columns="5"     styleClass="backBeanChangeBody"   style="height: 15px;  padding:  1px 1px 1px 1px; margin: 0 0 0 0px; " >
+
+                    <p:panel  style=" width: 310px;  height: 20px;" >
+                        <h:outputText  
+                            id="labUnidadeCadastro_uniStDescricao" 
+                            value="#{relatorioPendenciaViewBean.labUnidadeCadastro.uniStCodigo}  -  #{relatorioPendenciaViewBean.labUnidadeCadastro.uniStDescricao}" 
+                            style="font-weight: bold; font-style: italic;  
+                            height: 15px;
+                            width: 310px;
+                            padding-left: 10px; 
+                            padding-right: 10px;   
+                            color: #000033;   "   />
+                    </p:panel>
+                    
+
+                    <h:panelGroup style="width: 57px;" >
+                        <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.start.date']} : "  for="dtrelatorioPendenciaViewBean_dtInicioQuery" />
+                    </h:panelGroup>
+
+
+                    <p:calendar
+                        id="dtrelatorioPendenciaViewBean_dtInicioQuery"
+                        value="#{relatorioPendenciaViewBean.dtInicioQuery}"
+                        timeZone="#{dateSelect.timeZone}"
+                        pattern="dd/MM/yyyy "
+                        locale="pt"
+                        styleClass="dateTimeEntryShorter"
+                        effect="slide"
+                        effectDuration="fast"
+                        size="12"    >
+                        <p:ajax  process="dtrelatorioPendenciaViewBean_dtInicioQuery,dtFinalQuery"  partialSubmit="true"  event="dateSelect" listener="#{relatorioPendenciaViewBean.validateDateRange}"   update="growl"  />  
+
+                    </p:calendar>      
+
+                    <h:panelGroup style="width: 57px;" >
+                        <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.end.date']} : " for="dtFinalQuery" />
+                    </h:panelGroup>
+
+                    <p:calendar  
+                        id="dtFinalQuery"
+                        value="#{relatorioPendenciaViewBean.dtFinalQuery}"
+                        timeZone="#{dateSelect.timeZone}"
+                        pattern="dd/MM/yyyy "
+                        locale="pt"
+                        styleClass="dateTimeEntryShorter"
+                        effect="slide"
+                        effectDuration="fast"
+                        size="12"     >
+                        <p:ajax   process="dtrelatorioPendenciaViewBean_dtInicioQuery,dtFinalQuery"  partialSubmit="true"  event="dateSelect" listener="#{relatorioPendenciaViewBean.validateDateRange}"   update="growl"  />  
+
+                    </p:calendar>      
+
+
+
+                </h:panelGrid>
+
+
+                <h:panelGroup style="width: 50px;" >
+                    <h:outputLabel   style="font-weight: bold;" value=" #{msgs['node.points']} : "   />
+                </h:panelGroup>
+
+                <p:inputText   
+                    id="relBean_strOriStCodigo_holly_cray" 
+                    size="7"
+                    maxlength="7"
+                    styleClass="inputupper"
+                    valueChangeListener="#{relatorioPendenciaViewBean.grabOrigemCadastroOnChange}"
+                    onkeypress="widgetvarrelatoriopendenciapoplistlaborigem.hide();   return restrict(event); "
+                    >
+                    <p:ajax     process="relBean_strOriStCodigo_holly_cray"   partialSubmit="true"   update="relatoriopendenciaorigempanelgrid,growl"    />
+
+                </p:inputText>
+
+
+
+                <p:commandButton
+                    process="@this"
+                    global="false"
+                    icon="ui-icon-search"  
+                    update="relatoriopendenciaorigempanelgrid,growl,relatoriopendenciapoplistlaborigem" 
+                    actionListener="#{relatorioPendenciaViewBean.popOrigemCadastroListener}"
+                    partialSubmit="true"
+                    />
+
+                <h:panelGrid  columns="8"  id="relatoriopendenciaorigempanelgrid"   style=" padding: 0px; margin: 0px; "   >
+
+                    <c:forEach items="${relatorioPendenciaViewBean.listLabOrigem}" var="ori">
+
+                        <p:panel  
+                            style=" margin: 0px; padding: 0px;    height: 34px; "   
+                            widgetVar="widgetvarrelatoriopendenciaorigem${ori.oriStCodigo}"   
+                            closable="true"   >
+                            
+                            <h:panelGrid columns="3"   style="margin: 0px; padding: 0px;" >
+                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${ori.oriStCodigo}"/> 
+                                
+                                <p:commandButton icon="ui-icon-info"  style="height: 20px; width: 20px;   margin-left: 6px;"    id="btnshowori${ori.oriStCodigo}" >
+                                    <p:overlayPanel 
+                                        appendToBody="true"
+                                        transient="true"
+                                        id="overlayPanelori${ori.oriStCodigo}" for="btnshowori${ori.oriStCodigo}" 
+                                        showEffect="slide" 
+                                        hideEffect="fade" 
+                                        hideEvent="mousedown"  
+                                        styleClass="ui-helper-clearfix"
+                                        >  
+                                                
+                                        <p:panel>
+                                            <p:panelGrid columns="2">
+                                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="Local:"/>
+                                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${ori.oriStCodigo}"/>    
+                                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['tabbedHeadings.description']}:"/>
+                                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${ori.oriStDescricao}"/>    
+                                            </p:panelGrid>
+                                        
+                                        </p:panel>
+                                    </p:overlayPanel>  
+                                </p:commandButton>
+                                
+                                <p:commandButton icon="ui-icon-close"  id="btnori${ori.oriStCodigo}"   style="height: 20px; width: 20px;  "    
+                                                 process="@this"     action="#{relatorioPendenciaViewBean.delOrigemCadastro}"   update="growl" 
+                                                 onclick="widgetvarrelatoriopendenciaorigem${ori.oriStCodigo}.close();"      > 
+                                    <f:param name="relatoriopendenciaorigem"  value="${ori.oriStCodigo}"/>
+                                </p:commandButton>
+                                
+                            </h:panelGrid>
+                        </p:panel>
+
+
+                    </c:forEach>
+
+
+                </h:panelGrid>
+
+
+
+
+
+                <h:panelGroup style="width: 50px;" >
+                    <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.sitepoint']} : " for="relatorioPendenciaViewBean_strLocStCodigo" />
+                </h:panelGroup>
+
+
+                <p:inputText value="#{relatorioPendenciaViewBean.strLocStCodigo}"  
+                             id="relatorioPendenciaViewBean_strLocStCodigo" 
+                             size="7"
+                             maxlength="7"
+                             immediate="false"  
+                             styleClass="inputupper"
+                             valueChangeListener="#{relatorioPendenciaViewBean.grabLocalCadastroOnChange}"
+                             onkeypress="return restrict(event)"
+                             onclick="return restrict(event)"
+                             
+                             >
+                    <p:ajax process="relatorioPendenciaViewBean_strLocStCodigo"    partialSubmit="true"  update="relatoriopendencialocalpanelgrid" />
+                </p:inputText>
+
+                <p:commandButton   process="@this"   global="false" 
+                                   update="relatoriopendenciapoplistlablocal"
+                                   actionListener="#{relatorioPendenciaViewBean.popLocalCadastroListener}"  
+                                   icon="ui-icon-search"  partialSubmit="true"   />
+                
+                <h:panelGrid  columns="8"  id="relatoriopendencialocalpanelgrid"   style=" padding: 0px; margin: 0px; "   >
+
+                    <c:forEach items="${relatorioPendenciaViewBean.listLabLocal}" var="loc">
+
+                        <p:panel   
+                            style=" margin: 0px; padding: 0px;   height: 34px; "   
+                            widgetVar="widgetvarpanelrelatoriopendencia${loc.locStCodigo}"   closable="true"  >
+                            <h:panelGrid columns="3"   style="margin: 0px; padding: 0px;" >
+                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${loc.locStCodigo}"/> 
+                                
+                                <p:commandButton icon="ui-icon-info"  style="height: 20px; width: 20px;   margin-left: 3px;"    id="btnshowloc${loc.locStCodigo}" >
+                                    <p:overlayPanel 
+                                        appendToBody="true"
+                                        transient="true"
+                                        id="overlayPanelloc${loc.locStCodigo}" 
+                                        for="btnshowloc${loc.locStCodigo}" 
+                                        showEffect="slide" 
+                                        hideEffect="fade" 
+                                        hideEvent="mousedown"  
+                                        styleClass="ui-helper-clearfix"
+                                        >  
+                                                
+                                        <p:panel>
+                                            <p:panelGrid columns="2">
+                                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="Local:"/>
+                                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${loc.locStCodigo}"/>    
+                                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['tabbedHeadings.description']}:"/>
+                                                <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${loc.locStDescricao}"/>    
+                                            </p:panelGrid>
+                                        
+                                        </p:panel>
+                                    </p:overlayPanel>  
+                                </p:commandButton>
+                                <p:commandButton icon="ui-icon-close"  id="btnloc${loc.locStCodigo}"   style="height: 20px; width: 20px;   margin-left: 3px;"    
+                                                 process="@this"     action="#{relatorioPendenciaViewBean.delLocalCadastro}"   update="growl" 
+                                                 onclick="widgetvarpanelrelatoriopendencia${loc.locStCodigo}.close();"> 
+                                    <f:param name="relatoriopendencialocal"  value="${loc.locStCodigo}"/>
+                                </p:commandButton>
+                                
+                            </h:panelGrid>
+                        </p:panel>
+
+
+                    </c:forEach>
+
+
+                </h:panelGrid>
+
+
+
+
+                <h:panelGroup style="width: 50px;" >
+                    <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.sector']} : " for="relatorioPendenciaViewBean_strSetStCodigo" />
+                </h:panelGroup>
+                <p:inputText  id="relatorioPendenciaViewBean_strSetStCodigo" 
+                              value="#{relatorioPendenciaViewBean.strSetStCodigo}" 
+                              size="7"
+                              maxlength="7"
+                              styleClass="inputupper"
+                              valueChangeListener="#{relatorioPendenciaViewBean.grabSetorCadastroOnChange}"
+                              >
+                    <p:ajax process="relatorioPendenciaViewBean_strSetStCodigo"   partialSubmit="true"  update="relatoriopendenciasetorpanelgrid,relatoriopendenciapoplistlabsetor"/>
+                </p:inputText>
+
+
+                <p:commandButton   
+                    process="@this"
+                    update="relatoriopendenciapoplistlabsetor"
+                    action="#{relatorioPendenciaViewBean.popSetorCadastro}"  icon="ui-icon-search"   partialSubmit="true"   />
+
+
+                <h:panelGrid  columns="8"  id="relatoriopendenciasetorpanelgrid"   style=" padding: 0px; margin: 0px; "   >
+
+                    <c:forEach items="${relatorioPendenciaViewBean.listLabSetor}" var="set">
+
+                        <p:panel   style=" margin: 0px; padding: 0px;   height: 34px; "   closable="true"   widgetVar="widgetvarpanelsetorpendencia${set.setStCodigo}" >
+                            <h:panelGrid columns="3"   style="margin: 0px; padding: 0px;" >
+                            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${set.setStCodigo}"/> 
+
+                            <p:commandButton icon="ui-icon-info"  style="height: 20px; width: 20px;   margin-left: 3px;"    id="btnshowset${set.setStCodigo}" >
+                                <p:overlayPanel  appendToBody="true"  transient="true"
+                                    id="overlayPanelset${set.setStCodigo}" for="btnshowset${set.setStCodigo}" 
+                                            showEffect="slide" 
+                                            hideEffect="fade" 
+                                            hideEvent="mousedown"  
+                                            styleClass="ui-helper-clearfix"
+                                            >  
+
+                                <p:panel>
+                                    <p:panelGrid columns="2">
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="Setor:"/>
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${set.setStCodigo}"/>    
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['tabbedHeadings.description']}:"/>
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${set.setStDescricao}"/>    
+                                    </p:panelGrid>
+
+                                </p:panel>
+                            </p:overlayPanel>  
+                            </p:commandButton>
+
+                            <p:commandButton icon="ui-icon-close"  id="btnset${set.setStCodigo}"   style="height: 20px; width: 20px;   margin-left: 3px;"    
+                                             process="@this"     action="#{relatorioPendenciaViewBean.delSetorCadastro}"   update="growl" 
+                                             onclick="widgetvarpanelsetorpendencia${set.setStCodigo}.close();"> 
+
+                                <f:param name="relatoriopendenciasetor"  value="${set.setStCodigo}"/>
+
+                            </p:commandButton>
+
+
+                            
+                            </h:panelGrid>
+                        </p:panel>
+
+
+                    </c:forEach>
+
+
+                </h:panelGrid>
+
+
+
+
+                <h:panelGroup style="width: 50px;" >
+                    <h:outputLabel   style="font-weight: bold;" value=" #{msgs['node.exame']} : " for="relatorioPendenciaViewBean_strExaStCodigo" />
+                </h:panelGroup>
+                <p:inputText  id="relatorioPendenciaViewBean_strExaStCodigo"
+                              size="7"
+                              maxlength="7"
+                              immediate="false"
+                              styleClass="inputupper"
+                              valueChangeListener="#{relatorioPendenciaViewBean.grabExameCadastroOnChange}"
+                              >
+                    <p:ajax process="relatorioPendenciaViewBean_strExaStCodigo"  partialSubmit="true"  update="relatoriopendenciaexamepanelgrid"/>
+                </p:inputText>
+
+                <h:panelGroup></h:panelGroup>
+
+
+                <h:panelGrid  columns="8"  id="relatoriopendenciaexamepanelgrid"   style=" padding: 0px; margin: 0px; "   >
+
+                    <c:forEach items="${relatorioPendenciaViewBean.listLabExame}" var="exa">
+
+                        <p:panel  style=" margin: 0px; padding: 0px;   height: 34px; "  closable="true"   widgetVar="widgetvarpanelrelatoriopendenciaexame${exa.exaStCodigo}" >
+                            <h:panelGrid columns="3"   style="margin: 0px; padding: 0px;" >
+                            <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${exa.exaStCodigo}"/> 
+
+                            <p:commandButton icon="ui-icon-info"  style="height: 20px; width: 20px;   margin-left: 3px;"    id="btnshowexa${exa.exaStCodigo}" >
+                                <p:overlayPanel 
+                                    appendToBody="true"  
+                                    transient="true"
+                                    id="overlayPanelexa${exa.exaStCodigo}" for="btnshowexa${exa.exaStCodigo}" 
+                                            showEffect="slide" 
+                                            hideEffect="fade" 
+                                            hideEvent="mousedown"  
+                                            styleClass="ui-helper-clearfix"
+                                            >  
+
+                                <p:panel>
+                                    <p:panelGrid columns="2">
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="Exame:"/>
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${exa.exaStCodigo}"/>    
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="#{msgs['tabbedHeadings.description']}:"/>
+                                        <h:outputLabel style="font-weight: bold; color: #5C5C5C;" value="${exa.exaStDescricao}"/>    
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:overlayPanel>  
+                            </p:commandButton>
+
+                            <p:commandButton icon="ui-icon-close"  id="btnexa${exa.exaStCodigo}"   style="height: 20px; width: 20px;   margin-left: 3px;"    
+                                             process="@this"     action="#{relatorioPendenciaViewBean.delExaCadastro}"   update="growl"  
+                                             onclick="widgetvarpanelrelatoriopendenciaexame${exa.exaStCodigo}.close();"  > 
+
+                                <f:param name="relatoriopendenciaexame"  value="${exa.exaStCodigo}"/>
+
+                            </p:commandButton>
+                            
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </c:forEach>
+
+                </h:panelGrid>
+
+            </h:panelGrid>
+
+            <h:panelGrid columns="13"  id="panelGridOmitidosParciaisFaturadosAndBtns">
+
+
+                <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blOmitidos}" id="relatorioPendenciaViewBean_blOmitidos" />
+                <h:outputLabel value=" #{msgs['node.omitted']} " for="relatorioPendenciaViewBean_blOmitidos" />
+
+                <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blParcial}" id="relatorioPendenciaViewBean_blParcial" />
+                <h:outputLabel value="#{msgs['node.partial']} " for="relatorioPendenciaViewBean_blParcial" />
+
+
+                <h:panelGroup styleClass="selectionRadioGroup">
+                    <p:selectOneRadio id="slctRadioFatutadosStatus"
+                                      value="#{relatorioPendenciaViewBean.strLegStCodigoFat}" >
+                        <f:selectItems  id="SlctFatutadosStatus"
+                                        value="#{relatorioPendenciaViewBean.fatutadosStatus}"/>
+                    </p:selectOneRadio>
+                </h:panelGroup>
+
+
+                <p:selectOneMenu id="selectOneMenuFileFormats" value="#{relatorioPendenciaViewBean.strJasperFormat}"  style=" width: 50px;" >  
+                    <f:selectItems value="#{arrayitems.jasperFormatstens}" />  
+                </p:selectOneMenu>  
+                
+
+                <p:commandButton  
+                    style="width: 120px;"
+                    partialSubmit="true"
+                    onclick="widgetvarpollcounterRelStorage.stop();  widgetvarpollcounterRelStorage.start();"  
+                    process="@this,dtrelatorioPendenciaViewBean_dtInicioQuery,dtFinalQuery,relatorioPendenciaViewBean_opcoestens,slctRadioDateTypes,panelgrid4relatoriopendenciastatus,selectOneMenuFileFormats"
+                    value="#{msgs['node.generate.report']}"   
+                    action="#{relatorioPendenciaViewBean.makeRelatorio}"  
+                    update=":formfooter,growl"    />
+                
+                <p:commandButton 
+                    process="@this" 
+                    partialSubmit="true"   
+                    value="#{msgs['template.cleanup']} "   
+                    action="#{relatorioPendenciaViewBean.cleanUpEveryThing}"   
+                    update="@form"       />
+                
+
+
+
+
+            </h:panelGrid>
+
+
+        </h:panelGroup>
+
+
+
+
+        <p:panel   style="width: 190px;" >
+            <f:facet name="header">
+                <h:panelGrid columns="2"  id="panelGridMarcarTudoDesmarcartudo">
+                    <p:commandButton process="@this"   partialSubmit="true"   value="#{msgs['node.check']}"  actionListener="#{relatorioPendenciaViewBean.allChecked(event)}"  id="relatorioPendenciaViewBean_allChecked"  update="scrollPanel4alotcadastrostatus"  />
+                    <p:commandButton   process="@this" partialSubmit="true"   value="#{msgs['node.uncheck']}" actionListener="#{relatorioPendenciaViewBean.allUnChecked(event)}"  id="relatorioPendenciaViewBean_allUnChecked"   update="scrollPanel4alotcadastrostatus"  />
+                </h:panelGrid>
+            </f:facet>
+            <p:scrollPanel style="width:180px;height:180px" scrollMode="native"  id="scrollPanel4alotcadastrostatus"  >
+                <h:panelGrid columns="2"    id="panelgrid4relatoriopendenciastatus"  >
+
+
+
+
+                    <h:outputLabel value="001 - CADASTRO"  for="relatorioPendenciaViewBean_blCadastro"/>
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blCadastro}" id="relatorioPendenciaViewBean_blCadastro" />
+
+                    <h:outputLabel value="002 - CONF-CAD" for="relatorioPendenciaViewBean_blConfCad"/>
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blConfCad}" id="relatorioPendenciaViewBean_blConfCad" />
+
+                    <h:outputLabel value="003 - PRE-TRIADO" for="relatorioPendenciaViewBean_blPreTriado" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blPreTriado}" id="relatorioPendenciaViewBean_blPreTriado" />
+
+                    <h:outputLabel value="004 - TRIAGEM" for="relatorioPendenciaViewBean_blTriagem" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blTriagem}" id="relatorioPendenciaViewBean_blTriagem" />
+
+                    <h:outputLabel value="005 - TRIADO-AP" for="relatorioPendenciaViewBean_blTrIadoAP" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blTrIadoAP}"  id="relatorioPendenciaViewBean_blTrIadoAP" />
+
+                    <h:outputLabel value="006 - REC-SETOR"  for="relatorioPendenciaViewBean_blRecSetor"/>
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blRecSetor}" id="relatorioPendenciaViewBean_blRecSetor" />
+
+                    <h:outputLabel value="007 - PENDENTE " for="relatorioPendenciaViewBean_blPendente" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blPendente}"  id="relatorioPendenciaViewBean_blPendente" />
+
+                    <h:outputLabel value="008 - COMPLETO " for="relatorioPendenciaViewBean_blCompleto" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blCompleto}"  id="relatorioPendenciaViewBean_blCompleto"/>
+
+                    <h:outputLabel value="009 - INGRESSO"  for="relatorioPendenciaViewBean_blIngresso" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blIngresso}" id="relatorioPendenciaViewBean_blIngresso"/>
+
+                    <h:outputLabel value="010 - LIB  TEC" for="relatorioPendenciaViewBean_blLibTec" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blLibTec}"  id="relatorioPendenciaViewBean_blLibTec" />
+
+                    <h:outputLabel value="011 - ASSINADO" for="relatorioPendenciaViewBean_blAssinado" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blAssinado}" id="relatorioPendenciaViewBean_blAssinado" />
+
+                    <h:outputLabel value="012 - CONFIRMA"  for="relatorioPendenciaViewBean_blConfirma"/>
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blConfirma}"  id="relatorioPendenciaViewBean_blConfirma" />
+
+                    <h:outputLabel value="013 - CANCELADO"  for="relatorioPendenciaViewBean_blCancelado"/>
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blCancelado}" id="relatorioPendenciaViewBean_blCancelado" />
+
+                    <h:outputLabel value="014 - ARMAZENADO" for="relatorioPendenciaViewBean_blArmazenado" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blArmazenado}" id="relatorioPendenciaViewBean_blArmazenado" />
+
+                    <h:outputLabel value="015 - DESCARTADO" for="relatorioPendenciaViewBean_blDescartado" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blDescartado}" id="relatorioPendenciaViewBean_blDescartado" />
+
+                    <h:outputLabel value="016 - IMPRESSO" for="relatorioPendenciaViewBean_blImpresso" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blImpresso}"  id="relatorioPendenciaViewBean_blImpresso" />
+
+                    <h:outputLabel value="017 - 2 AMOSTRA" for="relatorioPendenciaViewBean_bl2Amostra" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.bl2Amostra}" id="relatorioPendenciaViewBean_bl2Amostra" />
+
+                    <h:outputLabel value="018 - LAUDADO" for="relatorioPendenciaViewBean_blLaudado" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blLaudado}"  id="relatorioPendenciaViewBean_blLaudado" />
+
+                    <h:outputLabel value="020 - NAO COLETADO" for="relatorioPendenciaViewBean_blNaoColetado" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blNaoColetado}"  id="relatorioPendenciaViewBean_blNaoColetado"  />
+
+                    <h:outputLabel value="040 - DELETADO" for="relatorioPendenciaViewBean_blDeletado"/>
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blDeletado}" id="relatorioPendenciaViewBean_blDeletado" />
+
+                    <h:outputLabel value="041 - DEVE MATERIAL" for="relatorioPendenciaViewBean_blDevMat" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blDevMat}" id="relatorioPendenciaViewBean_blDevMat"/>
+
+                    <h:outputLabel value="042 - REMARCADO" for="relatorioPendenciaViewBean_blRemarcado" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blRemarcado}" id="relatorioPendenciaViewBean_blRemarcado" />
+
+                    <h:outputLabel value="043 - PRE CONFERIDO" for="relatorioPendenciaViewBean_blPreConf" />
+                    <p:selectBooleanCheckbox value="#{relatorioPendenciaViewBean.blPreConf}" id="relatorioPendenciaViewBean_blPreConf" />
+
+                </h:panelGrid>
+            </p:scrollPanel>  
+
+        </p:panel>
+
+
+
+
+    </h:panelGrid>
+
+<p:separator/>
+
+    <p:dialog dynamic="true"
+              id="relatoriopendenciapoplistlabunidadesex" header="#{msgs['template.unit']} Ex" widgetVar="widgetvarrelatoriopendenciapoplistlabunidadesex" 
+              modal="false" height="420"  hideEffect="fade"   
+              showEffect="fade"    draggable="true"     maximizable="true"    rendered="#{ not empty estatisticafaturamentoViewBean }"    >  
+
+
+
+
+        <p:dataTable
+            id="relatorioBean_listUnidades_pendencia_Unidadeex"
+            value="#{portalViewBean.listLabUnidade}"
+            var="uni"
+            styleClass="novoEstiloHighlight"
+            style="margin: 0px;"
+            scrollHeight="400"
+            rows="15"
+            paginator="true"
+            paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="5,10,15">  
+
+            <p:column  id="rowData1ex_pendencia_Unidade" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 70px;">
+                        <h:outputText  value="#{msgs['template.unit']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink    process="@this" 
+                                  style="  color: red;"  
+                                  actionListener="#{relatorioPendenciaViewBean.grabUnidadeExecucaoFromList}" 
+                                  value="#{uni.uniStCodigo}"  update=":tw:formtab00114:panelGroupDadosDoRelatorio" 
+                                  onclick="widgetvarrelatoriopendenciapoplistlabunidadesex.hide();"
+                                  >
+                    <f:param name="relatoriopendenciapoplistlabunidadesexparam"  value="#{uni.uniStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData2ex_pendencia_Unidade" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 195px;">
+                        <h:outputText    value="#{msgs['page.tree.employee.name.label']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink   process="@this"  
+                                 style="  color: blue;"   
+                                 actionListener="#{relatorioPendenciaViewBean.grabUnidadeExecucaoFromList}" 
+                                 value="#{uni.uniStDescricao}"   update=":tw:formtab00114:panelGroupDadosDoRelatorio"  
+                                 onclick="widgetvarrelatoriopendenciapoplistlabunidadesex.hide();" >
+                    <f:param name="relatoriopendenciapoplistlabunidadesexparam"  value="#{uni.uniStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+        </p:dataTable>
+
+    </p:dialog>  
+
+    <p:dialog 
+        dynamic="true"
+        id="relatoriopendenciapoplistlabunidades" header="#{msgs['template.unit']} Cadastro" widgetVar="widgetvarrelatoriopendenciapoplistlabunidades" 
+        modal="false" height="420"  hideEffect="fade"   
+        showEffect="fade"    draggable="true"     maximizable="true"    rendered="#{ not empty estatisticafaturamentoViewBean }"    >  
+
+
+        <p:dataTable
+            id="relatorioBean_listUnidades_pendencia_Unidade"
+            value="#{portalViewBean.listLabUnidade}"
+            var="uni"
+            styleClass="novoEstiloHighlight"
+            style="margin: 0px;"
+            scrollHeight="400"
+            rows="15"
+            paginator="true"
+            paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="5,10,15">  
+
+            <p:column  id="rowData1ex_pendencia_Unidade" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 70px;">
+                        <h:outputText  value="#{msgs['template.unit']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink  process="@this"  style="  color: red;"  actionListener="#{relatorioPendenciaViewBean.grabUnidadeCadastroFromList}" value="#{uni.uniStCodigo}"  update=":tw:formtab00114:panelGroupDadosDoRelatorio"  onclick="widgetvarrelatoriopendenciapoplistlabunidades.hide();"  >
+                    <f:param name="relatoriopendenciapoplistlabunidadesparam"  value="#{uni.uniStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData2ex_pendencia_Unidade" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 195px;">
+                        <h:outputText    value="#{msgs['page.tree.employee.name.label']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink   process="@this"  style="  color: blue;"   actionListener="#{relatorioPendenciaViewBean.grabUnidadeCadastroFromList}" value="#{uni.uniStDescricao}"   update=":tw:formtab00114:panelGroupDadosDoRelatorio"  onclick="widgetvarrelatoriopendenciapoplistlabunidades.hide();"   >
+                    <f:param name="relatoriopendenciapoplistlabunidadesparam"  value="#{uni.uniStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+        </p:dataTable>
+
+    </p:dialog>  
+
+    <p:dialog 
+        dynamic="true"
+        id="relatoriopendenciapoplistlaborigem" 
+        header="Postos - #{relatorioPendenciaViewBean.labUnidadeCadastro.uniStCodigo} / #{relatorioPendenciaViewBean.labUnidadeCadastro.uniStDescricao}"   widgetVar="widgetvarrelatoriopendenciapoplistlaborigem" 
+        modal="false" height="420"  hideEffect="fade"   
+        showEffect="fade"    draggable="true"     maximizable="true"  >  
+
+
+
+
+        <p:dataTable
+            id="relatorioBean_listUnidades_pendencia_origem"
+            value="#{relatorioPendenciaViewBean.listLabOrigemPop}"
+            var="ori"
+            styleClass="novoEstiloHighlight"
+            style="margin: 0px;"
+            scrollHeight="400"
+            rows="15"
+            paginator="true"
+            paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="5,10,15">  
+
+            <p:column  id="rowData1ex_pendencia_origem" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 70px;">
+                        <h:outputText  value="Cod."/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink    process="@this" style="  color: red;"  actionListener="#{relatorioPendenciaViewBean.grabOrigemCadastroFromList}" value="#{ori.oriStCodigo}"  update=":tw:formtab00114:panelGroupDadosDoRelatorio ,:tw:formtab00114:growl"  >
+                    <f:param name="relatoriopendenciapoplistlaborigemparam"  value="#{ori.oriStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData2ex_pendencia_origem" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 195px;">
+                        <h:outputText    value="#{msgs['page.tree.employee.name.label']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink   process="@this"  style="  color: blue;"   actionListener="#{relatorioPendenciaViewBean.grabOrigemCadastroFromList}" value="#{ori.oriStDescricao}"   update=":tw:formtab00114:panelGroupDadosDoRelatorio,:tw:formtab00114:growl"   >
+                    <f:param name="relatoriopendenciapoplistlaborigemparam"  value="#{ori.oriStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+        </p:dataTable>
+
+    </p:dialog>  
+
+    <p:dialog 
+        dynamic="true"
+        id="relatoriopendenciapoplistlablocal" 
+        header="Locais - #{relatorioPendenciaViewBean.labUnidadeCadastro.uniStCodigo} / #{relatorioPendenciaViewBean.labUnidadeCadastro.uniStDescricao}"   
+        widgetVar="widgetvarrelatoriopendenciapoplistlablocal" 
+        modal="false" height="420"  hideEffect="fade"   
+        showEffect="fade"
+        draggable="true"
+        maximizable="true"  >  
+
+
+
+
+
+        <p:dataTable
+            id="relatorioBean_listUnidades_pendencia_local"
+            value="#{relatorioPendenciaViewBean.listLabLocalPop}"
+            var="loc"
+            styleClass="novoEstiloHighlight"
+            style="margin: 0px;"
+            scrollHeight="400"
+            rows="15"
+            paginator="true"
+            paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="5,10,15">  
+
+            <p:column  id="rowData1ex_pendencia_local" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 70px;">
+                        <h:outputText  value="Cod."/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink   process="@this"  style="  color: red;"  actionListener="#{relatorioPendenciaViewBean.grabLocalCadastroFromList}" 
+                                 value="#{loc.locStCodigo}"  update=":tw:formtab00114:panelGroupDadosDoRelatorio ,:tw:formtab00114:growl"  >
+                    <f:param name="relatoriopendenciapoplistlablocalparam"  value="#{loc.locStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData2ex_pendencia_local" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 195px;">
+                        <h:outputText    value="#{msgs['page.tree.employee.name.label']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink    process="@this"  style="  color: blue;"   actionListener="#{relatorioPendenciaViewBean.grabLocalCadastroFromList}" 
+                                  value="#{loc.locStDescricao}"   update=":tw:formtab00114:panelGroupDadosDoRelatorio,:tw:formtab00114:growl"   >
+                    <f:param name="relatoriopendenciapoplistlablocalparam"  value="#{loc.locStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+        </p:dataTable>
+
+
+
+    </p:dialog>  
+
+    <p:dialog 
+        dynamic="true"
+        id="relatoriopendenciapoplistlabsetor" 
+        header="Setores - #{relatorioPendenciaViewBean.labUnidadeCadastro.uniStCodigo} / #{relatorioPendenciaViewBean.labUnidadeCadastro.uniStDescricao}"   
+        widgetVar="widgetvarrelatoriopendenciapoplistlabsetor" 
+        modal="false" height="420"  hideEffect="fade"   
+        showEffect="fade"
+        draggable="true"
+        maximizable="true"  >  
+
+
+
+        <p:dataTable
+            id="relatorioBean_listUnidades_pendencia_setor"
+            value="#{relatorioPendenciaViewBean.listLabSetorPop}"
+            var="set"
+            styleClass="novoEstiloHighlight"
+            style="margin: 0px;"
+            scrollHeight="400"
+            rows="15"
+            paginator="true"
+            paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="5,10,15">  
+
+            <p:column  id="rowData1ex_pendencia_setor" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 70px;">
+                        <h:outputText  value="Cod."/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink    process="@this" style="  color: red;"  actionListener="#{relatorioPendenciaViewBean.grabSetorCadastroFromList}" 
+                                  value="#{set.setStCodigo}"  update=":tw:formtab00114:panelGroupDadosDoRelatorio ,:tw:formtab00114:growl"  >
+                    <f:param name="relatoriopendenciapoplistlabsetorparam"  value="#{set.setStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+            <p:column  id="rowData2ex_pendencia_setor" >
+                <f:facet name="header">
+                    <h:panelGroup style="width: 195px;">
+                        <h:outputText    value="#{msgs['page.tree.employee.name.label']}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <p:commandLink    process="@this"  style="  color: blue;"   actionListener="#{relatorioPendenciaViewBean.grabSetorCadastroFromList}" 
+                                  value="#{set.setStDescricao}"   update=":tw:formtab00114:panelGroupDadosDoRelatorio,:tw:formtab00114:growl"   >
+                    <f:param name="relatoriopendenciapoplistlabsetorparam"  value="#{set.setStCodigo}"/>
+                </p:commandLink>
+            </p:column>
+
+        </p:dataTable>
+
+
+
+    </p:dialog>  
+
+<p:focus for="relatorioPendenciaViewBean_strUniStCodigoCadastro"/>
+</ui:composition>

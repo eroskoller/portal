@@ -1,0 +1,1351 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+   xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions" >
+
+    <style type="text/css">
+        .dateTimeEntryShorterX {
+            width:  50px  !important;
+        }
+    </style>
+
+
+    <p:focus context="idjjdnjdbjdbjhebbhebheoekeejbh"/>  
+    
+    <h:panelGrid columns="1"   id="mainpanelgrid"   >
+
+        
+        
+        <h:panelGrid columns="8"     id="idjjdnjdbjdbjhebbhebheoekeejbh" >
+            <h:outputLabel    styleClass="sinopsetext"  value="Tipo:"    />               
+            <p:selectOneMenu id="selectOneMenuReportType" value="#{erpEstatisticaGeralViewBean.strReportType}" style=" width: 230px;   "   height="300"  >  
+                <p:ajax event="valueChange"  process="@this"  update="@this,panelGroupUniqueItems,panelGridDates4ErpReports,erp_report_geral"
+                        listener="#{erpEstatisticaGeralViewBean.changePageByReportTypePicListener}"   
+                          /> 
+                <f:selectItems value="#{arrayitems.reportERPTypeItens}" />  
+            </p:selectOneMenu>     
+
+            <h:outputText     styleClass="sinopsetext"    value="#{msgs['template.unit']}:"    ></h:outputText>
+            <p:selectOneMenu id="selectOneMenuReportUnidade"  value="#{erpEstatisticaGeralViewBean.strUnidade}"  style=" width: 300px;   "   height="200"  >  
+                <p:ajax event="valueChange"  process="@this"   update="growl,erp_report_geral"  listener="#{erpEstatisticaGeralViewBean.changeErpUnidadePicListener}"  /> 
+                <f:selectItems 
+                    value="#{erpEstatisticaGeralViewBean.erpUnidadeTypeItens}"    />  
+            </p:selectOneMenu>             
+
+
+
+            <p:spacer />
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.brand']}:"   for="inputTextbrand"  />
+            <p:autoComplete  
+                id="inputTextbrand"
+                value="#{erpEstatisticaGeralViewBean.erpMarcas}"
+                converter="erpmarcasconverter"
+                maxResults="15"
+                size="50" 
+                maxlength="60"  
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteMarca}" 
+                var="erpmarca"
+                itemValue="#{erpmarca}"
+                itemLabel="#{erpmarca.marStCodigo}  #{erpmarca.marStDescricao} "
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                styleClass="inputupper"
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteMarca}" update="growl,erp_report_geral" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextbrand" value="Campo Autocompletavel..." />  
+            
+        </h:panelGrid>
+        <h:panelGrid columns="5">
+            <h:outputLabel   style="font-weight: bold;" value="Regional:"   for="inputTextregional"  />
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextregional"
+                value="#{erpEstatisticaGeralViewBean.erpRegiona}"
+                converter="erpregionalconverter"
+                size="90" 
+                maxlength="260"  
+                maxResults="15"
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteRegional}" 
+                var="erpregional"
+                itemValue="#{erpregional}"
+                itemLabel="#{erpregional.erpRegionalPK.rgiStCodigo}  #{erpregional.rgiStDescricao} ( #{erpregional.rgiStUf} )"
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteRegional}" update="growl,erp_report_geral,
+                        inputTextEstablishmentTop,inputTextEstablishmentSolicitados,inputTextEstablishmentRINA,inputTextEstablishmentCustos,
+                        inputTextEstablishmentDemandaUrgente,inputTextEstablishmentItensVencer,
+                        inputTextEstablishmentItensPostos,inputTextEstablishmentItensStatusPedido,
+                        inputTextEstablishmentItensTiposDePedido,inputTextEstablishmentAbastecimento,
+                        inputTextEstablishmentItensParametrizados,inputTextEstablishmentInpecaoDeItens" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextregional" value="Campo Autocompletavel..." />  
+
+            <p:spacer />
+            <h:panelGrid   columns="6"   id="panelGridDates4ErpReports" >
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.start.date']}"  for="dtStartErpRelatorioGeral"   rendered="#{!erpEstatisticaGeralViewBean.blValidade}" />
+                <p:calendar
+                    rendered="#{!erpEstatisticaGeralViewBean.blValidade}"
+                    id="dtStartErpRelatorioGeral"
+                    value="#{erpEstatisticaGeralViewBean.dtStart}"
+                    timeZone="#{dateSelect.timeZone}"
+                    pattern="dd/MM/yyyy "
+                    locale="pt"
+                    effect="puff"
+                    effectDuration="fast" 
+                    size="10"
+                    >
+                    <p:ajax  process="@this,dtStartErpRelatorioGeral,dtEndErpRelatorioGeral"  partialSubmit="true"  
+                             event="dateSelect" listener="#{erpEstatisticaGeralViewBean.validateDateRange}"   update="growl,erp_report_geral"  />  
+                </p:calendar>      
+                <p:spacer />
+                <h:outputLabel  style="font-weight: bold;"  value="#{msgs['node.end.date']}"  for="dtEndErpRelatorioGeral"  rendered="#{!erpEstatisticaGeralViewBean.blValidade}"  />
+                <p:calendar
+                    rendered="#{!erpEstatisticaGeralViewBean.blValidade}"
+                    id="dtEndErpRelatorioGeral"
+                    value="#{erpEstatisticaGeralViewBean.dtEnd}"
+                    timeZone="#{dateSelect.timeZone}"
+                    pattern="dd/MM/yyyy "
+                    locale="pt"
+                    styleClass="dateTimeEntryShorter"
+                    effect="puff"
+                    effectDuration="fast" 
+                    size="10" >
+
+                    <p:ajax  process="@this,dtStartErpRelatorioGeral,dtEndErpRelatorioGeral"  partialSubmit="true"  event="dateSelect" listener="#{erpEstatisticaGeralViewBean.validateDateRange}"   update="growl"  />  
+
+                </p:calendar>      
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.experian.date']}"  for="dtExperianErpRelatorioGeral"   rendered="#{erpEstatisticaGeralViewBean.blValidade}"  />
+                <p:calendar
+                    rendered="#{erpEstatisticaGeralViewBean.blValidade}"
+                    id="dtExperianErpRelatorioGeral"
+                    value="#{erpEstatisticaGeralViewBean.dtValidade}"
+                    timeZone="#{dateSelect.timeZone}"
+                    pattern="dd/MM/yyyy "
+                    locale="pt"
+                    styleClass="dateTimeEntryShorter"
+                    effect="puff"
+                    effectDuration="fast" 
+                    size="10"
+                    >
+
+                    <p:ajax  process="@this,dtStartErpRelatorioGeral,dtEndErpRelatorioGeral,dtExperianErpRelatorioGeral"  partialSubmit="true"  event="dateSelect"  update="growl"  />  
+
+                </p:calendar>      
+            </h:panelGrid>
+        </h:panelGrid>
+
+    </h:panelGrid>
+
+
+    <h:panelGroup       id="panelGroupUniqueItems"  style="width: 99%;"   >
+
+        <!-- Top+  -->
+        <h:panelGrid  id="panelGridtopMais"   columns="6"   rendered="#{erpEstatisticaGeralViewBean.blTopReports}"  >
+
+
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentTop"  />
+
+
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextEstablishmentTop"
+                value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                converter="erpetabelecimentoconverter"
+                size="70" 
+                maxlength="260"  
+                maxResults="15"
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                var="estabelecimento"
+                itemValue="#{estabelecimento}"
+                itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}  "
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                        update="growl,erp_report_geral,,inputTextApplicantSolicitados,inputTextApplicantCustos,
+                        inputTextDemandaUrgente,inputTextApplicantItensVencer,inputTextApplicantItensPostos,
+                        inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,
+                        inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,
+                        inputTextApplicantRINA,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                        inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,
+                        inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextEstablishmentTop" value="Campo Autocompletavel..." />  
+
+            <p:spacer/>    
+
+
+            <h:outputLabel value="Top+ : "/>
+            <p:selectOneMenu id="selectOneMenuQtdItemsFocusTop" value="#{erpEstatisticaGeralViewBean.strQtdItems}" style=" width: 90px;"  >  
+                <p:ajax event="valueChange"  process="@this"     update="@this,focusselectOneMenuQtdItemsFocusTop"  />
+                <f:selectItems value="#{arrayitems.qtdItens}" />  
+            </p:selectOneMenu>
+            
+            <p:focus for="selectOneMenuQtdItemsFocusTop"  id="focusselectOneMenuQtdItemsFocusTop" />
+        </h:panelGrid>
+
+        <!-- Solicitados -->
+        <h:panelGrid  id="panelGridSolicitados"   columns="11"   rendered="#{erpEstatisticaGeralViewBean.blSolicitadosReports}"  >
+
+
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentSolicitados"  />
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextEstablishmentSolicitados"
+                value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                converter="erpetabelecimentoconverter"
+                size="40" 
+                maxResults="15"
+                maxlength="260"  
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                var="estabelecimento"
+                itemValue="#{estabelecimento}"
+                itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao} "
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                        update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,
+                        inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,
+                        inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,
+                        inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,
+                        inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                        inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,
+                        inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextEstablishmentSolicitados" value="Campo Autocompletavel..." />  
+            <p:spacer/>
+
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextApplicantSolicitados"  />
+
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextApplicantSolicitados"
+                value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                converter="erpcentrodecustoconverter"
+                size="40" 
+                minQueryLength="4"
+                maxResults="15"
+                maxlength="260"
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                var="erpccusto"
+                itemValue="#{erpccusto}"
+                itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextApplicantSolicitados" value="Campo Autocompletavel..." />  
+
+            <p:spacer/>
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextPostoLocalSolicitados"  />
+
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextPostoLocalSolicitados"
+                value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                converter="erporigemconverter"
+                size="40" 
+                maxResults="15"
+                maxlength="260"  
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                var="erporigem"
+                itemValue="#{erporigem}"
+                itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextPostoLocalSolicitados" value="Campo Autocompletavel..." />  
+
+
+
+        </h:panelGrid>
+
+
+        <!-- RINA   -->
+        <h:panelGrid  id="panelGridRINA"   columns="1"   rendered="#{erpEstatisticaGeralViewBean.blRINAReports}"  >
+
+
+            <h:panelGrid columns="12">
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentRINA"  />
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextEstablishmentRINA"
+                    value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                    converter="erpetabelecimentoconverter"
+                    size="35" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                    var="estabelecimento"
+                    itemValue="#{estabelecimento}"
+                    itemLabel=" #{estabelecimento.estStDescricao}  #{estabelecimento.erpEstabelecimentoPK.rgiStCodigo}   "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                            update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,
+                            inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,
+                            inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,
+                            inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,inputTextApplicantCustos,
+                            inputTextDemandaUrgente,inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,
+                            inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextEstablishmentRINA" value="Campo Autocompletavel..." />  
+                <p:spacer/>
+
+
+
+
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextApplicantRINA"  />
+
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextApplicantRINA"
+                    value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                    converter="erpcentrodecustoconverter"
+                    size="35" 
+                    minQueryLength="4"
+                    maxResults="15"
+                    maxlength="260"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                    var="erpccusto"
+                    itemValue="#{erpccusto}"
+                    itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextApplicantRINA" value="Campo Autocompletavel..." />  
+
+
+
+                <p:spacer/>
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextRINASolicitados"  />
+    
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextRINASolicitados"
+                    value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                    converter="erporigemconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                    var="erporigem"
+                    itemValue="#{erporigem}"
+                    itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextRINASolicitados" value="Campo Autocompletavel..." />  
+
+
+
+            </h:panelGrid>
+            <h:panelGrid  columns="2"   rendered="false"  >
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.items.type']} / #{msgs['node.sitepoint']}:"   for="selectOneMenuRINAItemType"  />
+                <p:selectOneMenu id="selectOneMenuRINAItemType" value="#{erpEstatisticaGeralViewBean.strItemType}" style=" width: 150px;"  >  
+                    <p:ajax process="@this" partialSubmit="true"  update="@this"/>
+                    <f:selectItems value="#{arrayitems.qtdItensType}" />  
+                </p:selectOneMenu>  
+            </h:panelGrid>
+
+        </h:panelGrid>
+
+        <!--  Custos    -->
+        <h:panelGrid  id="panelGridCustos"  rendered="#{erpEstatisticaGeralViewBean.blCustosReports}" >
+            <h:panelGrid    columns="11"     >
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentCustos"  />
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextEstablishmentCustos"
+                    value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                    converter="erpetabelecimentoconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                    var="estabelecimento"
+                    itemValue="#{estabelecimento}"
+                    itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}"
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                            update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                            inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,
+                            inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,inputTextApplicantCustos,
+                            inputTextDemandaUrgente,inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,
+                            inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextEstablishmentCustos" value="Campo Autocompletavel..." />  
+                <p:spacer/>
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextApplicantCustos"  />
+
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextApplicantCustos"
+                    value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                    converter="erpcentrodecustoconverter"
+                    size="35" 
+                    maxResults="15"
+                    minQueryLength="4"
+                    maxlength="260"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                    var="erpccusto"
+                    itemValue="#{erpccusto}"
+                    itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextApplicantCustos" value="Campo Autocompletavel..." />  
+
+
+
+                <p:spacer/>
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextPostoLocalCustos"  />
+
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextPostoLocalCustos"
+                    value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                    converter="erporigemconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                    var="erporigem"
+                    itemValue="#{erporigem}"
+                    itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextPostoLocalCustos" value="Campo Autocompletavel..." />  
+
+
+
+            </h:panelGrid>
+            <h:panelGrid  columns="3"      cellspacing="4" cellpadding="4" styleClass="panelGridVerticalAlignToTop"    >
+
+                <p:panel style="width: 200px;"  >
+                    <f:facet name="header">
+                        <h:outputLabel   style="font-weight: bold;" value="Tipo de Centro de Custo"   for="selectManyMenuCustos"  />
+                        <p:commandButton value="test"  onkeypress="widgetwarselectManyMenuCustos.show();"  rendered="false" />
+                    </f:facet>
+
+
+
+                    <p:selectManyMenu value="#{erpEstatisticaGeralViewBean.listSelectedCentroDeCusto}"  
+                                      converter="centrocustoconverter" 
+                                      style="height:100px; width: 175px;"  
+                                      id="selectManyMenuCustos"   
+                                      widgetVar="widgetwarselectManyMenuCustos" 
+                                       >  
+                        <p:ajax    update="growl,erp_report_geral,selectManyMenuCustos"   />
+                        <f:selectItems value="#{erpEstatisticaGeralViewBean.listCentroDeCustoItems}"  
+                                       var="cc" itemLabel="#{cc.label}"  
+                                       itemValue="#{cc}"    />  
+                    </p:selectManyMenu> 
+                </p:panel>
+
+
+                <p:panel  style="width: 200px;"   rendered="false" >
+                    <f:facet name="header">
+                        <h:outputLabel   style="font-weight: bold;" value="Rota"   for="selectManyMenuCustosRota"  />
+                        <p:commandButton 
+                            value="Todos"  
+                            process="@this"  
+                            partialSubmit="true"
+                            update="selectManyMenuCustosRota" 
+                            action="#{erpEstatisticaGeralViewBean.selectAllRotas}"  
+                            rendered="false"
+                            />
+                    </f:facet>
+
+                    <p:selectManyMenu  
+                        value="#{erpEstatisticaGeralViewBean.listSelectedRota}"  
+                        converter="rotaconverter" style="height:100px; width: 175px;"  id="selectManyMenuCustosRota"
+                        widgetVar="widgetVarselectManyMenuCustosRota"
+                        >  
+                        <p:ajax    update="growl,erp_report_geral"   />
+                        <f:selectItems value="#{erpEstatisticaGeralViewBean.listRotaItems}"  
+                                       var="rota" itemLabel="#{rota.label}"  
+                                       itemValue="#{rota}"
+                                       />  
+                    </p:selectManyMenu> 
+                </p:panel>
+
+                <h:panelGrid columns="1"   >
+                    <h:panelGrid columns="2"  rendered="false" >
+                        <p:selectBooleanCheckbox  value="#{erpEstatisticaGeralViewBean.blAgruparVlrPorUnidades}"   > <p:ajax process="@this"  update="@this"/>  </p:selectBooleanCheckbox> 
+                        <h:outputLabel   value="Agrupar Valores por Unidade"/>
+
+                        <p:selectBooleanCheckbox  value="#{erpEstatisticaGeralViewBean.blAgruparVlrPorUnidadesMostrarSubValores}"   > <p:ajax process="@this"  update="@this"/>  </p:selectBooleanCheckbox> 
+                        <h:outputLabel   value="Agrupar Valores por Unidade e mostra sub-valores"/>
+                    </h:panelGrid>
+                    <p:selectOneRadio id="slctRadioOrdemDoRelatorioCustom"
+                                      value="#{erpEstatisticaGeralViewBean.strDataType}"  
+                                      layout="pageDirection"   >
+                        <p:ajax process="@this"  update="@this"/>
+                        <f:selectItem itemLabel="Por data de cadastro" itemValue="cadastro" />  
+                        <f:selectItem itemLabel="Por data de entrega" itemValue="entrega" />  
+                    </p:selectOneRadio>
+
+                </h:panelGrid>
+
+            </h:panelGrid>
+        </h:panelGrid>
+
+        <!--  DemandaUrgente    -->
+        <h:panelGrid  id="panelGridDemandaUrgente"   columns="1"   rendered="#{erpEstatisticaGeralViewBean.blDemandaUrgenteReports}"  >
+
+            <h:panelGrid columns="6">
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentDemandaUrgente"  />
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextEstablishmentDemandaUrgente"
+                    value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                    converter="erpetabelecimentoconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                    var="estabelecimento"
+                    itemValue="#{estabelecimento}"
+                    itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}"
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                            update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,
+                            inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,
+                            inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,
+                            inputTextApplicantRINA,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,inputTextApplicantItensPostos,
+                            inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,
+                            inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextEstablishmentDemandaUrgente" value="Campo Autocompletavel..." />  
+                <p:spacer/>
+
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextDemandaUrgente"  />
+    
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextDemandaUrgente"
+                    value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                    converter="erpcentrodecustoconverter"
+                    size="35" 
+                    minQueryLength="4"
+                    maxResults="15"
+                    maxlength="260"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                    var="erpccusto"
+                    itemValue="#{erpccusto}"
+                    itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextDemandaUrgente" value="Campo Autocompletavel..." />  
+            </h:panelGrid>
+            <h:panelGrid columns="9">
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextPostoLocalDemandaUrgente"  />
+
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextPostoLocalDemandaUrgente"
+                    value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                    converter="erporigemconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                    var="erporigem"
+                    itemValue="#{erporigem}"
+                    itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextPostoLocalDemandaUrgente" value="Campo Autocompletavel..." />  
+
+
+
+                <p:spacer/>
+                <p:selectBooleanCheckbox  value="#{erpEstatisticaGeralViewBean.blSomenteAumentoDemanda}"   > <p:ajax process="@this"  update="@this"/>  </p:selectBooleanCheckbox> 
+                <h:outputLabel   value="Somente Aumento de Demanda"/>
+
+                <p:spacer/>
+                <p:selectBooleanCheckbox  value="#{erpEstatisticaGeralViewBean.blSomenteUrgente}"   > <p:ajax process="@this"  update="@this"/>  </p:selectBooleanCheckbox> 
+                <h:outputLabel   value="Somente Urgentes"/>
+            </h:panelGrid>
+
+        </h:panelGrid>
+
+        <!--  Geral    -->
+        <h:panelGrid  id="panelGridGeral"   columns="1"   rendered="#{erpEstatisticaGeralViewBean.blGeralReports}"  >
+            <h:panelGrid columns="8">
+                <h:outputLabel   style="font-weight: bold;" value="Cod. Item:"   for="inputTextErpItemGeral"  />
+
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextErpItemGeral"
+                    value="#{erpEstatisticaGeralViewBean.erpItem}"
+                    converter="erpitemconverter"
+                    size="75" 
+                    minQueryLength="4"
+                    maxResults="15"
+                    maxlength="360"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpItem}" 
+                    var="erpitem"
+                    itemValue="#{erpitem}"
+                    itemLabel="#{erpitem.itmStCodigo}  #{erpitem.itmStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpItem}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextErpItemGeral" value="Campo Autocompletavel..." />  
+
+
+
+
+                <p:selectOneRadio id="slctFiltroRelatorioGeralItemsGeral"
+                                  value="#{erpEstatisticaGeralViewBean.strFiltroRelatorioGeral}"   >
+                    <p:ajax process="@this"  update="@this"/>
+                    <f:selectItem itemLabel="Todos" itemValue="t" />  
+                    <f:selectItem itemLabel="Somente items atendidos" itemValue="sa" />  
+                    <f:selectItem itemLabel="Somente items não atendidos" itemValue="sn" />  
+                </p:selectOneRadio>
+
+                <p:spacer/>
+                <p:selectBooleanCheckbox  value="#{erpEstatisticaGeralViewBean.blOrdenarPorCentroDeCusto}"   > <p:ajax process="@this"  update="@this"/>  </p:selectBooleanCheckbox> 
+                <h:outputLabel   value="Separar por ordem de centro de custo"/>
+
+            </h:panelGrid>
+
+            <p:panel  style="width: 200px;">
+                <f:facet name="header">
+                    <h:outputLabel   style="font-weight: bold;" value="Centro de Custo"   for="selectManyMenuGeral"  />
+                </f:facet>
+
+
+
+                <p:selectManyMenu value="#{erpEstatisticaGeralViewBean.listSelectedCentroDeCusto}"  
+                                  converter="centrocustoconverter" style="height:100px; width: 175px;"  id="selectManyMenuGeral" >  
+                    <p:ajax    update="growl,erp_report_geral"     />
+                    <f:selectItems value="#{erpEstatisticaGeralViewBean.listCentroDeCustoItems}"  
+                                   var="cc" itemLabel="#{cc.label}"  
+                                   itemValue="#{cc}" />  
+                </p:selectManyMenu> 
+            </p:panel>
+
+        </h:panelGrid>
+
+        <!--  ItensVencer   -->
+        <h:panelGrid  id="panelGridItemsAVenver"   columns="11"   rendered="#{erpEstatisticaGeralViewBean.blItemsAVencerReports}"  >
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentItensVencer"  />
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextEstablishmentItensVencer"
+                value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                converter="erpetabelecimentoconverter"
+                size="40" 
+                maxResults="15"
+                maxlength="260"  
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                var="estabelecimento"
+                itemValue="#{estabelecimento}"
+                itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}"
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                        update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                        inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,
+                        inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,inputTextApplicantCustos,
+                        inputTextDemandaUrgente,inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,
+                        inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextEstablishmentItensVencer" value="Campo Autocompletavel..." />  
+            <p:spacer/>
+
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextApplicantItensVencer"  />
+
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextApplicantItensVencer"
+                value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                converter="erpcentrodecustoconverter"
+                size="35" 
+                maxResults="15"
+                minQueryLength="4"
+                maxlength="260"
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                var="erpccusto"
+                itemValue="#{erpccusto}"
+                itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextApplicantItensVencer" value="Campo Autocompletavel..." />  
+
+
+            <p:spacer/>
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextPostoItensVencer"  />
+
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextPostoItensVencer"
+                value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                converter="erporigemconverter"
+                size="40" 
+                maxResults="15"
+                maxlength="260"  
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                var="erporigem"
+                itemValue="#{erporigem}"
+                itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextPostoItensVencer" value="Campo Autocompletavel..." />  
+
+
+
+
+        </h:panelGrid>
+
+        <!--  PorPostos   -->
+        <h:panelGrid  id="panelGridItemsPostos"   columns="1"   rendered="#{erpEstatisticaGeralViewBean.blItemsPostosReports}"  >
+
+            <h:panelGrid columns="9">
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentItensPostos"  />
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextEstablishmentItensPostos"
+                    value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                    converter="erpetabelecimentoconverter"
+                    size="50" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                    var="estabelecimento"
+                    itemValue="#{estabelecimento}"
+                    itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}"
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                            update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                            inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,
+                            inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                            inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,
+                            inputTextCCustoInpecaoDeItens" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextEstablishmentItensPostos" value="Campo Autocompletavel..." />  
+                <p:spacer/>
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextApplicantItensPostos"  />
+    
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextApplicantItensPostos"
+                    value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                    converter="erpcentrodecustoconverter"
+                    size="45" 
+                    minQueryLength="4"
+                    maxResults="15"
+                    maxlength="260"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                    var="erpccusto"
+                    itemValue="#{erpccusto}"
+                    itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextApplicantItensPostos" value="Campo Autocompletavel..." />  
+
+
+
+                <p:spacer/>
+
+
+            </h:panelGrid>
+
+            <h:panelGrid columns="3">
+                <h:outputLabel   style="font-weight: bold;" value="Cod. Item:"   for="inputTextPostoItensstrCodigoDoItemPostos"  />
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextPostoItensstrCodigoDoItemPostos"
+                    value="#{erpEstatisticaGeralViewBean.erpItem}"
+                    converter="erpitemconverter"
+                    size="75" 
+                    minQueryLength="4"
+                    maxResults="15"
+                    maxlength="360"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpItem}" 
+                    var="erpitem"
+                    itemValue="#{erpitem}"
+                    itemLabel="#{erpitem.itmStCodigo}  #{erpitem.itmStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpItem}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextPostoItensstrCodigoDoItemPostos" value="Campo Autocompletavel..." />  
+            </h:panelGrid>
+
+        </h:panelGrid>
+
+        <!-- StatusPedido -->
+        <h:panelGrid  id="panelGridStatusPedido"   columns="11"   rendered="#{erpEstatisticaGeralViewBean.blStatusPedidoReports}"  >
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentItensStatusPedido"  />
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextEstablishmentItensStatusPedido"
+                value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                converter="erpetabelecimentoconverter"
+                size="40" 
+                maxResults="15"
+                maxlength="260"  
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                var="estabelecimento"
+                itemValue="#{estabelecimento}"
+                itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}"
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                        update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                        inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados
+                        ,inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,inputTextApplicantCustos,inputTextDemandaUrgente,
+                        inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,
+                        inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextEstablishmentItensStatusPedido" value="Campo Autocompletavel..." />  
+            <p:spacer/>
+
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextApplicantCCustoStatusPedido"  />
+
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextApplicantCCustoStatusPedido"
+                value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                converter="erpcentrodecustoconverter"
+                size="35" 
+                minQueryLength="4"
+                maxResults="15"
+                maxlength="260"
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                var="erpccusto"
+                itemValue="#{erpccusto}"
+                itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextApplicantCCustoStatusPedido" value="Campo Autocompletavel..." />  
+
+
+
+            <p:spacer/>
+            <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextPostoItensStatusPedido"  />
+
+            <p:autoComplete  
+                onkeypress="if (event.keyCode == 13) {  return false; }"
+                id="inputTextPostoItensStatusPedido"
+                value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                converter="erporigemconverter"
+                size="40" 
+                maxResults="15"
+                maxlength="260"  
+                completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                var="erporigem"
+                itemValue="#{erporigem}"
+                itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                >
+                <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+            </p:autoComplete>
+            <p:watermark for="inputTextPostoItensStatusPedido" value="Campo Autocompletavel..." />  
+
+
+
+        </h:panelGrid>
+
+        <!-- TiposDePedido -->
+        <h:panelGrid  id="panelGridTipoPedido"   columns="1"   rendered="#{erpEstatisticaGeralViewBean.blTiposPedidoReports}"  >
+
+            <h:panelGrid columns="13">
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentItensTiposDePedido"  />
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextEstablishmentItensTiposDePedido"
+                    value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                    converter="erpetabelecimentoconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                    var="estabelecimento"
+                    itemValue="#{estabelecimento}"
+                    itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}"
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                            update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                            inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,
+                            inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,
+                            inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,
+                            inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextEstablishmentItensTiposDePedido" value="Campo Autocompletavel..." />  
+                <p:spacer/>
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextCCustoTiposDePedido"  />
+
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextCCustoTiposDePedido"
+                    value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                    converter="erpcentrodecustoconverter"
+                    size="35" 
+                    minQueryLength="4"
+                    maxResults="15"
+                    maxlength="260"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                    var="erpccusto"
+                    itemValue="#{erpccusto}"
+                    itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextCCustoTiposDePedido" value="Campo Autocompletavel..." />  
+
+
+
+                <p:spacer/>
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextPostoItensTiposDePedido"  />
+<!--                <p:inputText value="#{erpEstatisticaGeralViewBean.strPosto}" size="12" maxlength="50"  id="inputTextPostoItensTiposDePedido"   disabled="true"  />
+                <p:commandButton icon="ui-icon-search"   />-->
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextPostoItensTiposDePedido"
+                    value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                    converter="erporigemconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                    var="erporigem"
+                    itemValue="#{erporigem}"
+                    itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextPostoItensTiposDePedido" value="Campo Autocompletavel..." />  
+
+
+
+
+                <h:outputLabel   style="font-weight: bold;" value="UF:"    />
+                <p:selectOneMenu value="#{erpEstatisticaGeralViewBean.strUF}"  >
+                    <p:ajax process="@this"  update="@this"  partialSubmit="true"/>
+                    <f:selectItems value="#{arrayitems.UFItens}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+
+            <p:panel   style=" text-align: center;   width: 1015px; " >
+                <f:facet name="header">
+                    <h:outputLabel value="Tipo de Pedido"/>
+                </f:facet>
+
+                <h:panelGrid columns="12">
+                    <h:panelGrid columns="3"  style="width: 60px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoNormal}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>     <h:outputLabel value="Normal"/> <p:spacer/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 60px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoUrgente}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Urgente"/><p:spacer/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 60px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoPendencia}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Pendência"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 60px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoSelab}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Selab"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 60px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoApoio}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Apoio"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 60px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoPatrimonio}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Patrimônio"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 60px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoControlados}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Controlados"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 105px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoMaisDemanda}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Mais Demanda"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 60px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoManuais}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Manuais"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 60px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoVacinas}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Vacinas"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 80px;" >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoAhVencer}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="a Vencer"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 80px;"  >
+                        <p:selectBooleanCheckbox value="#{erpEstatisticaGeralViewBean.blTipoPedidoMedicamentos}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Medicamentos"/>
+                    </h:panelGrid>
+
+                </h:panelGrid>
+
+            </p:panel>
+
+
+
+        </h:panelGrid>
+
+        <!-- Abastecimento -->
+        <h:panelGrid  id="panelGridAbastecimento"   columns="1"   rendered="#{erpEstatisticaGeralViewBean.blAbastecimentoReports}"  >
+            <h:panelGrid  columns="13" >
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentAbastecimento"  />
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextEstablishmentAbastecimento"
+                    value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                    converter="erpetabelecimentoconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                    var="estabelecimento"
+                    itemValue="#{estabelecimento}"
+                    itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}"
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                            update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                            inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,
+                            inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,inputTextApplicantCustos,
+                            inputTextDemandaUrgente,inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,
+                            inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+                    <p:ajax  event="click"  update="growl"/>
+                </p:autoComplete>
+                <p:watermark for="inputTextEstablishmentAbastecimento" value="Campo Autocompletavel..." />  
+                <p:spacer/>
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextCCustoAbastecimento"  />
+
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextCCustoAbastecimento"
+                    value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                    converter="erpcentrodecustoconverter"
+                    size="35" 
+                    minQueryLength="4"
+                    maxResults="15"
+                    maxlength="260"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                    var="erpccusto"
+                    itemValue="#{erpccusto}"
+                    itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+                    
+                    
+                </p:autoComplete>
+                <p:watermark for="inputTextCCustoAbastecimento" value="Campo Autocompletavel..." />  
+
+
+                <p:spacer/>
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextPostoLocalAbastecimento"  />
+<!--                <p:inputText value="#{erpEstatisticaGeralViewBean.strPosto}" size="12" maxlength="50"  id="inputTextPostoLocalAbastecimento"  disabled="true" />
+                <p:commandButton icon="ui-icon-search"   />-->
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextPostoLocalAbastecimento"
+                    value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                    converter="erporigemconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                    var="erporigem"
+                    itemValue="#{erporigem}"
+                    itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextPostoLocalAbastecimento" value="Campo Autocompletavel..." />  
+
+
+                <h:outputLabel   style="font-weight: bold;" value="UF:"    />
+                <p:selectOneMenu value="#{erpEstatisticaGeralViewBean.strUF}"  >
+                    <p:ajax process="@this"  update="@this"  partialSubmit="true"/>
+                    <f:selectItems value="#{arrayitems.UFItens}"/>
+                </p:selectOneMenu>
+
+            </h:panelGrid>
+
+            <p:panelGrid columns="1"   rendered="false" >
+                <f:facet name="header">
+                    <h:outputLabel value="Unidade de Negócio"/>
+                </f:facet>
+
+                <p:selectManyMenu value="#{erpEstatisticaGeralViewBean.listSelectedUnidadeDeNegocio}"  
+                                  converter="unidadedenegocioconverter" style="height:80px; width: 175px;"  id="selectManyMenuUnidadeDeNegocioAbastecimento" >  
+                    <p:ajax    update="growl,erp_report_geral"     />
+                    <f:selectItems value="#{erpEstatisticaGeralViewBean.listUnidadeDeNegocioItems}"  
+                                   var="un" itemLabel="#{un.label}"  
+                                   itemValue="#{un}" />  
+                </p:selectManyMenu> 
+            </p:panelGrid>
+
+
+        </h:panelGrid>
+
+
+        <!-- ItensParametrizados -->
+        <h:panelGrid  id="panelGridItensParametrizados"   columns="1"   rendered="#{erpEstatisticaGeralViewBean.blItensParametrizados}"  >
+
+            <h:panelGrid columns="14">
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentItensParametrizados"  />
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextEstablishmentItensParametrizados"
+                    value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                    converter="erpetabelecimentoconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                    var="estabelecimento"
+                    itemValue="#{estabelecimento}"
+                    itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}"
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                            update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                            inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,
+                            inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,inputTextApplicantCustos,inputTextDemandaUrgente,
+                            inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,
+                            inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextEstablishmentItensParametrizados" value="Campo Autocompletavel..." />  
+                <p:spacer/>
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextCCustoItensParametrizados"  />
+<!--                <p:inputText value="#{erpEstatisticaGeralViewBean.strRequisitante}" size="12" maxlength="50"  id="inputTextApplicantItensParametrizados"   />
+                <p:commandButton icon="ui-icon-search"   />-->
+
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextCCustoItensParametrizados"
+                    value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                    converter="erpcentrodecustoconverter"
+                    size="35" 
+                    minQueryLength="4"
+                    maxResults="15"
+                    maxlength="260"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                    var="erpccusto"
+                    itemValue="#{erpccusto}"
+                    itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextCCustoItensParametrizados" value="Campo Autocompletavel..." />  
+
+
+                <p:spacer/>
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextPostoLocalItensParametrizados"  />
+<!--                <p:inputText value="#{erpEstatisticaGeralViewBean.strPosto}" size="12" maxlength="50"  id="inputTextPostoLocalItensParametrizados"   disabled="true"  />
+                <p:commandButton icon="ui-icon-search"   />
+                <p:spacer/>-->
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextPostoLocalItensParametrizados"
+                    value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                    converter="erporigemconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                    var="erporigem"
+                    itemValue="#{erporigem}"
+                    itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextPostoLocalItensParametrizados" value="Campo Autocompletavel..." />  
+
+
+
+                <h:outputLabel   style="font-weight: bold;" value="UF:"    />
+                <p:selectOneMenu value="#{erpEstatisticaGeralViewBean.strUF}"  >
+                    <p:ajax process="@this"  update="@this"  partialSubmit="true"/>
+                    <f:selectItems value="#{arrayitems.UFItens}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <h:panelGrid columns="10">
+
+                <h:outputLabel   style="font-weight: bold;" value="Centro de Custo"   for="selectOneMenuCustosParametrizados"  />
+                <p:selectOneMenu value="#{erpEstatisticaGeralViewBean.centroCusto}"  
+                                 style=" width: 135px;"  id="selectOneMenuCustosParametrizados"  converter="centrocustoconverter"   >  
+                    <p:ajax    update="growl,erp_report_geral"   />
+                    <f:selectItems value="#{erpEstatisticaGeralViewBean.listCentroDeCustoItems}" var="cc"   itemValue="#{cc}"   itemLabel="#{cc.codigo}   #{cc.label}"  />  
+                </p:selectOneMenu>
+
+
+            </h:panelGrid>
+
+        </h:panelGrid>
+
+
+
+        <!-- InpecaoDeItens -->
+        <h:panelGrid  id="panelGridInspecaoDeItems"   columns="1"   rendered="#{erpEstatisticaGeralViewBean.blInspecaoDeItensReports}"  >
+
+            <h:panelGrid columns="11">
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.establishment']}:"   for="inputTextEstablishmentInpecaoDeItens"  />
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextEstablishmentInpecaoDeItens"
+                    value="#{erpEstatisticaGeralViewBean.erpEstabelecimento}"
+                    converter="erpetabelecimentoconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteEstabelecimento}" 
+                    var="estabelecimento"
+                    itemValue="#{estabelecimento}"
+                    itemLabel="(#{estabelecimento.erpEstabelecimentoPK.estStCodigo}) #{estabelecimento.estStDescricao}"
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteEstabelecimento}" 
+                            update="growl,erp_report_geral,inputTextApplicantSolicitados,inputTextApplicantCustos,inputTextDemandaUrgente,inputTextApplicantItensVencer,
+                            inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,
+                            inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens,inputTextApplicantSolicitados,inputTextApplicantRINA,inputTextApplicantCustos,
+                            inputTextDemandaUrgente,inputTextApplicantItensVencer,inputTextApplicantItensPostos,inputTextApplicantCCustoStatusPedido,
+                            inputTextCCustoTiposDePedido,inputTextCCustoAbastecimento,inputTextCCustoItensParametrizados,inputTextCCustoInpecaoDeItens" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextEstablishmentInpecaoDeItens" value="Campo Autocompletavel..." />  
+                <p:spacer/>
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.applicant']} / #{msgs['node.cost.center']}:"   for="inputTextCCustoInpecaoDeItens"  />
+<!--                <p:inputText value="#{erpEstatisticaGeralViewBean.strRequisitante}" size="12" maxlength="50"  id="inputTextApplicantInpecaoDeItens"   />
+                <p:commandButton icon="ui-icon-search"   />-->
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextCCustoInpecaoDeItens"
+                    value="#{erpEstatisticaGeralViewBean.erpCcusto}"
+                    converter="erpcentrodecustoconverter"
+                    size="35" 
+                    minQueryLength="4"
+                    maxResults="15"
+                    maxlength="260"
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteCentroDeCusto}" 
+                    var="erpccusto"
+                    itemValue="#{erpccusto}"
+                    itemLabel="(#{erpccusto.ccuStCodigo})  #{erpccusto.ccuStDescricao} "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteCentroCusto}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextCCustoInpecaoDeItens" value="Campo Autocompletavel..." />  
+
+
+
+                <p:spacer/>
+
+                <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.points']} / #{msgs['node.sitepoint']}:"   for="inputTextPostoLocalInpecaoDeItens"  />
+<!--                <p:inputText value="#{erpEstatisticaGeralViewBean.strPosto}" size="12" maxlength="50"  id="inputTextPostoLocalInpecaoDeItens"   disabled="true"  />
+                <p:commandButton icon="ui-icon-search"   />-->
+                <p:autoComplete  
+                    onkeypress="if (event.keyCode == 13) {  return false; }"
+                    id="inputTextPostoLocalInpecaoDeItens"
+                    value="#{erpEstatisticaGeralViewBean.erpOrigem}"
+                    converter="erporigemconverter"
+                    size="40" 
+                    maxResults="15"
+                    maxlength="260"  
+                    completeMethod="#{erpEstatisticaGeralViewBean.autoCompleteErpOrigem}" 
+                    var="erporigem"
+                    itemValue="#{erporigem}"
+                    itemLabel=" #{erporigem.erpOrigemPK.oriStCodigo}  #{erporigem.oriStDescricao}   "
+                    >
+                    <p:ajax event="itemSelect" listener="#{erpEstatisticaGeralViewBean.handleSelectCompleteErpOrigem}" update="growl,erp_report_geral" />  
+                </p:autoComplete>
+                <p:watermark for="inputTextPostoLocalInpecaoDeItens" value="Campo Autocompletavel..." />  
+
+
+            </h:panelGrid>
+            <p:panel >
+
+                <h:panelGrid columns="5">
+
+
+                    <h:outputLabel   style="font-weight: bold;" value="#{msgs['node.experian.date']}"  for="dtExperianErpRelatorioGeralItemsInspecao"   />
+                    <p:calendar
+                        id="dtExperianErpRelatorioGeralItemsInspecao"
+                        value="#{erpEstatisticaGeralViewBean.dtValidade}"
+                        timeZone="#{dateSelect.timeZone}"
+                        pattern="dd/MM/yyyy "
+                        locale="pt"
+                        styleClass="dateTimeEntryShorter"
+                        effect="puff"
+                        effectDuration="fast" 
+                        size="10">
+                        <p:ajax  process="@this,dtExperianErpRelatorioGeralItemsInspecao"  partialSubmit="true"  event="dateSelect"  update="growl"  />  
+                    </p:calendar>      
+
+
+                    <h:panelGrid columns="3"  style="width: 150px;" >
+                        <p:selectBooleanCheckbox    value="#{erpEstatisticaGeralViewBean.blSomenteVencidos}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Somente Itens Vencidos"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 230px;" >
+                        <p:selectBooleanCheckbox    value="#{erpEstatisticaGeralViewBean.blSomenteItemsValidadeSelecionada}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Somente Itens da Validade Selecionada"/>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3"  style="width: 230px;" >
+                        <p:selectBooleanCheckbox    value="#{erpEstatisticaGeralViewBean.blSomenteAVencerProximoMes}"   ><p:ajax process="@this"  update="@this"/></p:selectBooleanCheckbox>  <h:outputLabel value="Somente Itens a vence no proximo mes"/>
+                    </h:panelGrid>
+
+                </h:panelGrid>
+            </p:panel>
+        </h:panelGrid>
+
+
+    </h:panelGroup>
+
+
+
+    <h:panelGrid columns="3"   >
+
+        <p:selectOneMenu id="selectOneMenuFileFormats" value="#{erpEstatisticaGeralViewBean.strJasperFormat}" style=" width: 50px;"  >  
+            <f:selectItems value="#{arrayitems.jasperFormatstens}" />  
+        </p:selectOneMenu>  
+        <p:commandButton  
+            style="width: 120px;"
+            onclick="widgetvarpollcounterRelStorage.stop();  widgetvarpollcounterRelStorage.start();" 
+            value="#{msgs['node.generate.report']}"  
+            process="@this,selectOneMenuFileFormats"
+            partialSubmit="true"
+            update=":formfooter,growl"
+            actionListener="#{erpEstatisticaGeralViewBean.makeErpRelatorioGeral}"   /> 
+        <p:commandButton value="#{msgs['template.cleanup']}"  
+                         actionListener="#{erpEstatisticaGeralViewBean.cleanUpEveryThing}"  
+                         update="@all"   
+                         process="@this" 
+                         partialSubmit="true"
+                         />
+
+    </h:panelGrid>
+
+
+    <p:panel  style="width: 100%;  background: #99FFFF;  "  id="erp_report_geral"  >        
+        <ui:insert name="seilahmano">
+            <ui:include src="erp_relatorio_geral_pop.xhtml"   parent="erp_report_geral"   />
+        </ui:insert>
+    </p:panel>
+
+
+
+
+
+
+</ui:composition>

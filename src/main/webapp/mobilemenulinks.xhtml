@@ -1,0 +1,251 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pm="http://primefaces.org/mobile"
+        contentType="text/html"
+        renderKitId="PRIMEFACES_MOBILE"
+        xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <f:loadBundle
+        id="myloadbundleId"
+        basename="br.com.faces.resources.messages"
+        var="msgs"/>
+    
+    <pm:page title="LabLis Menu">
+
+        
+        
+        
+        <!-- Main View -->
+        <pm:view id="main">
+            <h:form>
+            <p:poll  interval="#{arrayitems.strPollInterval}"  listener="#{portalCounterBean.incrementCounter}"   update="@this"  process="@this"   partialSubmit="true"   global="false" />
+            </h:form>
+            <pm:header title=" LabLis" swatch="b">
+                <f:facet name="right">
+                    <p:button value="Sair" icon="delete" href="mobileinvalidate.lis"  style=" font-style: italic; color: red;  font-weight: bold;"  />
+                </f:facet>
+            </pm:header>
+            
+            
+                                    
+
+            <pm:content>
+                
+                                    <h:outputLabel value="#{msgs['template.user']}:"   style="color: blue;  font-size: 12px;  font-weight: bold;   font-family: Helvetica, Arial, sans-serif  "/>
+                                    <h:outputLabel value="#{portalViewBean.labUsuario.usuStCodigo}"   style="color: #333333; font-size: 12px;  font-weight: bold;  font-family: Helvetica, Arial, sans-serif "/>
+                                    <h:outputLabel value="#{msgs['template.unit']}:"   style="color: blue; font-size: 12px; font-weight: bold;  font-family: Helvetica, Arial, sans-serif "/>
+                                    <h:outputLabel value="#{portalViewBean.labUnidade.uniStCodigo}"   style="color: #333333;   font-size: 12px; font-weight: bold;   font-family: Helvetica, Arial, sans-serif "/>
+                                    <h:outputLabel value=" | "   style="color: black;  font-size: 12px;  font-weight: bold; font-family: Helvetica, Arial, sans-serif  "/>
+                                    <h:outputLabel value="#{portalViewBean.labUnidade.uniStDescricao}"   style="color: #333333; font-size: 12px; font-weight: bold;   font-family: Helvetica, Arial, sans-serif "/>
+                
+
+                                    <c:forEach items="${portalViewBean.listMenuItemBeanMobile}"  var="item" >
+                                        
+                                        <p:dataList type="inset"   >
+                                            
+                                                <f:facet name="header">${item.strMenuName}</f:facet>
+                                                
+                                                <c:if test="${not empty  item.listMenuItemBeans}">
+                                                    
+                                                        <c:forEach items="${item.listMenuItemBeans}"  var="item2" >
+                                                    
+                                                            <c:if test="${empty  item2.listMenuItemBeans}">
+                                                                <h:outputLink value="#id${item2.id}">${item2.label}</h:outputLink>
+                                                            </c:if>
+                                                            
+                                                            <c:if test="${not empty  item.listMenuItemBeans}">
+                                                                <c:forEach items="${item2.listMenuItemBeans}"  var="item3" >
+                                                                    <h:outputLink value="#id${item3.id}">${item3.label}</h:outputLink>
+                                                                </c:forEach>
+                                                            </c:if>
+                                                            
+                                                    
+                                                        </c:forEach>
+                                                    
+                                                </c:if>
+                                                
+                                                
+                                                
+                                                
+                                        </p:dataList>
+                                        
+                                    </c:forEach>
+                                    
+
+            </pm:content>
+
+            
+            
+        </pm:view>
+
+        <!-- Monitor de Faturamento -->
+        <pm:view id="id00062">
+            
+            <pm:header title="#{msgs['node.biling.monitor']}">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+                <h:form>
+                <ui:include  id="98988787876jughgghfg"  src="./WEB-INF/mobile/chart/mobilemonitordefaturamento.xhtml"/>
+                </h:form>
+            </pm:content>
+
+        </pm:view>
+
+
+        <!-- Estatistica Exame/Requisicao -->
+        <pm:view id="id00082">
+            <pm:header title="#{msgs['title.statistics.exame.request']}">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+
+              
+
+            </pm:content>
+
+        </pm:view>
+
+        <!--  Estatistica de Faturamento  -->
+        <pm:view id="id00067">
+            <pm:header title="#{msgs['node.sales.statistics']}">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+
+             
+            </pm:content>
+
+        </pm:view>
+
+        <!-- Estatistica de Prontuario -->
+        <pm:view id="id9999999">
+            <pm:header title="#{msgs['title.statistics.profile']}">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+               
+            </pm:content>
+        </pm:view>
+
+        <!-- Estatistica Exame/Lote -->
+        <pm:view id="id00111">
+            <pm:header title="#{msgs['title.statistics.exame.lote']}">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+                
+            </pm:content>
+        </pm:view>
+
+        
+        <!--  Relatorio de Pendencia -->
+        <pm:view id="id00114">
+            <pm:header title="#{msgs['title.report.pending.exames']}">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+
+               
+
+            </pm:content>
+        </pm:view>
+        
+        <!--  Frase p Laudo -->
+        <pm:view id="id00022">
+            <pm:header title="Under Construction">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+
+               
+
+            </pm:content>
+        </pm:view>
+        
+        <!--  Cadastro de Convenios -->
+        <pm:view id="id00010">
+            <pm:header title="Under Construction">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+
+               
+
+            </pm:content>
+        </pm:view>
+
+        
+        <pm:view id="transitionTarget">
+            <pm:header title="Transition">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#transitions?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+
+            
+
+            </pm:content>
+        </pm:view>
+
+        <!-- Ajax Status -->
+        <pm:view id="ajaxStatus">
+            <pm:header title="Ajax Status">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+             
+
+            </pm:content>
+        </pm:view>
+
+        <!-- Ajax Update -->
+        <pm:view id="ajaxUpdate">
+            <pm:header title="TODO">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+             
+            </pm:content>
+            
+        </pm:view>
+
+        <!-- Navigation Handler -->
+        <pm:view id="navHandler">
+            <pm:header title="Navigation">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+              
+
+            </pm:content>
+        </pm:view>
+
+        <!-- Transitions -->
+        <pm:view id="transitions">
+            <pm:header title="Transitions">
+                <f:facet name="left"><p:button value="Back" icon="back" href="#main?reverse=true"/></f:facet>
+            </pm:header>
+
+            <pm:content>
+               
+            </pm:content>
+        </pm:view>
+
+    </pm:page>
+
+</f:view>

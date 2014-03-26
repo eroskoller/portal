@@ -1,0 +1,472 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <f:view    contentType="text/html"  locale="#{localeBean.currentLanguage}"   >
+
+        <f:loadBundle
+            id="myloadbundleId"
+            basename="br.com.faces.resources.messages"
+            var="msgs"/>
+
+        <h:head>
+            <f:facet name="first">
+                <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <meta http-equiv="refresh" content="#{arrayitems.strRefreshMaxTime}; url=portal.lis" />
+                <!--                <meta http-equiv="refresh" content="10; url=invalidate.lis" />-->
+                <!--<rewrite match="(?i)^(.*);jsessionid=\w+(.*)" substitute="$1$2" redirect="301"/>-->
+                <title>Portal</title>
+            </f:facet>
+
+            <link type="text/css" rel="stylesheet" href="css/default.css" />
+            <link type="text/css" rel="stylesheet" href="css/overrides.css" />
+            <script src="js/custom_01.js"/>
+            
+
+            <style type="text/css">
+                .ui-layout-north {
+                    z-index:20 !important;
+                    overflow:visible !important;;
+                }
+
+                .ui-layout-north .ui-layout-unit-content {
+                    overflow:visible !important;
+                }
+
+
+                .ui-menu .ui-menu-parent .ui-menu-child {
+                    display: none;
+                    width: 260px;
+                    padding: 0.3em;
+                    position: absolute;
+                    margin: 0;
+                    outline: 0; 
+                    line-height: 1.3;
+                    text-decoration: none;
+                    font-size: 100%;
+                    list-style: none;
+                }
+
+                
+                .jqplot-title{
+                }
+                .jqplot-xaxis-label{
+                }
+                .jqplot-yaxis-label{
+                }
+                .jqplot-highlighter-tooltip{
+                    font-size: 18px;
+                    color: black;
+                    display:none;
+                }
+              
+                
+                
+            </style>
+            
+            <script type="text/javascript">
+                
+//                mobileRedirect(1000,window.screen.width);
+                mobileRedirectByAgent();
+                
+                jQuery('form').submit(function() {
+                        jQuery(window).unbind("beforeunload");
+                 });
+                
+                
+                
+                
+                $('input:password').focus(
+                    function(){
+                        $(this).parent().css({'background-position': 'Xpx Ypx'});
+                    }).blur(
+                    function(){
+                        $(this).parent().css({'background-position': 'Xpx Ypx'});
+                    });
+                
+                 function doClear(theText) {
+                    if (theText.value == theText.defaultValue) {
+                        theText.value = ""
+                    }
+                }
+    
+                
+                
+            </script>
+        </h:head>
+
+
+        <h:body  id="portalbody"   >
+
+            <h:form  prependId="false"   >
+
+                <h:outputLabel value="#{grabTheRightDBBen.initializeRightDb}"   style="position: absolute; top: -200px;     "   /> 
+
+                <p:poll   id="pollcounterRelStorage"  
+                        interval="#{arrayitems.intPollCounterRelStorage}"   
+                        listener="#{relatorioStorageBean.incrementUpdateAndFindNewReports}" 
+                        update=":formfooter:relatorioPush_listServicoDocs"   
+                        widgetVar="widgetvarpollcounterRelStorage"
+                        autoStart="false"
+                        process="@this"
+                        partialSubmit="true"
+                        global="false"
+                        />  
+                
+
+                <p:poll     
+                    interval="#{arrayitems.strPollInterval}"  
+                    listener="#{portalCounterBean.incrementCounter}"   
+                    update="@this"  
+                    process="@this"  
+                    partialSubmit="true"  
+                    global="false" />
+
+
+                <!--                <ui:include src="/WEB-INF/reports/producao/relatorio_producao_pop.xhtml"   />
+                                <ui:include src="/WEB-INF/reports/exame_lote/relatorio_exame_lote_pop.xhtml" />-->
+
+
+
+
+
+            </h:form>
+
+
+            <p:layout fullPage="true"   stateful="false"    id="fullPage"     >
+
+                <!--                header-->    
+                <p:layoutUnit id="top"   size="55"   minSize="20"   position="north"   collapsible="false"  collapsed="false"     >
+
+
+                    <h:form id="formheader"  >
+                        
+                        
+                        
+                                <p:ajaxStatus id="ajaxStatusPanel" style="position: absolute; top: 5px; left: 96%;" >  
+                                    <f:facet name="start">  
+                                        <h:graphicImage value="design/netloading.gif"   height="40"  width="40" />  
+                                    </f:facet>  
+                                
+                                    <f:facet name="complete">  
+                                        <h:outputText value="" />  
+                                    </f:facet>  
+                                </p:ajaxStatus>  
+                        
+
+                        <p:idleMonitor    timeout="#{arrayitems.strIdleMaxTime}"   
+                                          onidle="idleDialog.show()" onactive="idleDialog.hide()"    /> 
+                        <p:dialog header="Oque está acontecendo ?" resizable="false"  
+                                  widgetVar="idleDialog" modal="false" width="400">   
+                            <h:outputText value="Hey , você ainda está ai ?"   />  
+                        </p:dialog>  
+
+
+
+                        <h:panelGrid  id="panelgridmenubar"  >
+                            
+                            <p:focus context="panelgridmenubar"/>  
+                            <p:menubar      id="menubarportal"   style="width: 100%;"  rendered="#{not empty portalViewBean.labUsuario}"   model="#{portalViewBean.menuBarMain}"     ></p:menubar>
+
+                            <h:panelGrid columns="6"   id="menubarportalpanellogin"  style=" position: relative; left: 100%;"  rendered="#{empty portalViewBean.labUsuario}"  >
+                                <h:outputLabel value="#{msgs['template.login']}:"/>
+                                <p:inputText      maxlength="20" size="10"         id="portallogin"  value="#{portalViewBean.strLogin}"   styleClass="inputupper"   /> 
+                                
+                                <h:outputLabel value="#{msgs['page.textFields.password']}:"/>
+                                <p:password  
+                                    required="true"
+                                    size="10" 
+                                    id="portalpass"
+                                    value="#{portalViewBean.strPass}" 
+                                    feedback="true"  
+                                    promptLabel="#{msgs['node.prompt.password']}" 
+                                    weakLabel="#{msgs['node.weak.password']}"   
+                                    goodLabel="#{msgs['node.good.password']}" 
+                                    strongLabel="#{msgs['node.strong.password']}"  
+                                    maxlength="40"
+                                    styleClass="inputupper"
+                                    />
+                                <p:commandButton 
+                                    value="#{msgs['template.send']}"  
+                                    process="@this,portallogin,portalpass" 
+                                    actionListener="#{portalViewBean.letMeIn}"     
+                                    ajax="false"   
+                                    onclick="window.open('#{portalViewBean.strContentPath}', '_self')"
+                                    />
+                                
+                                <h:panelGrid columns="2"  style="position: absolute; top: 80%; left: 20%;"  >
+                                    <p:messages id="messages" showDetail="true" autoUpdate="true"     />  
+                                </h:panelGrid>
+
+                            </h:panelGrid>    
+
+                            <h:panelGrid columns="2"   style="position: absolute; left: 50%;  top: 30%;  "      rendered="#{not empty portalViewBean.labUsuario}"   >
+                                
+                                <h:panelGrid columns="10"   >
+
+                                    <h:outputLabel value="#{msgs['template.user']}:"   style="color: blue;"/>
+                                    <h:panelGroup  style="min-width: 20px;  max-width: 200px;" >
+                                        <h:outputLabel value="#{portalViewBean.labUsuario.usuStCodigo}"   style="color: black;"/>
+                                    </h:panelGroup>
+                                    <h:outputLabel value="#{msgs['template.unit']}:"   style="color: blue;"/>
+                                    <h:panelGrid   columns="3" style="min-width: 20px;  max-width: 200px;" >
+                                        <h:outputLabel value="#{portalViewBean.labUnidade.uniStCodigo}"   style="color: black;"/>
+                                        <h:outputLabel value=" | "   style="color: black;"/>
+                                        <h:outputLabel value="#{portalViewBean.labUnidade.uniStDescricaoResumida}"   style="color: black;"/>
+                                    </h:panelGrid>
+                                    <p:commandLink  style="color: blue; font-weight: bold; text-decoration:underline   "  
+                                                    value="#{msgs['template.changeunit']}"  
+                                                    onclick="widgetvarportalviewpoplistlabunidadesswitch.show();"   
+                                                      />
+                                    <p:spacer />
+                                     <p:commandLink actionListener="#{portalViewBean.letMeOut}" id="linkletmeout"  ajax="false"  update="@all"    rendered="false"     >
+                                        <h:outputLabel    value="#{msgs['node.logout']}"   style="color: red;font-weight: bold; font-size: 14px; " />
+                                    </p:commandLink>
+                                    
+                                    <h:outputLabel    value="#{msgs['page.expandTable.header6']}"   style="color: #008200; font-size: 12px; " />
+                                    <h:outputLabel    value="0.728"   style="color: black; font-size: 12px; " />
+                                    <p:spacer />
+                                    <h:outputLink  value="/portal/invalidate.lis"    >
+                                         <h:outputLabel    value="#{msgs['node.logout']}"   style="color: red;font-weight: bold; font-size: 14px; " />
+                                     </h:outputLink>
+                                    
+                                </h:panelGrid>
+
+                            </h:panelGrid>
+
+
+
+                        </h:panelGrid>
+
+                        
+
+
+
+
+                        <p:dialog  
+                            id="portalviewpoplistlabunidades" header="#{msgs['template.unit']}" widgetVar="widgetvarportalviewpoplistlabunidades" 
+                                  modal="false" height="480"  hideEffect="fade"   
+                                  showEffect="fade"    draggable="true"     maximizable="true"        >  
+
+                            <f:facet name="header">
+                                <p:commandButton value="#{msgs['node.check.all']}"     process="@this"   update="monitorfaturamentodatatable"     action="#{portalViewBean.checkAllUnidades}"   />
+                                <p:commandButton value="#{msgs['node.uncheck.all']}"     process="@this"   update="monitorfaturamentodatatable"   action="#{portalViewBean.unCheckAllUnidades}"   />
+                            </f:facet>
+                            
+                            
+                            <p:dataTable
+                                id="monitorfaturamentodatatable"
+                                value="#{portalViewBean.listLabUnidade}"
+                                var="uni"
+                                styleClass="novoEstiloHighlight"
+                                style="margin: 0px;"
+                                scrollHeight="400"
+                                rows="15"
+                                paginator="true"
+                                paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                rowsPerPageTemplate="5,10,15">  
+
+
+
+                                <p:column  id="rowData1ex_Faturamento_UnidadeblSelected" >
+                                    <f:facet name="header">
+
+                                    </f:facet>
+                                    <p:selectBooleanCheckbox value="#{uni.blSelected}"   onchange="widgetvarportalviewpoplistlabunidades.update();"   >
+                                        <f:param name="portalviewlabunidadesparam"  value="#{uni.uniStCodigo}"/>
+                                        <p:ajax process="@this"     listener="#{portalViewBean.grabUnidadeFromList}"   update="monitorfaturamentodatatable"     ></p:ajax>
+
+                                    </p:selectBooleanCheckbox>
+                                </p:column>
+
+
+                                <p:column  id="rowData1ex_Faturamento_Unidade" >
+                                    <f:facet name="header">
+                                        <h:panelGroup style="width: 70px;">
+                                            <h:outputText  value="#{msgs['template.unit']}"/>
+                                        </h:panelGroup>
+                                    </f:facet>
+                                    <h:outputText value="#{uni.uniStCodigo}"/>
+
+                                </p:column>
+
+                                <p:column  id="rowData2ex_Unidade" >
+                                    <f:facet name="header">
+                                        <h:panelGroup style="width: 195px;">
+                                            <h:outputText    value="#{msgs['page.tree.employee.name.label']}"/>
+                                        </h:panelGroup>
+                                    </f:facet>
+                                    <h:outputText value="#{uni.uniStDescricao}" />
+
+                                </p:column>
+
+                            </p:dataTable>
+
+
+
+
+
+                        </p:dialog>  
+
+
+                        
+                        
+                        
+                        <p:dialog  
+                            id="portalviewpoplistlabunidadesswitch" header="#{msgs['template.unit']}" widgetVar="widgetvarportalviewpoplistlabunidadesswitch" 
+                            modal="false" height="450"  hideEffect="fade"  
+                                  showEffect="fade"    draggable="true"     maximizable="true"        >  
+                            
+                            <p:dataTable
+                                id="monitorfaturamentodatatableswitch"
+                                value="#{portalViewBean.listLabUnidade}"
+                                var="uni"
+                                style="margin: 0px;"
+                                rows="15"
+                                paginator="true"
+                                paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                rowsPerPageTemplate="5,10,15">   
+                                
+
+                                <p:column  id="rowData1ex_Faturamento_Unidadeswitch"  
+                                           filterBy="#{uni.uniStCodigo}"  
+                                           headerText="#{msgs['template.unit']}"   
+                                           filterMatchMode="contains"    >
+                                
+                                    <p:commandLink value="#{uni.uniStCodigo}"  
+                                                   action="#{portalViewBean.grabLabUnidadeFromListSwitch}"  
+                                                   process="@this"   update=":formheader:panelgridmenubar" style="color: red; font-weight: bold; font-style: italic;  "   >
+                                        <f:param name="labunidadeswitchparam" value="#{uni.uniStCodigo}"    />
+                                    </p:commandLink>
+                                    
+                                </p:column>
+
+                                <p:column  id="rowData2ex_Unidadeswitch"   
+                                           filterBy="#{uni.uniStDescricao}"  
+                                           headerText="#{msgs['tabbedHeadings.description']}"   
+                                           filterMatchMode="contains"   >
+                                    
+                                    
+                                    <p:commandLink value="#{uni.uniStDescricao}"  
+                                                   action="#{portalViewBean.grabLabUnidadeFromListSwitch}"   
+                                                   process="@this"   update=":formheader:panelgridmenubar"   style="color: blue; font-weight: bold; font-style: italic;  "  >
+                                        <f:param name="labunidadeswitchparam" value="#{uni.uniStCodigo}" />
+                                    </p:commandLink>
+                                    
+                                </p:column>
+
+                            </p:dataTable>
+
+
+                        </p:dialog>  
+
+
+
+
+                    </h:form>
+
+
+
+                </p:layoutUnit>
+
+                <!--                west-->
+                <p:layoutUnit id="left" position="west" size="300" resizable="true" closable="false" collapsible="true"   collapsed="true" header="Options" minSize="200"   rendered="false" >
+                    <p:accordionPanel activeIndex="0" autoHeight="false">
+                        <p:tab title="Menu 1">
+                            <br />
+                            <p:calendar mode="inline" navigator="none"/>
+                            <br />
+                        </p:tab>
+
+                        <p:tab title="Menu 2">
+                            <h:outputText value="Menu 2 Content" />
+                        </p:tab>
+
+                        <p:tab title="Menu 3">
+                            <h:outputText value="Menu 3 Content" />
+                        </p:tab>
+                    </p:accordionPanel>
+                </p:layoutUnit>
+
+                <!--                east-->
+                <p:layoutUnit id="right" position="east" size="250" header="Gallery" resizable="true" 
+                              closable="false" collapsible="true"  collapsed="#{portalViewBean.blEastCollpsed}"  visible="#{not empty portalViewBean.labUsuario}" 
+                              style="text-align:center"   rendered="false"  gutter="3"  >
+
+
+                    <h:form>
+                        <ui:include src="templates/themeMenu.xhtml" />
+                    </h:form>
+               
+
+                    <p:commandButton id="basic" value="Show Dialog" onclick="dlg1.show();" type="button" style="margin-top:10px"  rendered="false" />
+
+                </p:layoutUnit>
+
+
+
+
+                <!--footer-->
+
+                <p:layoutUnit  
+                    id="bottomfooter" 
+                    header="#{msgs['node.report.table']} | #{msgs['node.you.have']}  #{relatorioStorageBean.amountOfReports}   #{msgs['node.reports.your.storage']}. #{msgs['node.your.storage.retains.only.last']} #{arrayitems.intMaxDaysRelStorage} #{msgs['node.days.of.search']}. "     
+                    position="south" 
+                    minSize="225"
+                    maxSize="620"
+                    collapsible="true"    
+                    collapsed="#{portalViewBean.blFooterCollpsed}"   
+                    closable="false"          
+                    resizable="true"   
+                    styleClass="ui-widget-content2"   
+                    style="font-size: 10px;  background-color: none;     "    
+                    effect="slide"
+                    rendered="#{not empty portalViewBean.labUsuario}"
+                    >
+                    <h:form id="formfooter"  >  
+
+<!--                        <iframe  id="relatorioPush_listServicoDocs"   src="#{portalViewBean.footerUrl}"  style="width: 99.7%;       height: 280px;   border: none;  padding: 0px; margin: 0px;  " scrolling="no"    />-->
+
+                        <ui:insert name="josblistpage" >
+                            <ui:include src="WEB-INF/jobs/jobslist.xhtml"/>
+                        </ui:insert>
+
+                    </h:form> 
+
+
+                </p:layoutUnit>
+
+
+
+                <!--                center-->
+                <p:layoutUnit id="center" position="center"  minSize="100"  maxSize="400"  gutter="6"    >
+
+                    <ui:insert name="oiuyttyui">
+                        <ui:include src="WEB-INF/template/portaltabs.xhtml"/>
+                    </ui:insert>
+
+
+                </p:layoutUnit>
+
+
+            </p:layout>
+
+
+        </h:body>
+
+
+        <ui:debug hotkey="x"/>
+
+
+
+
+    </f:view>
+</html>
+

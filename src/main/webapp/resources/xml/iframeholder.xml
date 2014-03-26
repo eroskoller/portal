@@ -1,0 +1,231 @@
+<br.com.portal.beans.login.IFrameHolder>
+  <mapIFramePages>
+    <entry>
+      <string>00062</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <modStCodigo>00062</modStCodigo>
+        <rating>2</rating>
+                <title>Monitor de Faturamento</title>
+        <url>../../WEB-INF/charts/monitorfaturamento.xhtml</url>
+        <blAjax>false</blAjax>
+        <iconCss>ui-icon-image</iconCss>
+        <beanName>monitorDeFaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+    
+<!--    <entry>
+      <string>00022</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <rating>2</rating>
+        <modStCodigo>00022</modStCodigo>
+        <url>../../under.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>estatisticafaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>-->
+    
+<!--    <entry>
+      <string>00010</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <rating>2</rating>
+        <modStCodigo>00010</modStCodigo>
+        <url>../../under.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>estatisticafaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>-->
+    
+    <entry>
+      <string>00082</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <rating>2</rating>
+        <modStCodigo>00082</modStCodigo>
+        <title>Estatística Exame/Requisição</title>
+        <url>../../WEB-INF/reports/exame_requisicao/relatorio_exame_requisicao.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>estatisticaexamerequisicaoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+    <entry>
+      <string>00083</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <rating>2</rating>
+        <modStCodigo>00083</modStCodigo>
+        <title>Estatística Exame/Lote</title>
+        <url>../../WEB-INF/reports/exame_lote/relatorio_exame_lote.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>estatisticaexameloteViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+    <entry>
+      <string>00067</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <rating>2</rating>
+        <modStCodigo>00067</modStCodigo>
+        <title>Estatística de Faturamento</title>
+        <url>../../WEB-INF/reports/producao/relatorio_producao.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>estatisticafaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+    <entry>
+      <string>00114</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <rating>2</rating>
+        <modStCodigo>00114</modStCodigo>
+        <title>Relatório de Pendência</title>
+        <url>../../WEB-INF/reports/pendencia/relatorio_pendencia.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>relatorioPendenciaViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+   
+<!--    <entry>
+      <string>00115</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>false</blNative>
+        <modStCodigo>00080</modStCodigo>
+        <title>Consulta Laudos</title>
+        <rating>2</rating>
+        <url>http://paranalise.lisnet.com.br/laudos/z_diretinho.php?user=</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>estatisticafaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>-->
+    
+    
+    
+    
+<!--        <entry>
+      <string>00153</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>false</blNative>
+        <modStCodigo>00153</modStCodigo>
+        <title>Auditoria</title>
+        <rating>2</rating>
+        <url>http://{0}.lisnet.com.br/lisupdate/auditoria?user={1}</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>estatisticafaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>-->
+    
+    
+    <entry>
+      <string>00153</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <modStCodigo>00153</modStCodigo>
+        <title>Auditoria</title>
+        <rating>2</rating>
+        <url>../../WEB-INF/auditoria/auditoria.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-circle-check</iconCss>
+        <beanName>estatisticafaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+    
+    
+    
+    <entry>
+      <string>10077</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <modStCodigo>10077</modStCodigo>
+        <rating>2</rating>
+        <title>ERP Relatório Geral</title>
+        <url>../../WEB-INF/erp/reports/erp_relatorio_geral.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>monitorDeFaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+    
+    <entry>
+      <string>00080</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <modStCodigo>00080</modStCodigo>
+        <rating>2</rating>
+        <title>Consulta Laudo</title>
+        <url>../../WEB-INF/laudo/consultalaudo.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-search</iconCss>
+        <beanName>monitorDeFaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+    
+    <entry>
+      <string>00148</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <modStCodigo>00148</modStCodigo>
+        <rating>2</rating>
+        <title>Pesquisa Manual Exame</title>
+        <url>../../WEB-INF/exame/pesquisamanualexame.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-search</iconCss>
+        <beanName>monitorDeFaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+    
+    
+<!--      <entry>
+      <string>10078</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <modStCodigo>10078</modStCodigo>
+        <rating>2</rating>
+        <title>Relatório Faturamento de Clientes</title>
+        <url>../../WEB-INF/erp/reports/faturamento/erp_faturamento_cobranca.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>monitorDeFaturamentoViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>-->
+    
+    
+  </mapIFramePages>
+</br.com.portal.beans.login.IFrameHolder>

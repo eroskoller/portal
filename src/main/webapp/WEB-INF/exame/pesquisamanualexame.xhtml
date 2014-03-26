@@ -1,0 +1,247 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions" >
+    
+
+        
+        <h:panelGrid columns="10"   >
+            <h:panelGroup style="width: 50px;" >
+                <h:outputLabel value="#{msgs['mnemonic']} " style="font-weight: bold;" />
+            </h:panelGroup>
+            <p:inputText   
+                id="inputtextpesquisaManualExViewBean_strMnemonicCodigo" 
+                valueChangeListener="#{pesquisaManualExViewBean.grabListLabManualExameByMnemonic}" 
+                         maxlength="20"   size="8"   
+                         styleClass="inputupper"   
+                          >
+                <p:ajax process="inputtextpesquisaManualExViewBean_strMnemonicCodigo"  update="panelGroupTableListLabManualExames" />
+            </p:inputText>
+            <p:focus for="inputtextpesquisaManualExViewBean_strMnemonicCodigo" />
+            <p:commandButton id="commandButton_pesquisaManualExViewBean_grabListLabManualExameByMnemonic"
+                             rendered="false"
+                value="#{msgs['template.search']}"  
+                             action="#{pesquisaManualExViewBean.grabListLabManualExameByMnemonic}"  
+                             process="@this,inputtextpesquisaManualExViewBean_strMnemonicCodigo"  update="panelGroupTableListLabManualExames,growl"  
+                             partialSubmit="true"  widgetVar="widgetVarcommandButton_pesquisaManualExViewBean_grabListLabManualExameByMnemonic" />
+            <h:panelGroup style="width: 20px;" >
+                <h:outputLabel value="#{msgs['exame.description']} "   style="font-weight: bold;"  />
+            </h:panelGroup>
+            <p:inputText  id="inputtextpesquisaManualExViewBean_strDescExame" valueChangeListener="#{pesquisaManualExViewBean.grabListLabManualExameByExameDesc}"  
+                         maxlength="100"   size="40"  
+                         styleClass="inputupper"   
+                          >
+                <p:ajax process="inputtextpesquisaManualExViewBean_strDescExame"  update="panelGroupTableListLabManualExames" />
+            </p:inputText>
+            <p:commandButton rendered="false"
+                value="#{msgs['template.search']}"  
+                             action="#{pesquisaManualExViewBean.grabListLabManualExameByExameDesc}" 
+                             process="@this,inputtextpesquisaManualExViewBean_strDescExame"  update="panelGroupTableListLabManualExames,growl"  partialSubmit="true" />
+            <h:panelGroup style="width: 20px;" >
+                <h:outputLabel value="#{msgs['synonymies']} "  style="font-weight: bold;" />
+            </h:panelGroup>
+            <p:inputText  id="inputtextpesquisaManualExViewBean_strSynonymies"
+                          valueChangeListener="#{pesquisaManualExViewBean.grabListLabManualExameBySynonymies}"
+                          maxlength="100"   size="20"  
+                          styleClass="inputupper" 
+                           >
+                <p:ajax process="inputtextpesquisaManualExViewBean_strSynonymies"  update="panelGroupTableListLabManualExames" />
+            </p:inputText>
+            <p:commandButton rendered="false"
+                value="#{msgs['template.search']}"   
+                             action="#{pesquisaManualExViewBean.grabListLabManualExameBySynonymies}"
+                             process="@this,inputtextpesquisaManualExViewBean_strSynonymies"  update="panelGroupTableListLabManualExames,growl" 
+                             partialSubmit="true"/>
+       </h:panelGrid>
+    
+    <h:panelGroup id="panelGroupTableListLabManualExames" >
+        <p:dataTable
+            id="listalabmanualexamedatatable"
+            value="#{pesquisaManualExViewBean.listLabManualExames}"
+            var="mex"
+            rows="10"
+            paginator="true"
+            paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+            rowsPerPageTemplate="10,15,20"
+            selectionMode="single"
+            rowKey="#{mex}"
+            selection="#{pesquisaManualExViewBean.selectedlabManualExame}"
+            emptyMessage="Lista de Exames está vazia.........."
+            >
+            <p:ajax event="rowSelect" listener="#{pesquisaManualExViewBean.onRowSelect}"     
+                    update=":tw:formtab00148"   oncomplete="widgetvardialoglabmanualexame.show();"  />  
+            
+            
+            <p:column  id="column_exastcodigo"  style="width: 5px;  color: red;"  sortBy="#{mex.exaStCodigo.exaStCodigo}" >
+                <f:facet name="header">
+                    <h:outputText  value="#{msgs['template.code']}"  style="color: black ;" />
+                </f:facet>
+                #{mex.exaStCodigo.exaStCodigo}
+            </p:column>
+            <p:column  id="column_exadesc"  style="width: 10px;  color: blue;"  sortBy="#{mex.exaStCodigo.exaStDescricao}" >
+                <f:facet name="header">
+                        <h:outputText  value="#{msgs['exame.description']}"  style="color: black ;" />
+                </f:facet>
+                #{mex.exaStCodigo.exaStDescricao}
+            </p:column>
+            
+            <p:column  id="column_examaterial"  style="width: 10px;  color: black;"  sortBy="#{mex.mexClMaterialColeta}" >
+                <f:facet name="header">
+                        <h:outputText  value="Material Coleta"  style="color: black ;" />
+                </f:facet>
+                #{mex.mexClMaterialColeta}
+            </p:column>
+         
+            
+        </p:dataTable>  
+    </h:panelGroup>
+    
+    <p:dialog 
+                    id="dialoglabmanualexame" 
+                          widgetVar="widgetvardialoglabmanualexame" 
+                          modal="false" 
+                          hideEffect="fade"   
+                          showEffect="fade"    
+                          draggable="true"     
+                          maximizable="false" 
+                          header=" "
+                          
+                          >
+        <f:facet name="header">
+            Manual de Exames
+        </f:facet>
+        
+        <p:scrollPanel style="width:750px;height:305px" scrollMode="native"   >
+        
+        <h:panelGrid columns="2"  >  
+        
+        <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Exame" style="color: blue;" />
+            </f:facet>
+        
+        <h:panelGrid columns="2"   style="width: 100%;">
+            <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.exaStCodigo.exaStCodigo}"  style="color: red;" />
+                <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.exaStCodigo.exaStDescricao}" />
+        </h:panelGrid>
+        </p:panel>
+        <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="#{msgs['synonymies']}" style="color: blue;" />
+            </f:facet>
+                    <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.exaStCodigo.exaStSinonimias}" />
+        </p:panel>
+        <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="#{msgs['indications']}" style="color: blue;" />
+            </f:facet>
+             <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClIndicado}" />
+        </p:panel>
+        
+        <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Material de Coleta" style="color: blue;" />
+            </f:facet>
+            <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClMaterialColeta}" />
+        </p:panel>
+        
+        <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Recipiente" style="color: blue;" />
+            </f:facet>
+            <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClObsRecipiente}" />
+        </p:panel>
+        
+        <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Volume de coleta" style="color: blue;" />
+            </f:facet>
+            <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClVolumeColeta}" />
+        </p:panel>
+        
+        <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Interferentes" style="color: blue;" />
+            </f:facet>
+            <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClInteferente}" />
+        </p:panel>
+        
+        <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Procedimento de Coleta" style="color: blue;" />
+            </f:facet>
+            <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClColeta}" />
+        </p:panel>
+        
+        <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Transporte" style="color: blue;" />
+            </f:facet>
+            <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClTransporte}" />
+        </p:panel>
+            
+          <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Exames Correlatos" style="color: blue;" />
+            </f:facet>
+            <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClExameCorrelato}" />
+        </p:panel>
+            
+            <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="#{msgs['node.delivery.time.emergency']}" style="color: blue;" />
+            </f:facet>
+                <h:outputText value="#{pesquisaManualExViewBean.labExameUnidade.exuStPrazoUrgente}" />
+        </p:panel>
+            
+            <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Prazo de entrega ambulatorial" style="color: blue;" />
+            </f:facet>
+                <h:outputText value="#{pesquisaManualExViewBean.labExameUnidade.exuStPrazoTransporte}" />
+        </p:panel>
+            
+            <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Setor responsável" style="color: blue;" />
+            </f:facet>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{pesquisaManualExViewBean.labExameUnidade.setStCodigo}" />
+                    <h:outputText value="#{pesquisaManualExViewBean.labSetor.setStDescricao}" />
+                </h:panelGrid>
+        </p:panel>
+            
+            <p:panel  style="width: 350px;">
+            <f:facet name="header">
+                <h:outputLabel value="Unidade executante" style="color: blue;" />
+            </f:facet>
+                <h:outputText value="#{pesquisaManualExViewBean.labExameUnidade.exuStUnidadeEx}" />
+        </p:panel>
+        
+        </h:panelGrid>
+        <p:panel  style="width: 700px;">
+            <f:facet name="header">
+                <h:outputLabel value="Conservação/Estabilidade" style="color: blue;" />
+            </f:facet>
+            <h:panelGrid columns="2">
+                <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClTransporte}: " />
+                <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexStConsTempAmbiente}" />
+                
+                <h:outputText value="Refrigerado: " />
+                <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexSTConsRefrigerado}" />
+                
+                <h:outputText value="#{msgs['node.interpretation']} " />
+                <h:outputText value="#{pesquisaManualExViewBean.selectedlabManualExame.mexClInterpretacao}" />
+            </h:panelGrid>
+        </p:panel>
+        </p:scrollPanel>
+            
+    </p:dialog>  
+    
+    
+</ui:composition>

@@ -1,0 +1,358 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions" >
+    
+    
+    
+    
+    
+    
+    <h:panelGrid     columns="17"   rendered="#{erpEstatisticaGeralViewBean.blTopReports}"     style="width: 90%;"   >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+        </h:panelGrid>
+    
+    
+    <h:panelGrid     columns="21"   rendered="#{erpEstatisticaGeralViewBean.blSolicitadosReports}"   style="width: 90%;"    >
+        
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+    
+    
+    <h:panelGrid     columns="21"   rendered="#{erpEstatisticaGeralViewBean.blRINAReports}"   style="width: 90%;"  >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+    
+    
+    <h:panelGrid     columns="21"   rendered="#{erpEstatisticaGeralViewBean.blCustosReports}"    style="width: 90%;" >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+    
+    <h:panelGrid     columns="21"   rendered="#{erpEstatisticaGeralViewBean.blDemandaUrgenteReports}"   style="width: 90%;"  >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+    
+    
+    <h:panelGrid     columns="17"   rendered="#{erpEstatisticaGeralViewBean.blGeralReports}"   style="width: 90%;"  >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Cod. Item:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpItem.itmStDescricao}"/>
+   </h:panelGrid>
+    
+    <h:panelGrid     columns="21"   rendered="#{erpEstatisticaGeralViewBean.blItemsAVencerReports}"   style="width: 90%;"  >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+
+    <h:panelGrid     columns="17"   rendered="#{erpEstatisticaGeralViewBean.blItemsPostosReports}"   style="width: 90%;"  >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Cod. Item:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpItem.itmStDescricao}"/>
+   </h:panelGrid>
+    
+    
+    <h:panelGrid     columns="17"   rendered="#{erpEstatisticaGeralViewBean.blStatusPedidoReports}"   style="width: 90%;"  >
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+    
+    
+    <h:panelGrid     columns="17"   rendered="#{erpEstatisticaGeralViewBean.blTiposPedidoReports}"   style="width: 90%;"    >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+    
+    
+    <h:panelGrid     columns="17"   rendered="#{erpEstatisticaGeralViewBean.blAbastecimentoReports}"    style="width: 90%;"    >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+    
+    
+    <h:panelGrid     columns="17"   rendered="#{erpEstatisticaGeralViewBean.blItensParametrizados}"   style="width: 90%;"    >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+    
+    
+    <h:panelGrid     columns="17"   rendered="#{erpEstatisticaGeralViewBean.blInspecaoDeItensReports}"    style="width: 90%;"   >
+        
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Unidade:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpUnidade.uniStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Marca:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue;"  value="#{erpEstatisticaGeralViewBean.erpMarcas.marStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Regional:"   />
+            <h:outputText  style="font-style: italic ; color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpRegiona.rgiStDescricao}"/>
+            <p:spacer/>
+            <p:spacer/>
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Estabelecimento:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpEstabelecimento.estStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Centro de Custo:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpCcusto.ccuStDescricao}"/>
+            
+            <h:outputLabel style="font-weight: bold; color: darkred;" value="Posto:"   />
+            <h:outputText  style="font-style: italic ;  color: darkblue; "  value="#{erpEstatisticaGeralViewBean.erpOrigem.oriStDescricao}"/>
+   </h:panelGrid>
+
+
+</ui:composition>

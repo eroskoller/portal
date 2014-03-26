@@ -1,0 +1,134 @@
+
+
+
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    >
+    
+        
+            
+            <h:panelGrid columns="7"    >
+                
+                <h:outputText  styleClass="sinopsetext"
+                    value="#{msgs['title.statistics.exame.request']} "    ></h:outputText>
+
+
+                <h:outputLabel  style="font-weight: bold;"   value="#{msgs['node.adress.number']}. #{msgs['node.request']}"/>
+                <p:inputText 
+                             size="14"
+                             maxlength="11"
+                             styleClass="inputupper"
+                             id="inputTextnumerorequisicao"
+                             value="#{estatisticaexamerequisicaoViewBean.strReqCodigo}"
+                             />
+                
+                
+                
+                <p:commandButton  value="#{msgs['node.add']}" 
+                                  actionListener="#{estatisticaexamerequisicaoViewBean.grabLabRequisicao}"  
+                                  id="botao"   
+                                  update="relatoriorequisicaoexamepanelgrid,growl"   
+                                  process="@this,inputTextnumerorequisicao"   partialSubmit="true" />
+                
+                <p:selectOneMenu id="selectOneMenuFileFormats" value="#{estatisticaexamerequisicaoViewBean.strJasperFormat}" style=" width: 50px;"  >  
+                    <f:selectItems value="#{arrayitems.jasperFormatstens}" />  
+                </p:selectOneMenu>  
+                
+                <p:commandButton  
+                    style="width: 120px;"
+                    onclick="widgetvarpollcounterRelStorage.stop();  widgetvarpollcounterRelStorage.start();" 
+                                  value="#{msgs['node.generate.report']}"  process="@this,selectOneMenuFileFormats"
+                                  partialSubmit="true"
+                                  update=":formfooter"
+                                  actionListener="#{estatisticaexamerequisicaoViewBean.makeEstatisticaExameRequisicao}"   />
+                <p:commandButton value="#{msgs['template.cleanup']}"  
+                                 actionListener="#{estatisticaexamerequisicaoViewBean.cleanUpEveryThing}"  
+                                 update="relatoriorequisicaoexamepanelgrid,growl"   
+                                 process="@this" 
+                                 partialSubmit="true"
+                                 />
+
+             
+
+            </h:panelGrid>
+
+
+
+        <h:panelGroup styleClass="clearer"/>
+
+        
+       
+            <p:separator/>
+            
+            
+        <h:panelGrid  columns="8"  id="relatoriorequisicaoexamepanelgrid"   style=" padding: 0px; margin: 0px; "   >
+            
+            <c:forEach items="${estatisticaexamerequisicaoViewBean.setLabRequisicao}" var="req">
+                
+                <h:panelGrid columns="2"  id="panelGrid${req.reqStCodigo}"     >
+                    
+                    <p:panel  id="panel${req.reqStCodigo}"  widgetVar="widgetvarrelatioriorexamerequisicao${req.reqStCodigo}"  closable="true" >
+                        
+                        
+                        <h:panelGrid columns="3"   style="margin: 0px; padding: 0px;" >
+                    <h:outputLabel value="${req.reqStCodigo}"/> 
+                    
+                    <p:commandButton icon="ui-icon-info"  style="height: 20px; width: 20px;   margin-left: 3px;"    id="btnshow${req.reqStCodigo}" >
+                        <p:overlayPanel id="overlayPanel${req.reqStCodigo}" for="btnshow${req.reqStCodigo}" 
+                                        appendToBody="true"
+                                        transient="true"
+                                        showEffect="slide" 
+                                        hideEffect="fade" 
+                                        hideEvent="mousedown"  
+                                        styleClass="ui-helper-clearfix"
+                                        >  
+                                            
+                            <p:panel>
+                                <p:panelGrid columns="2">
+                                    <h:outputLabel value="Codigo:"/>
+                                    <h:outputLabel value="${req.pacInCodigo.pacInCodigo}"/>    
+                                    <h:outputLabel value="Nome:"/>
+                                    <h:outputLabel value="${req.pacInCodigo.pacStNome}"/>    
+                                    <h:outputLabel value="Unidade:"/>
+                                    <h:outputLabel value="${req.uniStCodigo}"/>    
+                                    <h:outputLabel value="Idade:"/>
+                                    <h:outputLabel value="${req.pacInCodigo.pacInIdade}"/>    
+                                </p:panelGrid>
+                                    
+                            </p:panel>
+                                
+                        </p:overlayPanel>  
+                    </p:commandButton>
+                    
+                    <p:commandButton icon="ui-icon-close"    style="height: 20px; width: 20px;   margin-left: 3px;"    
+                                     process="@this"   onclick="widgetvarrelatioriorexamerequisicao${req.reqStCodigo}.close();"     update="growl" 
+                                     actionListener="#{estatisticaexamerequisicaoViewBean.delLabRequisicao}"  > 
+                        
+                        <f:param name="relatorioexamereqparam"  value="${req.reqStCodigo}"/>
+                        
+                    </p:commandButton>
+                    
+                    
+                    
+                    </h:panelGrid>
+                </p:panel>
+                
+                
+                    
+                </h:panelGrid>
+            </c:forEach>
+            
+            
+            
+            
+        </h:panelGrid>
+        
+        
+        <p:focus for="inputTextnumerorequisicao" />
+</ui:composition>
