@@ -19,25 +19,27 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
-import jcifs.util.Base64;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.primefaces.component.layout.LayoutUnit;
 import org.primefaces.component.menuitem.MenuItem;
-import org.primefaces.component.tabview.Tab;
+
 import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.RateEvent;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.event.TabCloseEvent;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
@@ -523,7 +525,7 @@ public class PortalView implements Serializable {
                     + "\n and umo.modStCodigo = mdl.modStCodigo"
                     + "\n and pus.pusStCodigo = :pusStCodigo"
                     + "\n and usu.usuStCodigo = :usuStCodigo"   
-//                    + "\n and pus.pusInVersao = (select max(pusInVersao) from LabPerfilUsuarioModulo where pusStCodigo = pus.pusStCodigo)"  
+                    + "\n and pus.pusInVersao = (select max(pus2.pusInVersao) from LabPerfilUsuarioModulo pus2 where pus2.pusStCodigo = pus.pusStCodigo)"  
                     + "\n    order by pus.pusInSequencia,pus.pusInSequenciaPai"
                     + "";
 

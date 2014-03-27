@@ -125,10 +125,10 @@ public class LabPerfilUsuarioModulo implements Serializable{
     
     
     
-//    @Column(name="PUS_IN_VERSAO") 
-//    private Integer pusInVersao;
-//    public Integer getPusInVersao() {return pusInVersao;}
-//    public void setPusInVersao(Integer pusInVersao) {this.pusInVersao = pusInVersao;}
+    @Column(name="PUS_IN_VERSAO") 
+    private Integer pusInVersao;
+    public Integer getPusInVersao() {return pusInVersao;}
+    public void setPusInVersao(Integer pusInVersao) {this.pusInVersao = pusInVersao;}
     
 
     public LabModulo getModStCodigo() {

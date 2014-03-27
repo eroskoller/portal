@@ -36,8 +36,12 @@ public class MenuBuilderHelper implements Serializable {
             if ((Long) tupla[1] == 2) {
                 int indexSub = listMenuItemBeans.get(listMenuItemBeans.size() - 1).getListMenuItemBeans().size();
                 MenuItemBean mSub = null;
-                mSub = listMenuItemBeans.get(listMenuItemBeans.size() - 1).getListMenuItemBeans().get(indexSub - 1);
-                mSub.getListMenuItemBeans().add(new MenuItemBean((String) tupla[2], (String) tupla[3]));
+                if(listMenuItemBeans.get(listMenuItemBeans.size() - 1) != null 
+                        && listMenuItemBeans.get(listMenuItemBeans.size() - 1).getListMenuItemBeans().get(indexSub - 1) != null){
+                    mSub = listMenuItemBeans.get(listMenuItemBeans.size() - 1).getListMenuItemBeans().get(indexSub - 1);
+                    mSub.getListMenuItemBeans().add(new MenuItemBean((String) tupla[2], (String) tupla[3]));
+                }
+                
             }
 
         }

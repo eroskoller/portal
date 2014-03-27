@@ -113,6 +113,16 @@
             <version>0.5.1</version>
             <scope>compile</scope>
         </dependency>-->
+        
+        
+        <!--workaround to prevent 'org.primefaces.component.fileupload.FileUploadRenderer' is missing a runtime dependency-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        
+        
         <dependency> 
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
@@ -123,12 +133,11 @@
             <artifactId>redmond</artifactId>
             <version>1.0.10</version>
         </dependency>
-        <!--workaround to prevent 'org.primefaces.component.fileupload.FileUploadRenderer' is missing a runtime dependency-->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.2.2</version>
-        </dependency>
+        <dependency>  
+            <groupId>org.primefaces</groupId>  
+            <artifactId>primefaces-mobile</artifactId>  
+            <version>0.9.4</version>  
+        </dependency>  
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>afternoon</artifactId>
@@ -137,6 +146,11 @@
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>sunny</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>hot-sneaks</artifactId>
             <version>1.0.10</version>
         </dependency>
         
