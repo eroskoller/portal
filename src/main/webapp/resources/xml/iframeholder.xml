@@ -46,6 +46,25 @@
       </br.com.portal.beans.login.IFramePage>
     </entry>-->
     
+    
+    
+    <entry>
+      <string>00220</string>
+      <br.com.portal.beans.login.IFramePage>
+        <tabIndex>0</tabIndex>
+        <blCloseble>true</blCloseble>
+        <blNative>true</blNative>
+        <rating>2</rating>
+        <modStCodigo>00220</modStCodigo>
+        <title>Cadastro de Pacientes</title>
+        <url>../../WEB-INF/menudiario/cadastropaciente.xhtml</url>
+        <blAjax>true</blAjax>
+        <iconCss>ui-icon-document</iconCss>
+        <beanName>cadastrodepacientesViewBean</beanName>
+      </br.com.portal.beans.login.IFramePage>
+    </entry>
+    
+    
     <entry>
       <string>00082</string>
       <br.com.portal.beans.login.IFramePage>

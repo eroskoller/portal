@@ -527,7 +527,7 @@ public class PortalView implements Serializable {
                     + "\n and usu.usuStCodigo = :usuStCodigo"   
                     + "\n and pus.pusInVersao = (select max(pus2.pusInVersao) from LabPerfilUsuarioModulo pus2 where pus2.pusStCodigo = pus.pusStCodigo)"  
                     + "\n    order by pus.pusInSequencia,pus.pusInSequenciaPai"
-                    + "";
+                    + " "; 
 
 
             Session session = OracleHelper.getSessionDude(strDbName);
