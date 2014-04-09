@@ -57,7 +57,7 @@
         <rating>2</rating>
         <modStCodigo>00220</modStCodigo>
         <title>Cadastro de Pacientes</title>
-        <url>../../WEB-INF/menudiario/cadastropaciente.xhtml</url>
+        <url>../../WEB-INF/menudiario/cadastropaciente/cadastropaciente.xhtml</url>
         <blAjax>true</blAjax>
         <iconCss>ui-icon-document</iconCss>
         <beanName>cadastrodepacientesViewBean</beanName>
