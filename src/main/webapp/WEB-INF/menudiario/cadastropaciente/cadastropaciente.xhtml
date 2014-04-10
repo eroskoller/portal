@@ -16,7 +16,9 @@ and open the template in the editor.
 
     <style type="text/css"> .dateTimeEntryShorterX { width:  50px  !important; } </style>
 
-    <h:panelGrid columns="8"   style="padding: 0px ; margin: 0px;"  >
+    <div style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px;  " >
+    
+    <h:panelGrid columns="8"   style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "  >
 
         <h:panelGrid columns="1" >
             <h:outputLabel value="#{msgs['page.tree.employee.name.label']}"   style="font-weight: bold;"  />
@@ -170,24 +172,28 @@ and open the template in the editor.
 
     </h:panelGrid>
 
-    <p:panel  style="width: 100%;  background:transparent;  "  id="readme_cadastro" rendered="false" >        
+    
+    <p:separator/>
+    
+    
+    <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "    id="readme_cadastro" rendered="false" >        
         <ui:insert name="seilahmano">
             <ui:include src="readme_cadastro.xhtml"   parent="readme_cadastro"   />
         </ui:insert>
     </p:panel>
-    <p:panel  style="width: 100%;  background:transparent;  "  id="table_pacientes"  rendered="false"  >        
+    <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "    id="table_pacientes"  rendered="false"  >        
         <ui:insert name="seilahmano">
             <ui:include src="table_pacientes.xhtml"   parent="table_pacientes"   />
         </ui:insert>
     </p:panel>
     
-    <p:panel  style="width: 100%;  background:transparent;  "  id="inclusao_paciente" rendered="true" >        
+    <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "  id="inclusao_paciente" rendered="true" >        
         <ui:insert name="seilahmano">
             <ui:include src="inclusao_paciente.xhtml"   parent="inclusao_paciente"   />
         </ui:insert>
     </p:panel>
     
     
-    
+    </div>
     
 </ui:composition>
