@@ -6,8 +6,6 @@
     xmlns:p="http://primefaces.org/ui"
      >
 
-
-
     <h:panelGrid columns="9" style="width: 1000px;  padding: 0 0 0 0px;  margin:  0 0 0 0px;  "   >
 
 
@@ -220,7 +218,32 @@
                 <p:inputText value="" size="160" maxlength="300"/>
             </h:panelGroup>
     </h:panelGrid>
+ <p:separator/>       
+    <h:panelGrid columns="8"  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; width: 1000px; "  >
+        <p:commandButton value="#{msgs['label.new.requestor']}" />
+        
+        <p:splitButton value="#{msgs['label.alter.requestor']}" icon="ui-icon-disk"   >  
+            <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>  
+            <p:menuitem value="Delete"  icon="ui-icon-close"/>  
+        </p:splitButton>  
+        
+        <p:splitButton value="#{msgs['label.alter.procedure']}" icon="ui-icon-disk"   >  
+            <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>  
+            <p:menuitem value="Delete"  icon="ui-icon-close"/>  
+        </p:splitButton>  
+        
+        <p:splitButton value="#{msgs['label.replace.pacient']}" icon="ui-icon-disk"   >  
+            <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>  
+            <p:menuitem value="Delete"  icon="ui-icon-close"/>  
+        </p:splitButton>  
+        
+        <p:commandButton value="#{msgs['label.payment']}" />
+        <p:commandButton value="Gui TISS" />
+        <p:commandButton value="#{msgs['label.protocol']}" />
+        <p:commandButton value="#{msgs['label.tag']}" />
+        
+    </h:panelGrid>
     
- <p:separator/>
+ 
 
 </ui:composition>
