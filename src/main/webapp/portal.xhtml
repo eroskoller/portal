@@ -102,6 +102,11 @@
 
 
         <h:body  id="portalbody"   >
+            
+            
+            
+            
+            
 
             <h:form  prependId="false"   >
 
@@ -138,16 +143,18 @@
             </h:form>
 
 
+            
+            
             <p:layout fullPage="true"   stateful="false"    id="fullPage"     >
+                
+                
+                            
 
                 <!--                header-->    
-                <p:layoutUnit id="top"   size="55"   minSize="20"   position="north"   collapsible="false"  collapsed="false"     >
-
-
+                <p:layoutUnit id="top"       position="north"   collapsible="false"  collapsed="false"  size="48"    style="padding-bottom: 0px;  padding-top: 0px;"  >
+                    
+                    
                     <h:form id="formheader"  >
-                        
-                        
-                        
                                 <p:ajaxStatus id="ajaxStatusPanel" style="position: absolute; top: 5px; left: 96%;" >  
                                     <f:facet name="start">  
                                         <h:graphicImage value="design/netloading.gif"   height="40"  width="40" />  
@@ -167,13 +174,13 @@
                         </p:dialog>  
 
 
-
-                        <h:panelGrid  id="panelgridmenubar"  >
+                        <h:panelGrid  id="panelgridmenubar"   style="padding: 0 0 0 0px; margin:  0 0  0 0px;"  >
                             
                             <p:focus context="panelgridmenubar"/>  
-                            <p:menubar      id="menubarportal"   style="width: 100%;"  rendered="#{not empty portalViewBean.labUsuario}"   model="#{portalViewBean.menuBarMain}"     ></p:menubar>
+                            
+                            <p:menubar      id="menubarportal"   style="width: 100%;  height: 24px;"  rendered="#{not empty portalViewBean.labUsuario}"   model="#{portalViewBean.menuBarMain}"     ></p:menubar>
 
-                            <h:panelGrid columns="6"   id="menubarportalpanellogin"  style=" position: relative; left: 100%;"  rendered="#{empty portalViewBean.labUsuario}"  >
+                            <h:panelGrid columns="6"   id="menubarportalpanellogin"  style=" position: relative; left: 100%;  "  rendered="#{empty portalViewBean.labUsuario}"  >
                                 <h:outputLabel value="#{msgs['template.login']}:"/>
                                 <p:inputText      maxlength="20" size="10"         id="portallogin"  value="#{portalViewBean.strLogin}"   styleClass="inputupper"   /> 
                                 
@@ -205,7 +212,7 @@
 
                             </h:panelGrid>    
 
-                            <h:panelGrid columns="2"   style="position: absolute; left: 50%;  top: 30%;  "      rendered="#{not empty portalViewBean.labUsuario}"   >
+                            <h:panelGrid  id="panelgridmenubaruserdata"  columns="2"   style="position: absolute; left: 60%;  top: 30%;  "      rendered="#{not empty portalViewBean.labUsuario}"   >
                                 
                                 <h:panelGrid columns="10"   >
 
@@ -239,14 +246,7 @@
 
                             </h:panelGrid>
 
-
-
                         </h:panelGrid>
-
-                        
-
-
-
 
                         <p:dialog  
                             id="portalviewpoplistlabunidades" header="#{msgs['template.unit']}" widgetVar="widgetvarportalviewpoplistlabunidades" 
@@ -313,10 +313,6 @@
 
 
                         </p:dialog>  
-
-
-                        
-                        
                         
                         <p:dialog  
                             id="portalviewpoplistlabunidadesswitch" header="#{msgs['template.unit']}" widgetVar="widgetvarportalviewpoplistlabunidadesswitch" 
@@ -367,15 +363,10 @@
 
                         </p:dialog>  
 
-
-
-
                     </h:form>
 
-
-
                 </p:layoutUnit>
-
+                
                 <!--                west-->
                 <p:layoutUnit id="left" position="west" size="300" resizable="true" closable="false" collapsible="true"   collapsed="true" header="Options" minSize="200"   rendered="false" >
                     <p:accordionPanel activeIndex="0">
@@ -429,6 +420,7 @@
                     style="font-size: 10px;  background-color: none;     "    
                     effect="slide"
                     rendered="#{not empty portalViewBean.labUsuario}"
+                    
                     >
                     <h:form id="formfooter"  >  
 

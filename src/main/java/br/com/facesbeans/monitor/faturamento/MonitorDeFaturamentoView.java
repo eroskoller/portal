@@ -463,7 +463,7 @@ public class MonitorDeFaturamentoView implements Serializable {
 
             buildCharts();
         } else {
-            portal.popMsg(0, true, "Escolha ao menos uma Unidade para pode fazer a pesquisa.");
+            portal.popMsg(0, true, "Escolha ao menos uma Unidade para poder fazer a pesquisa.");
         }
 
 
@@ -498,7 +498,7 @@ public class MonitorDeFaturamentoView implements Serializable {
 
             buildCharts();
         } else {
-            portal.popMsg(0, true, "Escolha ao menos uma Unidade para pode fazer a pesquisa.");
+            portal.popMsg(0, true, "Escolha ao menos uma Unidade para poder fazer a pesquisa.");
         }
 
 
@@ -539,7 +539,7 @@ public class MonitorDeFaturamentoView implements Serializable {
 
             buildCharts();
         } else {
-            portal.popMsg(0, true, "Escolha ao menos uma Unidade para pode fazer a pesquisa.");
+            portal.popMsg(0, true, "Escolha ao menos uma Unidade para poder fazer a pesquisa.");
         }
 
 
@@ -581,7 +581,7 @@ public class MonitorDeFaturamentoView implements Serializable {
 
             buildCharts();
         } else {
-            portal.popMsg(0, true, "Escolha ao menos uma Unidade para pode fazer a pesquisa.");
+            portal.popMsg(0, true, "Escolha ao menos uma Unidade para poder fazer a pesquisa.");
         }
 
 
@@ -618,7 +618,7 @@ public class MonitorDeFaturamentoView implements Serializable {
 
             buildCharts();
         } else {
-            portal.popMsg(0, true, "Escolha ao menos uma Unidade para pode fazer a pesquisa.");
+            portal.popMsg(0, true, "Escolha ao menos uma Unidade para poder fazer a pesquisa.");
         }
 
 
@@ -654,7 +654,7 @@ public class MonitorDeFaturamentoView implements Serializable {
 
             buildCharts();
         } else {
-            portal.popMsg(0, true, "Escolha ao menos uma Unidade para pode fazer a pesquisa.");
+            portal.popMsg(0, true, "Escolha ao menos uma Unidade para poder fazer a pesquisa.");
         }
 
 

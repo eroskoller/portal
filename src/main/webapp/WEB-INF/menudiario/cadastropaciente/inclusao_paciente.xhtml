@@ -13,7 +13,7 @@
             <h:outputLabel value="#{msgs['page.tree.employee.name.label']}"   style="font-weight: bold;"  />
 
             <h:panelGroup>
-                <p:inputText value="" size="40"  maxlength="150"  />
+                <p:inputText  size="40"  maxlength="150"  />
             </h:panelGroup>
         </h:panelGrid>
 
@@ -46,13 +46,13 @@
             <h:outputLabel value="Idade"   style="font-weight: bold;"  />
 
             <h:panelGroup>
-                <h:inputText value="" size="3" disabled="true"/>
+                <h:inputText  size="3" disabled="true"/>
             </h:panelGroup>
         </h:panelGrid>
 
         <h:panelGrid columns="1">
             <h:outputLabel value="Sexo"   style="font-weight: bold;"  />
-            <p:selectOneMenu id="selectOneMenuSexoNovoPac" value="">  
+            <p:selectOneMenu id="selectOneMenuSexoNovoPac" >  
                 <f:selectItem itemLabel="M" itemValue="M" />  
                 <f:selectItem itemLabel="F" itemValue="F" />  
             </p:selectOneMenu> 
@@ -60,7 +60,7 @@
 
         <h:panelGrid columns="1">
             <h:outputLabel value="Estado Civil"   style="font-weight: bold;"  />
-            <p:selectOneMenu id="selectOneMenuCivilNovoPac" value="">  
+            <p:selectOneMenu id="selectOneMenuCivilNovoPac" >  
                 <f:selectItem itemLabel="Casado" itemValue="C" />  
                 <f:selectItem itemLabel="Solteiro" itemValue="S" />  
             </p:selectOneMenu> 
@@ -69,28 +69,28 @@
         <h:panelGrid columns="1">
             <h:outputLabel value="R.G."   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="13" maxlength="15"/>
+                <p:inputText  size="13" maxlength="15"/>
             </h:panelGroup>
         </h:panelGrid>
 
         <h:panelGrid columns="1">
             <h:outputLabel value="CPF"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="15" maxlength="18"/>
+                <p:inputText  size="15" maxlength="18"/>
             </h:panelGroup>
         </h:panelGrid>
 
         <h:panelGrid columns="1">
             <h:outputLabel value="S.U.S"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="10" maxlength="18"/>
+                <p:inputText  size="10" maxlength="18"/>
             </h:panelGroup>
         </h:panelGrid>
 
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['template.pac.profile']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="15" maxlength="18"/>
+                <p:inputText  size="15" maxlength="18"/>
             </h:panelGroup>
         </h:panelGrid>
 
@@ -101,7 +101,7 @@
         <h:panelGrid columns="1" >
             <h:outputLabel value="#{msgs['template.zipcode']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="8" maxlength="10" styleClass="inputupper" />
+                <p:inputText  size="8" maxlength="10" styleClass="inputupper" />
                 <p:spacer width="3" />
                 <p:commandButton process="@this" 
                                  rendered="true" 
@@ -118,28 +118,28 @@
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['template.address']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="35" maxlength="60"/>
+                <p:inputText  size="35" maxlength="60"/>
             </h:panelGroup>
         </h:panelGrid>
 
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['template.number']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="6" maxlength="6"/>
+                <p:inputText  size="6" maxlength="6"/>
             </h:panelGroup>
         </h:panelGrid>                
 
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['template.complement']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="30" maxlength="50"/>
+                <p:inputText  size="30" maxlength="50"/>
             </h:panelGroup>
         </h:panelGrid>
 
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['template.neighborhood']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="20" maxlength="20"/>
+                <p:inputText  size="20" maxlength="20"/>
             </h:panelGroup>
         </h:panelGrid>
 
@@ -147,13 +147,13 @@
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['template.city']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="20" maxlength="20"/>
+                <p:inputText  size="20" maxlength="20"/>
             </h:panelGroup>
         </h:panelGrid>
 
         <h:panelGrid columns="1">
             <h:outputLabel value="UF"   style="font-weight: bold;"  />
-            <p:selectOneMenu id="selectOneMenuUFNovoPac" value="">  
+            <p:selectOneMenu id="selectOneMenuUFNovoPac" >  
                 <f:selectItem itemLabel="SP" itemValue="SP" />  
                 <f:selectItem itemLabel="SP" itemValue="SP" />  
             </p:selectOneMenu> 
@@ -167,41 +167,41 @@
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['label.phone']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="20" maxlength="20"/>
+                <p:inputText  size="20" maxlength="20"/>
             </h:panelGroup>
         </h:panelGrid>
         
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['node.cellphone']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="20" maxlength="20"/>
+                <p:inputText  size="20" maxlength="20"/>
             </h:panelGroup>
         </h:panelGrid>
         
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['label.email']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="20" maxlength="20"/>
+                <p:inputText  size="20" maxlength="20"/>
             </h:panelGroup>
         </h:panelGrid>
         
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['lable.responsable']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="48" maxlength="50"/>
+                <p:inputText  size="48" maxlength="50"/>
             </h:panelGroup>
         </h:panelGrid>
         
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['label.mother.name']}"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="20" maxlength="20"/>
+                <p:inputText  size="20" maxlength="20"/>
             </h:panelGroup>
         </h:panelGrid>
     
         <h:panelGrid columns="1">
             <h:outputLabel value="#{msgs['node.color']}"   style="font-weight: bold;"  />
-            <p:selectOneMenu id="selectOneMenuCOLORNovoPac" value="">  
+            <p:selectOneMenu id="selectOneMenuCOLORNovoPac" >  
                 <f:selectItem itemLabel="Branco" itemValue="b" />  
                 <f:selectItem itemLabel="Negro" itemValue="n" />  
                 <f:selectItem itemLabel="Pardo" itemValue="p" />  
@@ -215,7 +215,7 @@
     <h:panelGrid columns="1" style="padding: 0 0 0 0px;  margin:  0 0 0 0px; width: 1000px; " >
             <h:outputLabel value="Obs"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText value="" size="160" maxlength="300"/>
+                <p:inputText  size="160" maxlength="300"/>
             </h:panelGroup>
     </h:panelGrid>
  <p:separator/>       

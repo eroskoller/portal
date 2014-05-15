@@ -105,3 +105,21 @@ parent .ui-menu-child {
 }
 
 .inputupper { text-transform: uppercase; }
+
+
+.ui-panel-content {
+border: 0;
+background: none;
+padding: 0.0em 1em;
+}
+
+
+.line-separator{
+
+height:1px;
+
+background:#717171;
+
+border-bottom:1px solid #313030;
+
+}

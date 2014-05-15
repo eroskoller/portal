@@ -1,0 +1,228 @@
+
+
+
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    >
+
+
+    <style type="text/css"> .dateTimeEntryShorterX { width:  50px  !important; } </style>
+
+
+
+
+
+
+    <div style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px;  " >  
+
+        <!--        <h:outputLink id="lnkhide" value="javascript:void(0)"  style="position: absolute; left: 25px; top: 17%;  " >  
+                                <p:graphicImage url="design/collapse.png" height="20" width="20" />
+                                <p:effect type="fade" event="click" for="panelGridMainSearchCombo">  
+                                    <f:param name="mode" value="'hide'" />  
+                                </p:effect>  
+                            </h:outputLink> -->
+        <!--                    <h:outputLink id="lnkshow" value="javascript:void(0)" style="position: relative; left: 40px; top: 17%;  "  >  
+                                <p:graphicImage url="design/expand_alt.png"  height="20" width="20" />
+                                <p:effect type="fade" event="click" for="panelGridMainSearchCombo">  
+                                    <f:param name="mode" value="'show'" />  
+                                </p:effect>  
+                            </h:outputLink> -->
+
+        
+            <h:panelGrid columns="1" style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "   styleClass="ui-panel-content" >
+
+                <h:panelGrid columns="8"   style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "  id="panelGridMainSearchCombo"   >
+
+                    <h:panelGrid columns="1"   id="panelGridNumerOne"  >
+                        <h:outputLabel value=" #{msgs['page.tree.employee.name.label']}"   style="font-weight: bold;"  />
+
+                        <h:panelGroup>
+                            <p:inputText  immediate="true"  size="20" maxlength="100" styleClass="inputupper"   />
+                            <p:spacer width="3" />
+                            <p:commandButton process="@this" 
+                                             rendered="true" 
+                                             style="height: 25px; width: 25px;" 
+                                             id="commandButtongrabPacienteByName" 
+                                             icon="ui-icon-search"  
+                                             onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                             />
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="#{msgs['node.birthdate']}"   style="font-weight: bold;"  />
+
+                        <h:panelGroup>
+                            <p:calendar
+                                id="calendarBirthDate"
+                                timeZone="#{dateSelect.timeZone}"
+                                pattern="dd/MM/yyyy "
+                                locale="pt"
+                                styleClass="dateTimeEntryShorter"
+                                effect="puff"
+                                size="10"
+                                showOn="button"
+                                style="font-weight: bold;"
+                                >
+                                <p:ajax 
+                                    event="dateSelect" 
+                                    update="growl"  partialSubmit="true"  process="calendarBirthDate"  />  
+
+                            </p:calendar>
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="#{msgs['node.solicitation']}"   style="font-weight: bold;"  />
+
+                        <h:panelGroup>
+                            <h:inputText  size="10" styleClass="inputupper" maxlength="100"/>
+                            <p:spacer width="3" />
+                            <p:commandButton process="@this" 
+                                             rendered="true" 
+                                             style="height: 25px; width: 25px;" 
+                                             id="commandButtongrabPacienteBySolicitation" 
+                                             icon="ui-icon-search"  
+                                             onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                             />
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="#{msgs['template.pac.profile']}"   style="font-weight: bold;"  />
+
+                        <h:panelGroup>
+                            <p:inputText  size="10" styleClass="inputupper" maxlength="100" />
+                            <p:spacer width="3" />
+                            <p:commandButton process="@this" 
+                                             rendered="true" 
+                                             style="height: 25px; width: 25px;" 
+                                             id="commandButtongrabPacienteByProfile" 
+                                             icon="ui-icon-search"  
+                                             onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                             />
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="#{msgs['node.id.number']}"   style="font-weight: bold;"  />
+
+                        <h:panelGroup>
+                            <p:inputText  size="10" styleClass="inputupper" maxlength="100" />
+                            <p:spacer width="3" />
+                            <p:commandButton process="@this" 
+                                             rendered="true" 
+                                             style="height: 25px; width: 25px;" 
+                                             id="commandButtongrabPacienteByID" 
+                                             icon="ui-icon-search"  
+                                             onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                             />
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="#{msgs['node.cpf.number']}"   style="font-weight: bold;"  />
+
+                        <h:panelGroup>
+                            <p:inputText  size="10" styleClass="inputupper" maxlength="100" />
+                            <p:spacer width="3" />
+                            <p:commandButton process="@this" 
+                                             rendered="true" 
+                                             style="height: 25px; width: 25px;" 
+                                             id="commandButtongrabPacienteByCPF" 
+                                             icon="ui-icon-search"  
+                                             onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                             />
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="#{msgs['node.codigo.sus']}"   style="font-weight: bold;"  />
+
+                        <h:panelGroup>
+                            <p:inputText  size="10" styleClass="inputupper" maxlength="100" />
+                            <p:spacer width="3" />
+                            <p:commandButton process="@this" 
+                                             rendered="true" 
+                                             style="height: 25px; width: 25px;" 
+                                             id="commandButtongrabPacienteBySUS" 
+                                             icon="ui-icon-search"  
+                                             onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                             />
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="#{msgs['node.internal.code']}"   style="font-weight: bold;"  />
+
+                        <h:panelGroup>
+                            <p:inputText  size="10" styleClass="inputupper" maxlength="100" />
+                            <p:spacer width="3" />
+                            <p:commandButton process="@this" 
+                                             rendered="true" 
+                                             style="height: 25px; width: 25px;" 
+                                             id="commandButtongrabPacienteByInternalCode" 
+                                             icon="ui-icon-search"  
+                                             onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                             />
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+
+                </h:panelGrid>
+
+
+
+            </h:panelGrid>
+
+        
+        <div style="height:1px; background:#717171;  border-bottom:1px solid #313030;  width: 30%;"> </div>
+        
+        <div style="height:1px; background:#717171;  border-bottom:1px solid #313030;  width: 30%;"> </div>
+
+
+
+        <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "    id="readme_cadastro" rendered="false" >        
+            <ui:insert name="seilahmano">
+                <ui:include src="readme_cadastro.xhtml"   parent="readme_cadastro"   />
+            </ui:insert>
+        </p:panel>
+
+        <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "    id="table_pacientes"  rendered="false"  >        
+            <ui:insert name="seilahmano">
+                <ui:include src="table_pacientes.xhtml"   parent="table_pacientes"   />
+            </ui:insert>
+        </p:panel>
+
+        <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "  id="inclusao_paciente" rendered="true" >        
+            <ui:insert name="seilahmano">
+                <ui:include src="inclusao_paciente.xhtml"   parent="inclusao_paciente"   />
+            </ui:insert>
+        </p:panel>
+
+
+    </div>
+
+
+
+</ui:composition>

@@ -580,6 +580,7 @@ public class PortalView implements Serializable {
             Map.Entry<String, Object> pair = (Map.Entry<String, Object>) iter.next();
             String key  = pair.getKey();
             IFramePage iframe = (IFramePage) pair.getValue();
+            System.out.println("pair.getKey() : "+pair.getKey());
             if(iframe.getTabIndex() == index){
                 mapTabIndex.remove(key);
                 break;
