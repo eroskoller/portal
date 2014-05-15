@@ -1,0 +1,30 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+     >
+    
+    <h:panelGrid  id="panelGridinclusaodepacienterequisicao"   style="padding: 0 0 0 0px ; margin: 0 0 0 0px;  border: none;   width: 100%;  "   columns="2"  >
+        <p:panel   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 40%;  background:lightblue;  "    id="panelpanelGridinclusaodepacienterequisicao1"  rendered="true"  >
+            <h:panelGrid columns="5">
+                <h:outputLabel value="#{msgs['node.solicitation']}" />
+                <p:inputText size="10"  maxlength="20" />
+                <p:spacer width="60"  height="2" />
+                <h:outputLabel value="Data" />
+                <p:inputText size="10"  maxlength="20" />
+                
+            </h:panelGrid>
+        </p:panel >
+        
+        <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 60%;  background:blueviolet;  "    id="panelpanelGridinclusaodepacienterequisicao2"  rendered="true"  styleClass="skinny-panel"  >
+            
+            <h:outputLabel value="testing...."/>
+        </p:panel> 
+        
+    </h:panelGrid>
+    
+ 
+
+</ui:composition>

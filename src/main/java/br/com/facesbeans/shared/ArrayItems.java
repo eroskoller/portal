@@ -54,18 +54,18 @@ public class ArrayItems implements Serializable {
     
     private List<LabErroAuditoria> listErroAuditoria;
     
-    public static Integer intMaxDaysRelStorage = 7;
-    public static Integer intMaximumOneMonths = 1;
-    public static Integer intMaximumTwoMonths = 2;
-    public static Integer intMaximumThreeMonths = 3;
+    public static final Integer intMaxDaysRelStorage = 7;
+    public static final Integer intMaximumOneMonths = 1;
+    public static final Integer intMaximumTwoMonths = 2;
+    public static final Integer intMaximumThreeMonths = 3;
     
-    public static Integer intMaximumBillingMonths = 3;
-    public static Integer intMaximumPendingMonths = 2;
+    public static final Integer intMaximumBillingMonths = 3;
+    public static final Integer intMaximumPendingMonths = 2;
     
-    public static Integer intMinimumTime = -1;
-    public static Integer intMinimumSec = 2;
-    public static Integer intMaximumRelatorios = 2;
-    public final static String strURLPdfPath = "/home/pdfshop/";
+    public static final Integer intMinimumTime = -1;
+    public static final Integer intMinimumSec = 2;
+    public static final Integer intMaximumRelatorios = 2;
+    public static final String strURLPdfPath = "/home/pdfshop/";
 //    public final static String strURLPdfPath = "c:\\home\\pdfshop'";
     public static Integer intMaximumReqsConsultaLaudo = 10000;
     public static Integer intMaximumAuditoriaResults = 10000;
@@ -87,8 +87,8 @@ public class ArrayItems implements Serializable {
     public static final SimpleDateFormat formatOnlyWeekMonthAndYear = new SimpleDateFormat("W/MM/yyyy");
     public static final SimpleDateFormat format4PdfName = new SimpleDateFormat("yyyy-MM-dd-HH_mm_ss");
     public static Locale locBrasil = new Locale("pt", "BR");
-    public static NumberFormat nfBrasil = NumberFormat.getCurrencyInstance(locBrasil);
-    private static Map<String, String> mapMenuIcon = new HashMap<String, String>();
+    public final static NumberFormat nfBrasil = NumberFormat.getCurrencyInstance(locBrasil);
+    private final static Map<String, String> mapMenuIcon = new HashMap<String, String>();
     public static IFrameHolder iframeHolder = new IFrameHolder();
     
     

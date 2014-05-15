@@ -21,23 +21,9 @@
 
     <div style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px;  " >  
 
-        <!--        <h:outputLink id="lnkhide" value="javascript:void(0)"  style="position: absolute; left: 25px; top: 17%;  " >  
-                                <p:graphicImage url="design/collapse.png" height="20" width="20" />
-                                <p:effect type="fade" event="click" for="panelGridMainSearchCombo">  
-                                    <f:param name="mode" value="'hide'" />  
-                                </p:effect>  
-                            </h:outputLink> -->
-        <!--                    <h:outputLink id="lnkshow" value="javascript:void(0)" style="position: relative; left: 40px; top: 17%;  "  >  
-                                <p:graphicImage url="design/expand_alt.png"  height="20" width="20" />
-                                <p:effect type="fade" event="click" for="panelGridMainSearchCombo">  
-                                    <f:param name="mode" value="'show'" />  
-                                </p:effect>  
-                            </h:outputLink> -->
+            <h:panelGrid   id="panelGridMainSearchCombo"  columns="1" style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "   styleClass="ui-panel-content" >
 
-        
-            <h:panelGrid columns="1" style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "   styleClass="ui-panel-content" >
-
-                <h:panelGrid columns="8"   style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "  id="panelGridMainSearchCombo"   >
+                <h:panelGrid columns="8"   style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "     >
 
                     <h:panelGrid columns="1"   id="panelGridNumerOne"  >
                         <h:outputLabel value=" #{msgs['page.tree.employee.name.label']}"   style="font-weight: bold;"  />
@@ -195,11 +181,24 @@
 
             </h:panelGrid>
 
-        
-        <div style="height:1px; background:#717171;  border-bottom:1px solid #313030;  width: 30%;"> </div>
-        
-        <div style="height:1px; background:#717171;  border-bottom:1px solid #313030;  width: 30%;"> </div>
-
+        <h:panelGrid  columns="4"   style="padding: 10 0 0 0px; margin: 0 0 0 0px;   margin-left: 11px; " >
+            <p:separator style="width: 450px;" />
+            
+                    <h:outputLink id="lnkhide" value="javascript:void(0)"   >  
+                                <p:graphicImage url="design/collapse.png" height="20" width="20" />
+                                <p:effect type="fade" event="click"   speed="300" for="panelGridMainSearchCombo">  
+                                    <f:param name="mode" value="'hide'" />  
+                                </p:effect>  
+                            </h:outputLink> 
+                            <h:outputLink id="lnkshow" value="javascript:void(0)"  >  
+                                <p:graphicImage url="design/expand_alt.png"  height="20" width="20" />
+                                <p:effect type="fade" event="click"   speed="300" for="panelGridMainSearchCombo">  
+                                    <f:param name="mode" value="'show'" />  
+                                </p:effect>  
+                            </h:outputLink> 
+            
+            <p:separator style="width: 450px;" />
+        </h:panelGrid>
 
 
         <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "    id="readme_cadastro" rendered="false" >        
@@ -216,9 +215,12 @@
 
         <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "  id="inclusao_paciente" rendered="true" >        
             <ui:insert name="seilahmano">
-                <ui:include src="inclusao_paciente.xhtml"   parent="inclusao_paciente"   />
+                <!--<ui:include src="inclusao_paciente.xhtml"   parent="inclusao_paciente"   />-->
+                <ui:include src="inclusao_paciente_requisicao.xhtml"   parent="inclusao_paciente_requisicao"   />
             </ui:insert>
         </p:panel>
+        
+        
 
 
     </div>

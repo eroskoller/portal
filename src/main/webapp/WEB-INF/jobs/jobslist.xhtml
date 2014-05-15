@@ -26,6 +26,7 @@
         rowKey="#{rel.relInCodigo}"
         selection="#{relatorioStorageBean.selectedLabRelatorio}"
         emptyMessage="Lista de Relatórios está vazia..........."
+        
         >  
 
         <p:ajax event="rowSelect" listener="#{relatorioStorageBean.changeToRead}"  update=":formfooter"   global="false"   />  

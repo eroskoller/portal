@@ -5,7 +5,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
      >
-
+    <h:panelGrid  id="panelGridinclusaodepaciente"   style="padding: 0 0 0 0px ; margin: 0 0 0 0px;" >
     <h:panelGrid columns="9" style="width: 1000px;  padding: 0 0 0 0px;  margin:  0 0 0 0px;  "   >
 
 
@@ -218,9 +218,28 @@
                 <p:inputText  size="160" maxlength="300"/>
             </h:panelGroup>
     </h:panelGrid>
- <p:separator/>       
+    </h:panelGrid>
+ <h:panelGrid  columns="4"   style="padding: 0 0 0 0px; margin: 0 0 0 0px;   " >
+            <p:separator style="width: 450px;" />
+            
+                    <h:outputLink id="lnkhideinclusaopaciente" value="javascript:void(0)"   >  
+                                <p:graphicImage url="design/collapse.png" height="20" width="20" />
+                                <p:effect type="fade" event="click"  speed="300" for="panelGridinclusaodepaciente">  
+                                    <f:param name="mode" value="'hide'" />  
+                                </p:effect>  
+                            </h:outputLink> 
+                            <h:outputLink id="lnkshowinclusaopaciente" value="javascript:void(0)"  >  
+                                <p:graphicImage url="design/expand_alt.png"  height="20" width="20" />
+                                <p:effect type="fade" event="click"   speed="300" for="panelGridinclusaodepaciente">  
+                                    <f:param name="mode" value="'show'" />  
+                                </p:effect>  
+                            </h:outputLink> 
+            
+            <p:separator style="width: 450px;" />
+        </h:panelGrid>
+    
     <h:panelGrid columns="8"  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; width: 1000px; "  >
-        <p:commandButton value="#{msgs['label.new.requestor']}" />
+        <p:commandButton value="#{msgs['label.new.requestor']}"    />
         
         <p:splitButton value="#{msgs['label.alter.requestor']}" icon="ui-icon-disk"   >  
             <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>  
