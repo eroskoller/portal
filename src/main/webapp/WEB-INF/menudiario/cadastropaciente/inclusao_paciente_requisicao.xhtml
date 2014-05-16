@@ -4,27 +4,117 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
-     >
-    
+    >
+
     <h:panelGrid  id="panelGridinclusaodepacienterequisicao"   style="padding: 0 0 0 0px ; margin: 0 0 0 0px;  border: none;   width: 100%;  "   columns="2"  >
-        <p:panel   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 40%;  background:lightblue;  "    id="panelpanelGridinclusaodepacienterequisicao1"  rendered="true"  >
-            <h:panelGrid columns="5">
-                <h:outputLabel value="#{msgs['node.solicitation']}" />
+        <p:panel   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  background:lightblue;  width: 400px;  "    id="panelpanelGridinclusaodepacienterequisicao1"  rendered="true"  >
+            <h:panelGrid columns="5"  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; " >
+                <h:outputLabel value="#{msgs['node.solicitation']}"  style="font-weight: bold;" />
                 <p:inputText size="10"  maxlength="20" />
-                <p:spacer width="60"  height="2" />
-                <h:outputLabel value="Data" />
+                <p:spacer width="100"  height="2" />
+                <h:outputLabel value="Data"   style="font-weight: bold;"  />
                 <p:inputText size="10"  maxlength="20" />
-                
             </h:panelGrid>
+
+            <h:panelGrid columns="2"   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;    text-align: right; " >
+                <h:outputLabel value=" Local"   style="font-weight: bold;"  />
+                <h:panelGrid columns="2"   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "   >
+                    <h:panelGroup  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "  >
+                        <p:inputText  immediate="true"  size="5" maxlength="7" styleClass="inputupper"   />
+                        <p:spacer width="3" />
+                        <p:commandButton process="@this" 
+                                         rendered="true" 
+                                         style="height: 25px; width: 25px;" 
+                                         icon="ui-icon-search"  
+                                         onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                         />
+                    </h:panelGroup>
+                    <p:inputText size="34"  readonly="true" />
+                </h:panelGrid>
+
+                <h:outputLabel value=" Posto"   style="font-weight: bold;"  />
+                <h:panelGrid columns="2"   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "   >
+                    <h:panelGroup  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "  >
+                        <p:inputText  immediate="true"  size="5" maxlength="7" styleClass="inputupper"   />
+                        <p:spacer width="3" />
+                        <p:commandButton process="@this" 
+                                         rendered="true" 
+                                         style="height: 25px; width: 25px;" 
+                                         icon="ui-icon-search"  
+                                         onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                         />
+                    </h:panelGroup>
+                    <p:inputText size="34"  readonly="true"/>
+                </h:panelGrid>
+
+                <h:outputLabel value="#{msgs['node.insurance']}"   style="font-weight: bold;"  />
+                <h:panelGrid columns="2"   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "   >
+                    <h:panelGroup  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "  >
+                        <p:inputText  immediate="true"  size="5" maxlength="7" styleClass="inputupper"   />
+                        <p:spacer width="3" />
+                        <p:commandButton process="@this" 
+                                         rendered="true" 
+                                         style="height: 25px; width: 25px;" 
+                                         icon="ui-icon-search"  
+                                         onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                         />
+                    </h:panelGroup>
+                    <p:inputText size="34"  readonly="true"/>
+                </h:panelGrid>
+
+                <h:outputLabel value="Plano"   style="font-weight: bold;"  />               
+                <h:panelGrid columns="2"   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "   >
+                    <h:panelGroup  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "  >
+                        <p:inputText  immediate="true"  size="5" maxlength="7" styleClass="inputupper"   />
+                        <p:spacer width="3" />
+                        <p:commandButton process="@this" 
+                                         rendered="true" 
+                                         style="height: 25px; width: 25px;" 
+                                         icon="ui-icon-search"  
+                                         onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                         />
+                    </h:panelGroup>
+                    <p:inputText size="34"  readonly="true"/>
+                </h:panelGrid>
+
+                <h:outputLabel value="Solicitante"   style="font-weight: bold;"  />            
+                <h:panelGrid columns="2"   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "   >
+                    <h:panelGroup  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "  >
+                        <p:inputText  immediate="true"  size="5" maxlength="7" styleClass="inputupper"   />
+                        <p:spacer width="3" />
+                        <p:commandButton process="@this" 
+                                         rendered="true" 
+                                         style="height: 25px; width: 25px;" 
+                                         icon="ui-icon-search"  
+                                         onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                         />
+                    </h:panelGroup>
+                    <p:inputText size="34"  readonly="true"/>
+                </h:panelGrid>
+
+            </h:panelGrid>
+
+
+
         </p:panel >
-        
-        <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 60%;  background:blueviolet;  "    id="panelpanelGridinclusaodepacienterequisicao2"  rendered="true"  styleClass="skinny-panel"  >
-            
+
+        <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  background:blueviolet;  "    id="panelpanelGridinclusaodepacienterequisicao2"  rendered="true"  styleClass="skinny-panel"  >
+
             <h:outputLabel value="testing...."/>
         </p:panel> 
-        
+
     </h:panelGrid>
-    
- 
+
+
 
 </ui:composition>

@@ -14,11 +14,6 @@
 
     <style type="text/css"> .dateTimeEntryShorterX { width:  50px  !important; } </style>
 
-
-
-
-
-
     <div style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px;  " >  
 
             <h:panelGrid   id="panelGridMainSearchCombo"  columns="1" style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "   styleClass="ui-panel-content" >
@@ -34,7 +29,6 @@
                             <p:commandButton process="@this" 
                                              rendered="true" 
                                              style="height: 25px; width: 25px;" 
-                                             id="commandButtongrabPacienteByName" 
                                              icon="ui-icon-search"  
                                              onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
                                                      return false;
@@ -70,7 +64,7 @@
                         <h:outputLabel value="#{msgs['node.solicitation']}"   style="font-weight: bold;"  />
 
                         <h:panelGroup>
-                            <h:inputText  size="10" styleClass="inputupper" maxlength="100"/>
+                            <p:inputText  size="10" styleClass="inputupper" maxlength="100"/>
                             <p:spacer width="3" />
                             <p:commandButton process="@this" 
                                              rendered="true" 
