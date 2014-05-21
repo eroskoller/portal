@@ -137,3 +137,18 @@ border-bottom:1px solid #313030;
     border: none;
     background-color: lightyellow;
 }
+
+
+.ui-panelgrid td {
+    padding: 2px 5px ;
+}
+
+.customfieldset-legend .ui-fieldset-legend{
+cursor:pointer;
+padding: 0.1em 1em 0.1em 0.5em;
+}
+
+.custom-ui-panel .ui-panel  .ui-panel .ui-panel-content {
+    border: 0 none;
+    padding: 0.1em 0em;
+}

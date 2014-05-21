@@ -101,7 +101,43 @@
                     </h:panelGroup>
                     <p:inputText size="34"  readonly="true"/>
                 </h:panelGrid>
+                
+                <h:outputLabel value="Entrega"   style="font-weight: bold;"  />            
+                <h:panelGrid columns="2"   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "   >
+                    <h:panelGroup  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "  >
+                        <p:inputText  immediate="true"  size="5" maxlength="7" styleClass="inputupper"   />
+                        <p:spacer width="3" />
+                        <p:commandButton process="@this" 
+                                         rendered="true" 
+                                         style="height: 25px; width: 25px;" 
+                                         icon="ui-icon-search"  
+                                         onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                         />
+                    </h:panelGroup>
+                    <p:inputText size="34"  readonly="true"/>
+                </h:panelGrid>
+                
+                 <h:outputLabel value="C.I.D."   style="font-weight: bold;"  />            
+                <h:panelGrid columns="2"   style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "   >
+                    <h:panelGroup  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none; "  >
+                        <p:inputText  immediate="true"  size="5" maxlength="7" styleClass="inputupper"   />
+                        <p:spacer width="3" />
+                        <p:commandButton process="@this" 
+                                         rendered="true" 
+                                         style="height: 25px; width: 25px;" 
+                                         icon="ui-icon-search"  
+                                         onkeypress="if (event.keyCode == 32 || event.keyCode == 13) {
+                                                     return false;
+                                                 }"
+                                         />
+                    </h:panelGroup>
+                    <p:inputText size="34"  readonly="true"/>
+                </h:panelGrid>
 
+                 
+                 
             </h:panelGrid>
 
 

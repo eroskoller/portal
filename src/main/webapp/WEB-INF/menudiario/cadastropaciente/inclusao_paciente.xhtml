@@ -5,7 +5,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
      >
-    <h:panelGrid  id="panelGridinclusaodepaciente"   style="padding: 0 0 0 0px ; margin: 0 0 0 0px;" >
+        <p:fieldset id="panelGridinclusaodepaciente"   legend="Dados Paciente" style="margin-bottom:0px; margin-top: 0px;    padding-bottom:1px; padding-top: 0px;   background: transparent;"   toggleable="true" toggleSpeed="300"   styleClass="customfieldset-legend" >
     <h:panelGrid columns="9" style="width: 1000px;  padding: 0 0 0 0px;  margin:  0 0 0 0px;  "   >
 
 
@@ -212,14 +212,15 @@
         
     </h:panelGrid>
     
-    <h:panelGrid columns="1" style="padding: 0 0 0 0px;  margin:  0 0 0 0px; width: 1000px; " >
+    <h:panelGrid columns="2" style="padding: 0 0 0 0px;  margin:  0 0 0 0px; width: 1000px; " >
             <h:outputLabel value="Obs"   style="font-weight: bold;"  />
             <h:panelGroup>
-                <p:inputText  size="160" maxlength="300"/>
+                <p:inputText  size="160" maxlength="290"/>
             </h:panelGroup>
     </h:panelGrid>
-    </h:panelGrid>
- <h:panelGrid  columns="4"   style="padding: 0 0 0 0px; margin: 0 0 0 0px;   " >
+    </p:fieldset>
+    
+<!-- <h:panelGrid  columns="4"   style="padding: 0 0 0 0px; margin: 0 0 0 0px;   " >
             <p:separator style="width: 450px;" />
             
                     <h:outputLink id="lnkhideinclusaopaciente" value="javascript:void(0)"   >  
@@ -236,7 +237,7 @@
                             </h:outputLink> 
             
             <p:separator style="width: 450px;" />
-        </h:panelGrid>
+        </h:panelGrid>-->
     
     <h:panelGrid columns="8"  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; width: 1000px; "  >
         <p:commandButton value="#{msgs['label.new.requestor']}"    />

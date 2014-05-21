@@ -12,7 +12,7 @@
 
     <p:tabView 
         id="tw"       
-        style="width:99.3%;  height: 98%;   "    
+        style="width:99.3%;  height: 98%;  padding: 0 0 0 0px ; margin: 0 0 0 0px; "    
         activeIndex="#{portalViewBean.intActiveIndex}"    
         cache="true"  
         dynamic="true"   
@@ -31,12 +31,12 @@
                    id="foreach${tab.id}"  >
 
 
-            <p:tab title="${tab.titleResumido}" closable="${tab.blCloseble}"     > 
+            <p:tab title="${tab.titleResumido}" closable="${tab.blCloseble}"  > 
 
-                <p:panel style="  background: #F4F4F4;"  >
+                <p:panel style="  background: #F4F4F4; padding: 0 0 0 0px ; margin: 0 0 0 0px; "  > 
                     
                 <c:if test="${tab.blNative}">
-                    <h:form  id="form${tab.tabId}" >
+                    <h:form  id="form${tab.tabId}"  style="padding: 0 0 0 0px ; margin: 0 0 0 0px;" >
                         <p:growl id="growl" showDetail="true"  life="3000"      />  
                         
 <!--                                    <p:rating  

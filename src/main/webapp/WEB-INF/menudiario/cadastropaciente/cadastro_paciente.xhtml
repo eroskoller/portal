@@ -14,9 +14,8 @@
 
     <style type="text/css"> .dateTimeEntryShorterX { width:  50px  !important; } </style>
 
-    <div style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px;  " >  
 
-            <h:panelGrid   id="panelGridMainSearchCombo"  columns="1" style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "   styleClass="ui-panel-content" >
+    <p:fieldset legend="Pesquisa"   style="margin-bottom:0px; margin-top: 0px;    padding-bottom:0px; padding-top: 0px;   background: transparent;"   toggleable="true" toggleSpeed="300"  styleClass="customfieldset-legend " >
 
                 <h:panelGrid columns="8"   style="padding:0 0 0 0px ; margin:0 0 0 0px; width: 1020px; "     >
 
@@ -173,9 +172,8 @@
 
 
 
-            </h:panelGrid>
-
-        <h:panelGrid  columns="4"   style="padding: 10 0 0 0px; margin: 0 0 0 0px;   margin-left: 11px; " >
+        </p:fieldset>
+<!--        <h:panelGrid  columns="4"   style="padding: 10 0 0 0px; margin: 0 0 0 0px;   margin-left: 11px; " >
             <p:separator style="width: 450px;" />
             
                     <h:outputLink id="lnkhide" value="javascript:void(0)"   >  
@@ -192,33 +190,23 @@
                             </h:outputLink> 
             
             <p:separator style="width: 450px;" />
-        </h:panelGrid>
+        </h:panelGrid>-->
 
 
-        <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "    id="readme_cadastro" rendered="false" >        
-            <ui:insert name="seilahmano">
+            <ui:fragment rendered="false"    >
                 <ui:include src="readme_cadastro.xhtml"   parent="readme_cadastro"   />
-            </ui:insert>
-        </p:panel>
+            </ui:fragment>
 
-        <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "    id="table_pacientes"  rendered="false"  >        
-            <ui:insert name="seilahmano">
-                <ui:include src="table_pacientes.xhtml"   parent="table_pacientes"   />
-            </ui:insert>
-        </p:panel>
 
-        <p:panel  style="padding: 0 0 0 0px;  margin:  0 0 0 0px; border: none;  width: 100%;  background:transparent;  "  id="inclusao_paciente" rendered="true" >        
-            <ui:insert name="seilahmano">
-                <!--<ui:include src="inclusao_paciente.xhtml"   parent="inclusao_paciente"   />-->
-                <ui:include src="inclusao_paciente_requisicao.xhtml"   parent="inclusao_paciente_requisicao"   />
-            </ui:insert>
-        </p:panel>
+            <ui:fragment  rendered="false">
+                <ui:include src="table_pacientes.xhtml"   parent="table_pacientes"     />
+            </ui:fragment>
+
+            <ui:fragment  rendered="true">
+                <ui:include src="inclusao_paciente.xhtml"   parent="inclusao_paciente"    />
+                <ui:include src="inclusao_paciente_requisicao.xhtml"   parent="inclusao_paciente_requisicao"    />
+            </ui:fragment>
         
-        
-
-
-    </div>
-
 
 
 </ui:composition>
